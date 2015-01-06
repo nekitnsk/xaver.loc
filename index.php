@@ -1,5 +1,5 @@
 
-<?php header("content-type: text/html, charset=UTF-8"); ?>
+<?php // header("content-type: text/html, charset=UTF-8"); ?>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
 <?
@@ -36,17 +36,38 @@ diskont = diskont'.  mt_rand(0, 2).';
 diskont = diskont'.  mt_rand(0, 2).';
 
 ';
-$bd=  parse_ini_string($ini_string, true);
+$bd = parse_ini_string($ini_string, true);
 //print_r($bd);
 
     Echo 'Ваша корзина: ';
 
-foreach ($bd as $key => $value) {
-//    var_dump($value);
-    Echo "<br>";
-    Echo '<b> Наименование товара: </b>'. $key . '<b> Цена за шт.: '; 
+echo '<table border = 3><tr>'                   //создаем таблицу и выводим шапку таблицы
+        . '<td><b>Наименование товара: </td>'
+        . '<td><b>Цена за шт:</td>'
+        . '<td><b>Количество:</td>'
+        . '<td><b>Общая сумма: </td>></tr>';
+
+
+function print_table(){
+    global $bd;
+    foreach ($bd as $key => $value) {               //выводим товара и информацию по ним в таблицу
+        print_r($value);
+//    Echo "<br>";
+    
+        echo '<tr><td>'.$key .'</td>'
+                . '<td>'.$value['цена']. '</td>'
+                . '<td>'.$value['количество заказано'].'</td>'
+                . '<td>'.$value['цена']*$value['количество заказано'].'</td>';
     
 }
+}
+
+print_table();
+
+echo '</table>';
+
+
+
 
 /*
  * 
