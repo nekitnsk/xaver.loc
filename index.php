@@ -36,8 +36,9 @@ diskont = diskont'.  mt_rand(0, 2).';
 diskont = diskont'.  mt_rand(0, 2).';
 
 ';
+
 $bd = parse_ini_string($ini_string, true);
-//print_r($bd);
+print_r($bd);
 
     Echo 'Ваша корзина: ';
 
@@ -45,24 +46,71 @@ echo '<table border = 3><tr>'                   //создаем таблицу 
         . '<td><b>Наименование товара: </td>'
         . '<td><b>Цена за шт:</td>'
         . '<td><b>Количество:</td>'
-        . '<td><b> </td>>'
-        . '<td><b>Скидка на товар: </tr>';
+        . '<td><b>Скидка </td>'
+        . '<td><b>Цена со скидкой </td>'
+        . '<td><b>Итого цена: </td>'
+        . '<td style=border:0px><b>Уведомления: </td></tr>';
+
+$sale_work = true;                          //включена ли акция
+$sale_item = 'игрушка детская велосипед';  //сюда, допустим из базы, поступает название товара который идет по акции "купи 3 и получи скидку 30%"
+$sale_amount = 3;                            //сюда пишем сколько товара надо купить чтобы получить скидку
+$sale_persent = 30;                         //сюда пишем сколько процентов получит покупатель 
 
 
 function print_table(){
-    global $bd;
-    foreach ($bd as $key => $value) {               //выводим товара и информацию по ним в таблицу
-        print_r($value);
-//    Echo "<br>";
+    static $diskont, $diskont_notice, $much_notice;
+    global $sale_item,$sale_amount,$sale_persent,$bd;
     
+    foreach ($bd as $key => $value) {               //перебираем массив
+//        print_r($value);
+
+        if ($value['количество заказано'] <= $value['осталось на складе']){                             //проверяем остатки
+            $amount = $value['количество заказано'];
+            } else {
+                $amount = $value['осталось на складе'];
+                $much_notice = 'Такого количества '.$key. 'на складе не оказалось, поэтому количество изменено на ' . $amount; 
+            }
+        
+        if ($key == $sale_item and $amount >= $sale_amount) {                  //устанавливаем проценты по акции если товар попадает под условия акции
+            $diskont = $sale_persent;
+            $diskont_notice = 'Вы заказали товара более чем '.$sale_amount.' штуки, поэтому Вам дается скидка '.$sale_persent. ' процентов <br>';
+        } else {
+            $diskont = diskont($value['diskont']);
+        }
+        
+             
+            $price_item = ($value['цена']) - ($diskont * $value['цена']/100);
+            $price_allitem = $price_item*$amount;
+        
         echo '<tr><td>'.$key .'</td>'
                 . '<td>'.$value['цена']. '</td>'
-                . '<td>'.$value['количество заказано'].'</td>'
-                . '<td>'.'</td>';
-                . '<td>'.
+                . '<td>'.$amount.'</td>'
+                . '<td>'.$diskont.'</td>'
+                . '<td>'.$price_item.'</td>'
+                . '<td>'.$price_allitem.'</td>'
+                . '<td style=border:0px>'.$diskont_notice.$much_notice. '</td>';
+//                . '<td style=border:0px>'.'</td>';
+        
+        $diskont_notice  = '';
+        $much_notice = '';
 }
 }
 
+function diskont($diskont) {
+    switch ($diskont) {                //переводим проценты в числа
+            case 'diskont0':
+                $disk = 0;
+                break;
+            case 'diskont1':
+                $disk = 10;
+                break;
+            case 'diskont2':
+                $disk = 20;
+                break;
+                
+        }  
+    return $disk;
+}
 
 print_table();
 
