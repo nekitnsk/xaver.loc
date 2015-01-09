@@ -38,7 +38,7 @@ diskont = diskont'.  mt_rand(0, 2).';
 ';
 
 $bd = parse_ini_string($ini_string, true);
-print_r($bd);
+//print_r($bd);
 
     Echo 'Ваша корзина: ';
 
@@ -51,16 +51,18 @@ echo '<table border = 3><tr>'                   //создаем таблицу 
         . '<td><b>Итого цена: </td>'
         . '<td style=border:0px><b>Уведомления: </td></tr>';
 
-$sale_work = true;                          //включена ли акция
+//$sale_work = true;                          //включена ли акция
+//$check_balance = true;                      //проверять ли остаток на складе
 $sale_item = 'игрушка детская велосипед';  //сюда, допустим из базы, поступает название товара который идет по акции "купи 3 и получи скидку 30%"
 $sale_amount = 3;                            //сюда пишем сколько товара надо купить чтобы получить скидку
 $sale_persent = 30;                         //сюда пишем сколько процентов получит покупатель 
 
 
-function print_table(){
-    static $diskont, $diskont_notice, $much_notice;
-    global $sale_item,$sale_amount,$sale_persent,$bd;
-    
+function print_table($bd){
+    static $diskont,$amount_total, $price_total, $diskont_notice, $much_notice;
+    global $sale_item,$sale_amount,$sale_persent;
+    $amount_total = 0 ;
+    $price_total = 0; 
     foreach ($bd as $key => $value) {               //перебираем массив
 //        print_r($value);
 
@@ -68,7 +70,7 @@ function print_table(){
             $amount = $value['количество заказано'];
             } else {
                 $amount = $value['осталось на складе'];
-                $much_notice = 'Такого количества '.$key. 'на складе не оказалось, поэтому количество изменено на ' . $amount; 
+                $much_notice = 'Такого количества '.$key. ' на складе не оказалось, поэтому количество изменено на ' . $amount; 
             }
         
         if ($key == $sale_item and $amount >= $sale_amount) {                  //устанавливаем проценты по акции если товар попадает под условия акции
@@ -79,21 +81,35 @@ function print_table(){
         }
         
              
-            $price_item = ($value['цена']) - ($diskont * $value['цена']/100);
-            $price_allitem = $price_item*$amount;
+            $price_item = ($value['цена']) - ($diskont * $value['цена']/100);       //цена со скидкой одной штуки
+            $price_allitem = $price_item*$amount;                               //цена со скидкой на все штуки
+            $amount_total = $amount_total + $amount;
+            $price_total = $price_total + $price_allitem;
         
-        echo '<tr><td>'.$key .'</td>'
+            
+        echo '<tr><td>'.$key .'</td>'                                           //выводим данные по товарам в таблицу 
                 . '<td>'.$value['цена']. '</td>'
                 . '<td>'.$amount.'</td>'
                 . '<td>'.$diskont.'</td>'
                 . '<td>'.$price_item.'</td>'
                 . '<td>'.$price_allitem.'</td>'
-                . '<td style=border:0px>'.$diskont_notice.$much_notice. '</td>';
-//                . '<td style=border:0px>'.'</td>';
+                . '<td style=border:0px>'.$diskont_notice.$much_notice. '</td></tr>'
+//                . '<td style=border:0px>'.'</td>'
+                ;
         
         $diskont_notice  = '';
         $much_notice = '';
-}
+        
+}                                                                     //выводим строку с ИТОГО
+        echo '<tr><td><b>Итого позиций: ' .count($bd) . '</td>'
+                . '<td>' . '</td>'
+                . '<td><b>'.$amount_total.'</td>'                 
+                . '<td></td>'                 
+                . '<td></td>'                 
+                . '<td><b>' .$price_total. '</td>'                 
+                                 
+                ;
+       
 }
 
 function diskont($diskont) {
@@ -112,7 +128,7 @@ function diskont($diskont) {
     return $disk;
 }
 
-print_table();
+print_table($bd);
 
 echo '</table>';
 
