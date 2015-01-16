@@ -1,0 +1,96 @@
+body, html {
+    margin:0px;
+    padding:0px;
+}
+#maket {
+    width:1024px;
+    margin:0 auto;
+}
+#header{
+    background-color: #efa200;
+    overflow:auto;
+    text-align: center;
+}
+#left{
+    background-color:#00C0C0;
+    width:200px;
+    float:left;
+}
+/*#right{
+    width:200px;
+    background-color:#FFFF00;
+    float:right;
+}*/
+#content{
+    background-color:#FBFCF7;
+    margin-left:202px;
+    
+}
+#footer{
+    background-color:#FFC0FF;
+    clear:both;
+}
+
+form {
+	margin: 0 0 0 100px;
+	font: 14px "Trebuchet MS", "Helvetica CY", sans-serif;;
+}
+fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+form dl {
+
+}
+form dt {
+	float: left;
+	clear: both;
+	width: 120px;
+	text-align: right;
+	margin-right: 10px;
+	vertical-align: top;
+	position: relative;
+	top: 4px;
+}
+form dd {
+	margin-bottom: 10px;
+}
+form dd input {
+	width: 200px;
+	padding: 3px;
+	border: 1px solid #6699ff;
+}
+form select {
+	width: 208px;
+	padding: 3px;
+	border: 1px solid #6699ff;
+}
+
+
+* html form select {
+	width: 390px;
+}
+form textarea {
+	width: 390px;
+	height: 120px;
+	padding: 3px;
+	border: 1px solid #6699ff;
+}
+form img {
+	vertical-align: top;
+	margin-left: 15px;
+	border: 1px solid #6699ff;
+}
+
+form .submit input {
+	cursor: pointer;
+	margin-left: 130px;
+}
+form #feedbackChangeCode {
+	text-decoration: underline;
+	cursor: pointer;
+}
+form #feedbackChangeCode:hover {
+	color: #333;
+}
