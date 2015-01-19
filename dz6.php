@@ -1,6 +1,23 @@
 
+<?
+session_start();
+if (array_key_exists('title', $_POST)) {                //существует ли ключ title в массиве post 
+    $_SESSION['notice'][$_POST['title']] = $_POST;      //если существует то запишем в сессию массив с ключом = название объявления
+    unset($_POST);                                      //убьем POST
+    header('location: dz6.php');                        //Сделаем редирект на эту же страницу, чтобы избавиться от повторной отправки формы
+}
+if (array_key_exists('del', $_GET)){                    //проверим пришел ли у нас  в GET запрос на удаление через параметр del
+    unset($_SESSION['notice'][$_GET['del']]);           //если пришел то удалим его в сессии
+    header('location: dz6.php');                        //сделаем редирект сюда же для очистки адресной строки и get 
+}
+
+
+?>
+
+
 <html>
     <head>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>hlama.net</title>
         <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -12,36 +29,77 @@
             </div>
             <div id="left">Левая колонка</div>
             <div id="content">
-                <form action="">
+                <form  id = "notice" action="dz6.php" method="POST">
                     <fieldset>
+                        <div id="radio">
+                            <input type="radio" name="whois" value="people">Частное лицо
+                            <input type="radio" name="whois" value="company">Компания</div>
                         <dl>
-                            <dt><label for="name">Твое имя</label></dt>
-                            <dd><input type="text" id="name" /></dd>
-                            <dt><label for="email">Твой email</label></dt>
-                            <dd><input type="text" id="email" /></dd>
-                            <dt><label for="theme">Тема сообщения</label></dt>
+                            <dt><label for="name">Ваше имя</label></dt>
+                            <dd><input type="text" name="name" value="" /></dd>
+                            <dt><label for="email">Электронная почта</label></dt>
+                            <dd><input type="text" name="email" /></dd>
+                            <div id="radio">
+                                <input type="checkbox" name="delivery" value="delivery" checked>Я хочу получать уведомления на Email
+                            </div>
+                            <dt><label for="phone">Номер телефона</label></dt>
+                            <dd><input type="text" name="phone" /></dd>
+                            <dt><label for="city">Город</label></dt>
                             <dd>
-                                <select name="theme" id="theme">
-                                    <option></option>
-                                    <option>Блaгодарность</option>
-                                    <option>Нашел ошибку</option>
-                                    <option>Хочу дополнить</option>
-                                    <option>Есть идея</option>
-                                    <option>Сотрудничество</option>
-                                    <option>С темой не определился</option>
+                                <select name="city" id="city">
+                                    <option>Новосибирск</option>
+                                    <option>Бердск</option>
+                                    <option>Искитим</option>
                                 </select>
                             </dd>
-                            <dt><label for="message">Текст *</label></dt>
-                            <dd><textarea cols="" rows=""  id="message"></textarea></dd>
-                            <dt> </dt>
-                            <dd><input type="submit" name="send" value="отправить"/> </dd>
-                                                        
+                            <dt><label for="category">Категория</label></dt>
+                            <dd>
+                                <select name="category" id="category">
+                                    <option>Одежда</option>
+                                    <option>Бытовая техника</option>
+                                    <option>Недвижимость</option>
+                                </select>
+                            </dd>
+                            <dt><label for="title">Название объявления</label></dt>
+                            <dd><input type="text" name="title" /></dd>
+                            <dt><label for="message">Описание объявления</label></dt>
+                            <dd><textarea cols="" rows=""  name="message"></textarea></dd>
+                            <dt><label for="price">Цена</label></dt>
+                            <dd><input type="text"  name="price"></textarea>
+                                <label> Руб.</label></dd>
                         </dl>
-                        
-                            <!--<input type="submit" name="send" value="отправить" />-->
-                        
+                        <div class="submit">
+                            <input type="submit" name="send" value="отправить" />
+                        </div>
                     </fieldset>
                 </form>
+                
+                <?
+                
+                
+                echo '<table>';                                     //Делаем таблицу, в которой покажем все объявления из сессии
+                foreach ($_SESSION as $key => $value) {                     //перебираем массив сессии
+                    if ($key == 'notice') {                          //работаем  с массивом Notice
+                        foreach ($value as $key => $value) {            //перебираем массив 
+                            echo '<tr>'
+                            . '<td>' . $key . '</td>'
+                            . '<td>' . $value['price'] . '</td>'        //цена
+                            . '<td>' . $value['name'] . '</td>'         //имя клиента 
+                            . '<td>' . '<a href = dz6.php?del='.urlencode($key). '>Удалить' . '</a></td></tr>'    //здесь делаем ссылку на удаление в формате URL
+                            ;
+                        }
+                    }
+                }
+                echo '</table>';
+
+
+
+                print_r($_SESSION);
+                print_r($_GET);
+                ?>
+                
+                
+                
             
             </div>
             <div id="footer">Подвал</div>
