@@ -10,10 +10,31 @@ if (array_key_exists('del', $_GET)){                    //проверим пр�
     unset($_SESSION['notice'][$_GET['del']]);           //если пришел то удалим его в сессии
     header('location: dz6.php');                        //сделаем редирект сюда же для очистки адресной строки и get 
 }
+if (array_key_exists('change', $_GET)){
+    change();    
+}
 
+
+
+function change(){
+   echo 'ura'?>
+  <script type="text/javascript">
+document.getElementsByName('email')[0].value = 'tukov@bk.ru';
+//var elem = document.getElementsById('email')[0];
+//elem.setAttribute('value', 'bla');
+
+</script>
+     <? 
+}
 
 ?>
 
+<!--<script>
+document.getElementsByName('email')[0].value = 'tukov@bk.ru';
+</script>-->
+<script type="text/javascript">
+        function WhereYouWillSend(){document.getElementsByName('email')[0].value = '1';};
+        </script>
 
 <html>
     <head>
@@ -21,6 +42,7 @@ if (array_key_exists('del', $_GET)){                    //проверим пр�
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>hlama.net</title>
         <link href="css/style.css" rel="stylesheet" type="text/css">
+        
     </head>
     <body>
         <div id="maket">
@@ -38,9 +60,9 @@ if (array_key_exists('del', $_GET)){                    //проверим пр�
                             <dt><label for="name">Ваше имя</label></dt>
                             <dd><input type="text" name="name" value="" /></dd>
                             <dt><label for="email">Электронная почта</label></dt>
-                            <dd><input type="text" name="email" /></dd>
+                            <dd><input type="text" name="email" value=""/></dd>
                             <div id="radio">
-                                <input type="checkbox" name="delivery" value="delivery" checked>Я хочу получать уведомления на Email
+                                <input type="checkbox" name="delivery" value="delivery" <? echo 'checked'?> >Я хочу получать уведомления на Email
                             </div>
                             <dt><label for="phone">Номер телефона</label></dt>
                             <dd><input type="text" name="phone" /></dd>
@@ -97,13 +119,14 @@ if (array_key_exists('del', $_GET)){                    //проверим пр�
                 print_r($_SESSION);
                 print_r($_GET);
                 ?>
+                <a href = dz6.php?change=true> бла </a>
                 
                 
                 
-            
             </div>
             <div id="footer">Подвал</div>
         </div>
     </body>
 </html>
+
 
