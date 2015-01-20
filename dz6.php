@@ -1,6 +1,23 @@
 
 <?
 session_start();
+
+function select_city($city = '') {
+    $citys = array('115100' => 'Новосибирск', '115115' => 'Искитим', '115124' => 'Бердск');
+    $gorod = $_SESSION['notice'][$_GET['change']]['city'];
+    ?>
+        <select title="Выберите ваш город" name="city" id="city" > 
+                    <option value="">..Выберите город..</option>
+                    <option class="opt-group" disabled="disabled">-- Города --</option>
+    <?php
+    foreach ($citys as $number => $city) {
+        $selected = ($number == $gorod) ? 'selected=""' : ''; 
+        echo '<option '.$selected.' value="'.$number.'">'.$city.'</option>';
+    }
+    ?>
+        </select>    
+    <?php
+}
 if (array_key_exists('title', $_POST)) {                //существует ли ключ title в массиве post 
     $_SESSION['notice'][$_POST['title']] = $_POST;      //если существует то запишем в сессию массив с ключом = название объявления
     unset($_POST);                                      //убьем POST
@@ -10,31 +27,17 @@ if (array_key_exists('del', $_GET)){                    //проверим пр�
     unset($_SESSION['notice'][$_GET['del']]);           //если пришел то удалим его в сессии
     header('location: dz6.php');                        //сделаем редирект сюда же для очистки адресной строки и get 
 }
+$change = false;
+$ch_name = '';
 if (array_key_exists('change', $_GET)){
-    change();    
+    $change = true;
+    $ch_name = $_GET['change'];
 }
 
 
 
-function change(){
-   echo 'ura'?>
-  <script type="text/javascript">
-document.getElementsByName('email')[0].value = 'tukov@bk.ru';
-//var elem = document.getElementsById('email')[0];
-//elem.setAttribute('value', 'bla');
-
-</script>
-     <? 
-}
 
 ?>
-
-<!--<script>
-document.getElementsByName('email')[0].value = 'tukov@bk.ru';
-</script>-->
-<script type="text/javascript">
-        function WhereYouWillSend(){document.getElementsByName('email')[0].value = '1';};
-        </script>
 
 <html>
     <head>
@@ -54,25 +57,28 @@ document.getElementsByName('email')[0].value = 'tukov@bk.ru';
                 <form  id = "notice" action="dz6.php" method="POST">
                     <fieldset>
                         <div id="radio">
-                            <input type="radio" name="whois" value="people">Частное лицо
-                            <input type="radio" name="whois" value="company">Компания</div>
+                            <input type="radio" name="whois" value="people" <? if ($change==true && $_SESSION['notice'][$ch_name]['whois']=='people') {echo 'checked';}?>>Частное лицо
+                            <input type="radio" name="whois" value="company" <? if ($change==true && $_SESSION['notice'][$ch_name]['whois']=='company') {echo 'checked';}?>>Компания</div>
                         <dl>
                             <dt><label for="name">Ваше имя</label></dt>
-                            <dd><input type="text" name="name" value="" /></dd>
+                            <dd><input type="text" name="name" value="<?echo $change==true?$_SESSION['notice'][$ch_name]['name']:''; ?>" /></dd>
                             <dt><label for="email">Электронная почта</label></dt>
-                            <dd><input type="text" name="email" value=""/></dd>
+                            <dd><input type="text" name="email" value="<?echo $change==true?$_SESSION['notice'][$ch_name]['email']:''; ?>" /></dd>
                             <div id="radio">
-                                <input type="checkbox" name="delivery" value="delivery" <? echo 'checked'?> >Я хочу получать уведомления на Email
-                            </div>
+                                <input type="checkbox" name="delivery" value="<? if ($change==true && $_SESSION['notice'][$ch_name]['delivery']=='delivery') {echo 'checked';}?>" >Я хочу получать уведомления на Email</div>
                             <dt><label for="phone">Номер телефона</label></dt>
-                            <dd><input type="text" name="phone" /></dd>
+                            <dd><input type="text" name="phone" value="<?echo $change==true?$_SESSION['notice'][$ch_name]['phone']:''; ?>" /></dd>
                             <dt><label for="city">Город</label></dt>
                             <dd>
-                                <select name="city" id="city">
-                                    <option>Новосибирск</option>
-                                    <option>Бердск</option>
-                                    <option>Искитим</option>
-                                </select>
+                                <?
+                                if ($change==true){
+                                    select_city($ch_name);
+                                }else{
+                                    select_city();
+                                }
+                                
+                                
+                                ?>
                             </dd>
                             <dt><label for="category">Категория</label></dt>
                             <dd>
@@ -104,7 +110,7 @@ document.getElementsByName('email')[0].value = 'tukov@bk.ru';
                     if ($key == 'notice') {                          //работаем  с массивом Notice
                         foreach ($value as $key => $value) {            //перебираем массив 
                             echo '<tr>'
-                            . '<td>' . $key . '</td>'
+                            . '<td>' . '<a href = dz6.php?change='.urlencode($key). '> ' . $key . '</a></td>'
                             . '<td>' . $value['price'] . '</td>'        //цена
                             . '<td>' . $value['name'] . '</td>'         //имя клиента 
                             . '<td>' . '<a href = dz6.php?del='.urlencode($key). '>Удалить' . '</a></td></tr>'    //здесь делаем ссылку на удаление в формате URL
@@ -119,7 +125,7 @@ document.getElementsByName('email')[0].value = 'tukov@bk.ru';
                 print_r($_SESSION);
                 print_r($_GET);
                 ?>
-                <a href = dz6.php?change=true> бла </a>
+                
                 
                 
                 
