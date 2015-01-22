@@ -4,15 +4,36 @@ session_start();
 
 function select_city($city = '') {
     $citys = array('115100' => 'Новосибирск', '115115' => 'Искитим', '115124' => 'Бердск');
+    if (array_key_exists('change', $_GET) && array_key_exists('notice', $_SESSION)){
     $gorod = $_SESSION['notice'][$_GET['change']]['city'];
+    }
     ?>
         <select title="Выберите ваш город" name="city" id="city" > 
                     <option value="">..Выберите город..</option>
-                    <option class="opt-group" disabled="disabled">-- Города --</option>
+                    <option  disabled="disabled">..Новосибирская область..</option>
     <?php
     foreach ($citys as $number => $city) {
         $selected = ($number == $gorod) ? 'selected=""' : ''; 
         echo '<option '.$selected.' value="'.$number.'">'.$city.'</option>';
+    }
+    ?>
+        </select>    
+    <?php
+}
+
+function select_category($type = '') {
+    $categoryes = array('2145' => 'Зимняя', '2146' => 'Летняя', '2147' => 'Демисезонная');
+    if (array_key_exists('change', $_GET) && array_key_exists('notice', $_SESSION)){
+    $gorod = $_SESSION['notice'][$_GET['change']]['category'];
+    }
+    ?>
+        <select title="Выберите категорию объявления" name="category" id="category" > 
+                    <option value="">..Категория..</option>
+                    <option  disabled="disabled">..Одежда..</option>
+    <?php
+    foreach ($categoryes as $number => $type) {
+        $selected = ($number == $categoryes) ? 'selected=""' : ''; 
+        echo '<option '.$selected.' value="'.$number.'">'.$type.'</option>';
     }
     ?>
         </select>    
@@ -33,9 +54,6 @@ if (array_key_exists('change', $_GET)){
     $change = true;
     $ch_name = $_GET['change'];
 }
-
-
-
 
 ?>
 
@@ -75,18 +93,18 @@ if (array_key_exists('change', $_GET)){
                                     select_city($ch_name);
                                 }else{
                                     select_city();
-                                }
-                                
-                                
+                                }   
                                 ?>
                             </dd>
                             <dt><label for="category">Категория</label></dt>
                             <dd>
-                                <select name="category" id="category">
-                                    <option>Одежда</option>
-                                    <option>Бытовая техника</option>
-                                    <option>Недвижимость</option>
-                                </select>
+                                <?
+                                if ($change==true){
+                                    select_category($ch_name);
+                                }else{
+                                    select_category();
+                                }   
+                                ?>
                             </dd>
                             <dt><label for="title">Название объявления</label></dt>
                             <dd><input type="text" name="title" /></dd>
