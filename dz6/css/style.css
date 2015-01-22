@@ -14,7 +14,9 @@ body, html {
 #left{
     background-color:#00C0C0;
     width:200px;
+    height: 80%;
     float:left;
+    
 }
 /*#right{
     width:200px;
