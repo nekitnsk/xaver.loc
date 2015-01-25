@@ -49,8 +49,8 @@ function select_category($type = '') {
     <?php
 }
 
-if (array_key_exists('title', $_POST)) {                //существует ли ключ title в массиве post 
-    $_SESSION['notice'][$_POST['title']] = $_POST;      //если существует то запишем в сессию массив с ключом = название объявления
+if (array_key_exists('id', $_POST)) {                //существует ли ключ id в массиве post 
+    $_SESSION['notice'][$_POST['id']] = $_POST;      //если существует то запишем в сессию массив с ключом = название объявления
     unset($_POST);                                      //убьем POST
     header('location: dz6.php');                        //Сделаем редирект на эту же страницу, чтобы избавиться от повторной отправки формы
 }
@@ -58,8 +58,7 @@ if (array_key_exists('del', $_GET)) {                    //проверим пр
     unset($_SESSION['notice'][$_GET['del']]);           //если пришел то удалим его в сессии
     header('location: dz6.php');                        //сделаем редирект сюда же для очистки адресной строки и get 
 }
-
-if (array_key_exists('change', $_GET)) {                //проверим пришла ли из GET параметр change 
+if (array_key_exists('change', $_GET)) {                //проверим пришел ли из GET параметр change 
     $change = true;                                     //включим команду изменения данных 
     $ch_name = $_GET['change'];                         //запомним что пришло
 }
@@ -97,21 +96,14 @@ if (array_key_exists('change', $_GET)) {                //проверим пр�
                             <dt><label for="city">Город</label></dt>
                             <dd>
                                 <?
-                                if ($change == true) {
-                                    select_city($ch_name);
-                                } else {
-                                    select_city();
-                                }
+                                select_city($ch_name);
+                                
                                 ?>
                             </dd>
                             <dt><label for="category">Категория</label></dt>
                             <dd>
                                 <?
-                                if ($change == true) {
                                     select_category($ch_name);
-                                } else {
-                                    select_category();
-                                }
                                 ?>
                             </dd>
                             <dt><label for="title">Название объявления</label></dt>
@@ -124,6 +116,7 @@ if (array_key_exists('change', $_GET)) {                //проверим пр�
                         </dl>
                         <div class="submit">
                             <input type="submit" name="send" value="отправить" />
+                            <input type="hidden" name="id" value="<? echo $change ? $_SESSION['notice'][$ch_name]['id'] : mt_rand(1, 10000) ?>">
                         </div>
                     </fieldset>
                 </form>
@@ -134,10 +127,10 @@ if (array_key_exists('change', $_GET)) {                //проверим пр�
                     if ($key == 'notice') {                          //работаем  с массивом Notice
                         foreach ($value as $key => $value) {            //перебираем массив 
                             echo '<tr>'
-                            . '<td>' . '<a href = dz6.php?change=' . urlencode($key) . '> ' . $key . '</a></td>'
+                            . '<td>' . '<a href = dz6.php?change=' . $key . '> ' . $value['title'] . '</a></td>'    //формируем ссылку с названием объявления, в качестве параметра ID объявления 
                             . '<td>' . $value['price'] . ' руб. </td>'        //цена
                             . '<td>' . $value['name'] . '</td>'         //имя клиента 
-                            . '<td>' . '<a href = dz6.php?del=' . urlencode($key) . '>Удалить' . '</a></td></tr>'    //здесь делаем ссылку на удаление в формате URL
+                            . '<td>' . '<a href = dz6.php?del=' . $key . '>Удалить' . '</a></td></tr>'    //здесь делаем ссылку на удаление
                             ;
                         }
                     }
