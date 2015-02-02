@@ -1,12 +1,26 @@
 <?php header("content-type: text/html, charset=UTF-8"); ?>
-
 <?
 error_reporting(E_ERROR | E_NOTICE | E_WARNING | E_PARSE);
 ini_set('display_errors', 1);
-
 $change = false;                                        //по умолчанию команда на изменение выключена
-$ch_name = '';                                          //сюда будем записывать что пришло из get
-
+$ch_name = '';
+  //блок обрабатывает поступление  нового объявления из POST
+if (array_key_exists('id', $_POST)) {                //существует ли ключ id в массиве post 
+    setcookie("notice[$_POST[id]]", serialize($_POST), time()+3600*24*7);       //запишем куку типа в виде массива notice 
+//    $notice[$_POST['id']] = $_POST;      //если существует то запишем в сессию массив с ключом = id объявления
+    unset($_POST);                                      //убьем POST
+    header('location: dz7_1.php');                        //Сделаем редирект на эту же страницу, чтобы избавиться от повторной отправки формы
+}
+//блок обрабатывает удаление объявления при запросе из GET
+if (array_key_exists('del', $_GET)) {                    //проверим пришел ли у нас  в GET запрос на удаление через параметр del
+    setcookie("notice[$_GET[del]]","",1);
+    header('location: dz7_1.php');                        //сделаем редирект сюда же для очистки адресной строки и get 
+}
+//блок обрабатывает изменение объявления
+if (array_key_exists('change', $_GET)) {                //проверим пришел ли из GET параметр change 
+    $change = true;                                     //включим команду изменения данных 
+    $ch_name = $_GET['change'];                         //запомним что пришло
+}
 
 //блок формирует из COOKIE массив с объявлениями
 if (isset($_COOKIE['notice'])){
@@ -63,23 +77,7 @@ function select_category($type = '') {
     <?php
 }
 
-  //блок обрабатывает поступление  нового объявления из POST
-if (array_key_exists('id', $_POST)) {                //существует ли ключ id в массиве post 
-    setcookie("notice[$_POST[id]]", serialize($_POST), time()+3600*24*7);       //запишем куку типа в виде массива notice 
-//    $notice[$_POST['id']] = $_POST;      //если существует то запишем в сессию массив с ключом = id объявления
-    unset($_POST);                                      //убьем POST
-    header('location: dz7_1.php');                        //Сделаем редирект на эту же страницу, чтобы избавиться от повторной отправки формы
-}
-//блок обрабатывает удаление объявления при запросе из GET
-if (array_key_exists('del', $_GET)) {                    //проверим пришел ли у нас  в GET запрос на удаление через параметр del
-    setcookie("notice[$_GET[del]]","",1);
-    header('location: dz7_1.php');                        //сделаем редирект сюда же для очистки адресной строки и get 
-}
-//блок обрабатывает изменение объявления
-if (array_key_exists('change', $_GET)) {                //проверим пришел ли из GET параметр change 
-    $change = true;                                     //включим команду изменения данных 
-    $ch_name = $_GET['change'];                         //запомним что пришло
-}
+
 
 
 ?>
