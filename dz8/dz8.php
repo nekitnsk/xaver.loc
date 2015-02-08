@@ -44,7 +44,7 @@ if (array_key_exists('change', $_GET)){
     $smarty -> assign('whois_ch', $notice[$_GET['change']]['whois']);
     $smarty -> assign('name_ch', $notice[$_GET['change']]['name']);
     $smarty -> assign('email_ch', $notice[$_GET['change']]['email']);
-    $smarty -> assign('subscribe_ch', $notice[$_GET['change']]['subscribe']);
+    $smarty -> assign('subscribe_ch', array_key_exists('subscribe', $notice[$_GET['change']])?$notice[$_GET['change']]['subscribe']['0']:'');
     $smarty -> assign('phone_ch', $notice[$_GET['change']]['phone']);
     $smarty -> assign('selected_city', $notice[$_GET['change']]['city']);
     $smarty -> assign('selected_category', $notice[$_GET['change']]['category']);
