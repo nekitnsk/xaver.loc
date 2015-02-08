@@ -63,5 +63,6 @@ $smarty -> assign('select_category', array(100 => 'Одежда', 200 => 'Обу
 $smarty -> assign('id', $id);
 $smarty -> assign('notice', $notice);
 
+
 $smarty->display('index.tpl');
 
