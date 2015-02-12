@@ -37,28 +37,19 @@ if (array_key_exists('del', $_GET)) {                    //проверим пр
     header('Location: dz8.php');                        //сделаем редирект сюда же для очистки адресной строки и get 
 }
 
-$id = mt_rand(1,10000);                         //в данной задачи для id объявлений используем случайное число
+$id = time();                         //в данной задачи для id объявлений используем штамп времени
 
-//если есть задание на изменение задачи, то передадим значения
+//если есть задание на изменение задачи, то передадим значение id 
 if (array_key_exists('change', $_GET)){
-    $smarty -> assign('whois_ch', $notice[$_GET['change']]['whois']);
-    $smarty -> assign('name_ch', $notice[$_GET['change']]['name']);
-    $smarty -> assign('email_ch', $notice[$_GET['change']]['email']);
-    $smarty -> assign('subscribe_ch', array_key_exists('subscribe', $notice[$_GET['change']])?$notice[$_GET['change']]['subscribe']['0']:'');
-    $smarty -> assign('phone_ch', $notice[$_GET['change']]['phone']);
-    $smarty -> assign('selected_city', $notice[$_GET['change']]['city']);
-    $smarty -> assign('selected_category', $notice[$_GET['change']]['category']);
-    $smarty -> assign('title_ch', $notice[$_GET['change']]['title']);
-    $smarty -> assign('message_ch', $notice[$_GET['change']]['message']);
-    $smarty -> assign('price_ch', $notice[$_GET['change']]['price']);
-    $smarty -> assign('send_ch', 'Изменить');
     $id = $notice[$_GET['change']]['id'];
 }
 //массивы для работы формы
-$smarty -> assign('whois', array(1 => 'Частное лицо', 2 => 'Компания'));
-$smarty -> assign('subscribe', array(1 => 'Я хочу получать жесткий спам на почту'));
-$smarty -> assign('select_city', array(100 => 'Новосибирск', 200 => 'Искитим',300 => 'Бердск'));
-$smarty -> assign('select_category', array(100 => 'Одежда', 200 => 'Обувь',300 => 'Техника'));
+$smarty -> assign('data', array('whois' => array(1 => 'Частное лицо', 2 => 'Компания'), 
+                                'subscribe' => array(1 => 'Я хочу получать жесткий спам на почту'),
+                                'select_city' => array(100 => 'Новосибирск', 200 => 'Искитим',300 => 'Бердск'),
+                                'select_category' => array(100 => 'Одежда', 200 => 'Обувь',300 => 'Техника')                                
+                    ));
+
 
 $smarty -> assign('id', $id);
 $smarty -> assign('notice', $notice);
