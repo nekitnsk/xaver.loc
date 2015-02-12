@@ -1,6 +1,6 @@
 <?php header("content-type: text/html, charset=UTF-8"); ?>
-<?
-error_reporting(E_ERROR | E_NOTICE | E_WARNING | E_PARSE);
+<?php
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ini_set('display_errors', 1);
 //$change = false;                                        //по умолчанию команда на изменение выключена
 //$ch_name = '';
@@ -19,7 +19,8 @@ if (array_key_exists('del', $_GET)) {                    //проверим пр
 if (isset($_COOKIE['notice'])){
     foreach ($_COOKIE['notice'] as $key => $value) {                     //вытащим из кук информацию в виде массива по всем объявлениям
         $notice[$key] = unserialize($value);
-}
+        }
+ksort($notice);
 }
 
 
@@ -90,52 +91,44 @@ function select_category($type = '') {
                     <fieldset>
                         <div id="radio">
                             <input type="radio" name="whois" value="people" checked>Частное лицо 
-                            <input type="radio" name="whois" value="company" <? if (array_key_exists('change', $_GET) && $notice[$_GET['change']]['whois'] == 'company') {echo 'checked';} ?>>Компания</div>  
+                            <input type="radio" name="whois" value="company" <?php if (array_key_exists('change', $_GET) && $notice[$_GET['change']]['whois'] == 'company') {echo 'checked';} ?>>Компания</div>  
                         <dl>
                             <dt><label for="name">Ваше имя</label></dt>
-                            <dd><input type="text" name="name" value="<? echo array_key_exists('change', $_GET) ? $notice[$_GET['change']]['name'] : ''; ?>" /></dd>
+                            <dd><input type="text" name="name" value="<?php echo array_key_exists('change', $_GET) ? $notice[$_GET['change']]['name'] : ''; ?>" /></dd>
                             <dt><label for="email">Электронная почта</label></dt>
-                            <dd><input type="text" name="email" value="<? echo array_key_exists('change', $_GET) ? $notice[$_GET['change']]['email'] : ''; ?>" /></dd>
+                            <dd><input type="text" name="email" value="<?php echo array_key_exists('change', $_GET) ? $notice[$_GET['change']]['email'] : ''; ?>" /></dd>
                             <div id="radio">
-                                <input type="checkbox" name="delivery" value="delivery" <? if (array_key_exists('change', $_GET) && array_key_exists('delivery', $notice[$_GET['change']])) {echo 'checked';} ?>>Я хочу получать уведомления на Email</div>
+                                <input type="checkbox" name="delivery" value="delivery" <?php if (array_key_exists('change', $_GET) && array_key_exists('delivery', $notice[$_GET['change']])) {echo 'checked';} ?>>Я хочу получать уведомления на Email</div>
                             <dt><label for="phone">Номер телефона</label></dt>
-                            <dd><input type="text" name="phone" value="<? echo array_key_exists('change', $_GET) ? $notice[$_GET['change']]['phone'] : ''; ?>" /></dd>
+                            <dd><input type="text" name="phone" value="<?php echo array_key_exists('change', $_GET) ? $notice[$_GET['change']]['phone'] : ''; ?>" /></dd>
                             <dt><label for="city">Город</label></dt>
                             <dd>
-                                <?
-                                if (array_key_exists('change', $_GET)){
+                                <?php
                                     select_city($_GET['change']);
-                                }else{
-                                    select_city();
-                                }
                                 ?>
                             </dd>
                             <dt><label for="category">Категория</label></dt>
                             <dd>
-                                <?
-                                if (isset($_GET['change'])){    
+                                <?php
                                     select_category($_GET['change']);
-                                }else{
-                                    select_category();
-                                }
                                 ?>
                             </dd>
                             <dt><label for="title">Название объявления</label></dt>
-                            <dd><input type="text" name="title" value="<? echo array_key_exists('change', $_GET) ? $notice[$_GET['change']]['title'] : ''; ?>"/></dd>
+                            <dd><input type="text" name="title" value="<?php echo array_key_exists('change', $_GET) ? $notice[$_GET['change']]['title'] : ''; ?>"/></dd>
                             <dt><label for="message">Описание объявления</label></dt>
-                            <dd><textarea cols="" rows=""  name="message" ><? echo array_key_exists('change', $_GET) ? $notice[$_GET['change']]['message'] : ''; ?></textarea></dd>
+                            <dd><textarea cols="" rows=""  name="message" ><?php echo array_key_exists('change', $_GET) ? $notice[$_GET['change']]['message'] : ''; ?></textarea></dd>
                             <dt><label for="price">Цена</label></dt>
-                            <dd><input type="text"  name="price" value="<? echo array_key_exists('change', $_GET)  ? $notice[$_GET['change']]['price'] : ''; ?>"></textarea>
+                            <dd><input type="text"  name="price" value="<?php echo array_key_exists('change', $_GET)  ? $notice[$_GET['change']]['price'] : ''; ?>"></textarea>
                                 <label> Руб.</label></dd>
                         </dl>
                         <div class="submit">
                             <input type="submit" name="send" value="отправить" />
-                            <input type="hidden" name="id" value="<? echo array_key_exists('change', $_GET) ? $notice[$_GET['change']]['id'] : mt_rand(1, 10000) ?>">
+                            <input type="hidden" name="id" value="<?php echo array_key_exists('change', $_GET) ? $notice[$_GET['change']]['id'] : time() ?>">
                         </div>
                     </fieldset>
                 </form>
 
-                <?
+                <?php
                 echo '<table>';                                     //Делаем таблицу, в которой покажем все объявления из сессии
                 
                     if (isset($notice)) {                          //работаем  с массивом Notice
