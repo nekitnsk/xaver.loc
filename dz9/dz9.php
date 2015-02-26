@@ -19,16 +19,20 @@ $smarty->config_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9/smarty/configs';
 
 mysql_connect('localhost', 'root', '123') or die('Не удалось соединиться с сервером');
 mysql_select_db('hlamanet') or die('Не удалось соединиться с базой данных '.  mysql_error());
-mysql_query('SET NAMES utf8');
+mysql_query('SET NAMES utf8'); 
+
+
 
 //блок формирует из файла массив с объявлениями
 //    $notice = mysql_query('SELECT ');
 
   //блок обрабатывает поступление  нового объявления из POST
 if (array_key_exists('id', $_POST)) {                //существует ли ключ id в массиве post 
+print_r ($_POST);
 
-    mysql_query("INSERT INTO notice (whois,first_name,email,subscribe,phone,city,category,title,message,price,active,ipaddr) "
-            . "VALUES($_POST[whois], \"$_POST[name]\", \"$_POST[email]\",1,$_POST[phone],$_POST[city],$_POST[category],\"$_POST[title]\",\"$_POST[message]\",$_POST[price],1, \"$_SERVER[REMOTE_ADDR]\" )") or die(mysql_error());
+$subscribe = $_POST['subscribe']['0'];    
+mysql_query("INSERT INTO notice (whois,first_name,email,subscribe,phone,city,category,title,message,price,active,ipaddr) "
+            . "VALUES($_POST[whois], \"$_POST[name]\", \"$_POST[email]\",1,$_POST[phone],$_POST[city],$_POST[category],\"$_POST[title]\",\"$_POST[message]\",$_POST[price], $subscribe, \"$_SERVER[REMOTE_ADDR]\" )") or die(mysql_error());
     
     header('Location: dz9.php');//Сделаем редирект на эту же страницу, чтобы избавиться от повторной отправки формы
 }
