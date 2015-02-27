@@ -31,8 +31,9 @@ if (array_key_exists('id', $_POST)) {                //существует ли
 print_r ($_POST);
 
 $subscribe = $_POST['subscribe']['0'];    
-mysql_query("INSERT INTO notice (whois,first_name,email,subscribe,phone,city,category,title,message,price,active,ipaddr) "
-            . "VALUES($_POST[whois], \"$_POST[name]\", \"$_POST[email]\",1,$_POST[phone],$_POST[city],$_POST[category],\"$_POST[title]\",\"$_POST[message]\",$_POST[price], $subscribe, \"$_SERVER[REMOTE_ADDR]\" )") or die(mysql_error());
+$post = array_map('mysql_real_escape_string', array_keys($_POST), $_POST);
+$insert_notice = "INSERT INTO notice (whois,first_name,email,subscribe,phone,city,category,title,message,price,active,ipaddr) VALUES('{$post[whois]}', $post[name], $post[email],'{$post[subscribe][0]}',$post[phone],$post[city],$post[category],$post[title],$post[message],$post[price], 1, $_SERVER[REMOTE_ADDR] )" or die(mysql_error());
+mysql_query($insert_notice);
     
     header('Location: dz9.php');//Сделаем редирект на эту же страницу, чтобы избавиться от повторной отправки формы
 }
