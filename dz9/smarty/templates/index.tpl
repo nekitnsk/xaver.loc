@@ -17,7 +17,7 @@
                             <dt><label for="email">Электронная почта</label></dt>
                             <dd><input type="text" name="email" value="{$notice.$id.email|default:''}" /></dd>
                             <div id="radio">
-                                {html_checkboxes name='subscribe' options = $data.subscribe selected = $notice.$id.subscribe|default:0}
+                                <input type="checkbox" name="subscribe" value="{$notice.$id.subscribe|default:'1'}">Я хочу получать уведомления на Email     
                             </div>
                             <dt><label for="phone">Номер телефона</label></dt>
                             <dd><input type="text" name="phone" value="{$notice.$id.phone|default:''}" /></dd>
@@ -39,7 +39,7 @@
                         </dl>
                         <div class="submit">
                             <input type="submit" name="send" value="{$data.button_label|default:'Отправить'}" />
-                            <input type="hidden" name="id" value="{$id}">
+{*                            <input type="hidden" name="id" value="{$id}">*}
                         </div>
                     </fieldset>
                 </form>

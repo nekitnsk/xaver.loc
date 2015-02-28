@@ -11123,7 +11123,7 @@ DROP TABLE IF EXISTS `notice`;
 CREATE TABLE `notice` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `whois` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1 частное лицо по умолчанию',
-  `first_name` varchar(20) NOT NULL,
+  `name` varchar(20) NOT NULL,
   `email` varchar(40) NOT NULL,
   `subscribe` int(11) NOT NULL,
   `phone` varchar(11) NOT NULL,
@@ -11134,16 +11134,15 @@ CREATE TABLE `notice` (
   `price` int(11) NOT NULL,
   `datatime_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `active` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1 объявление все еще активно 0 - не активно',
-  `ipaddr` varchar(15) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `title` (`title`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `notice` (`id`, `whois`, `first_name`, `email`, `subscribe`, `phone`, `city`, `category`, `title`, `message`, `price`, `datatime_create`, `active`, `ipaddr`) VALUES
-(1,	1,	'111',	'555',	1,	'222',	100,	100,	'333',	'444',	444,	'2015-02-23 13:49:55',	1,	''),
-(2,	1,	'dfg',	'cvb',	1,	'666',	100,	100,	'jkl',	'666',	666,	'2015-02-23 14:09:38',	1,	''),
-(3,	1,	'111',	'111',	1,	'111',	100,	100,	'111',	'111',	111,	'2015-02-23 14:43:59',	0,	''),
-(4,	1,	'111',	'111',	1,	'111',	100,	100,	'111',	'111',	111,	'2015-02-23 14:27:57',	1,	'192.168.56.1');
+INSERT INTO `notice` (`id`, `whois`, `name`, `email`, `subscribe`, `phone`, `city`, `category`, `title`, `message`, `price`, `datatime_create`, `active`) VALUES
+(1,	1,	'111',	'555',	1,	'222',	100,	100,	'333',	'444',	444,	'2015-02-23 13:49:55',	1),
+(2,	1,	'dfg',	'cvb',	1,	'666',	100,	100,	'jkl',	'666',	666,	'2015-02-23 14:09:38',	1),
+(3,	1,	'111',	'111',	1,	'111',	100,	100,	'111',	'111',	111,	'2015-02-23 14:43:59',	0),
+(4,	1,	'111',	'111',	1,	'111',	100,	100,	'111',	'111',	111,	'2015-02-23 14:27:57',	1);
 
 DROP TABLE IF EXISTS `region`;
 CREATE TABLE `region` (
@@ -12091,4 +12090,4 @@ INSERT INTO `whois` (`id`, `whois`) VALUES
 (1,	'Частное лицо'),
 (2,	'Компания');
 
--- 2015-02-23 14:53:38
+-- 2015-02-28 17:38:17

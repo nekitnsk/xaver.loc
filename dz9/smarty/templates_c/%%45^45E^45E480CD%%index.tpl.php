@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.28, created on 2015-02-23 10:55:56
+<?php /* Smarty version 2.6.28, created on 2015-02-27 13:19:17
          compiled from index.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'html_radios', 'index.tpl', 12, false),array('function', 'html_checkboxes', 'index.tpl', 20, false),array('function', 'html_options', 'index.tpl', 26, false),array('modifier', 'default', 'index.tpl', 12, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('function', 'html_radios', 'index.tpl', 12, false),array('function', 'html_options', 'index.tpl', 26, false),array('modifier', 'default', 'index.tpl', 12, false),)), $this); ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
@@ -28,8 +28,8 @@ unset($_smarty_tpl_vars);
                             <dd><input type="text" name="email" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['notice'][$this->_tpl_vars['id']]['email'])) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
 " /></dd>
                             <div id="radio">
-                                <?php echo smarty_function_html_checkboxes(array('name' => 'subscribe','options' => $this->_tpl_vars['data']['subscribe'],'selected' => ((is_array($_tmp=@$this->_tpl_vars['notice'][$this->_tpl_vars['id']]['subscribe'])) ? $this->_run_mod_handler('default', true, $_tmp, 0) : smarty_modifier_default($_tmp, 0))), $this);?>
-
+                                <input type="checkbox" name="subscribe" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['notice'][$this->_tpl_vars['id']]['subscribe'])) ? $this->_run_mod_handler('default', true, $_tmp, '1') : smarty_modifier_default($_tmp, '1')); ?>
+">Я хочу получать уведомления на Email     
                             </div>
                             <dt><label for="phone">Номер телефона</label></dt>
                             <dd><input type="text" name="phone" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['notice'][$this->_tpl_vars['id']]['phone'])) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
@@ -58,8 +58,6 @@ unset($_smarty_tpl_vars);
                         <div class="submit">
                             <input type="submit" name="send" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['data']['button_label'])) ? $this->_run_mod_handler('default', true, $_tmp, 'Отправить') : smarty_modifier_default($_tmp, 'Отправить')); ?>
 " />
-                            <input type="hidden" name="id" value="<?php echo $this->_tpl_vars['id']; ?>
-">
                         </div>
                     </fieldset>
                 </form>
