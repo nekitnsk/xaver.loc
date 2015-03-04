@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ERROR |  E_WARNING | E_PARSE);
+error_reporting(E_ERROR |  E_WARNING | E_PARSE | E_ALL);
 ini_set('display_errors', 1);
 
 //функция для создания файла config.ini где будут хранится настройки доступа к базе. 
@@ -48,19 +48,23 @@ function write_ini_file($assoc_arr, $path, $has_sections=FALSE) {
 //функция удаляет любые таблицы из базы
 function delete_table($db) {
 
-    $query = 'SHOW TABLES FROM `' . $db . '` ';
+    $query = 'SHOW TABLES FROM `' . $_POST['database'] . '` ';
     $result = mysqli_query($db, $query);
 
     //получаем список всех таблиц из указанной базы данных и удаляем их 
     while ($arr = mysqli_fetch_row($result)) {
         $arr2[] = $arr[0];
     }
+    mysqli_free_result($result);
     if (!empty($arr2)) {
+        $delete = '';
+
         foreach ($arr2 as $value) {
             $delete .= 'DROP TABLE IF EXISTS `' . $value . '`;';
         }
         mysqli_multi_query($db, $delete) or die(mysqli_error($db));
         while (mysqli_next_result($db)) {;}
+//        print_r($arr2);
     }
 }
 
@@ -68,6 +72,7 @@ function create_table($db) {
 //создаем базу из дампа
     $create_table = file_get_contents('hlamanet.sql');
     mysqli_multi_query($db, $create_table) or die(mysqli_error($db));
+    while (mysqli_next_result($db)) {;}
 }
 
 if (array_key_exists('send', $_POST)){
@@ -82,12 +87,16 @@ if (array_key_exists('send', $_POST)){
     
     //функция записи ini файла
     write_ini_file($Data, './config.ini', true);
-    print_r($_POST);
+//    print_r($_POST);
     $db = new mysqli($_POST['host'], $_POST['user'], $_POST['pass'], $_POST['database']) or die (mysqli_error($db));
-//    
-//    delete_table($db);
-//    create_table($db);
+
+if (mysqli_connect_errno($db)) {
+    echo "Не удалось подключиться к MySQL: (" . mysqli_connect_errno() . ") " . mysqli_connect_error($db);
+}
+    delete_table($db);
+    create_table($db);
     mysqli_close($db);
+    header('Location: http://test1.ru:8080/dz9.php');
 }
 
 
