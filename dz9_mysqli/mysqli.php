@@ -1,5 +1,5 @@
 <?php header("content-type: text/html, charset=utf-8"); ?>
-<?
+<?php
 error_reporting(E_ERROR |  E_WARNING | E_PARSE);
 ini_set('display_errors', 1);
 
@@ -17,14 +17,17 @@ $smarty->compile_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9_mysqli/smarty/templates_c
 $smarty->cache_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9_mysqli/smarty/cache';
 $smarty->config_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9_mysqli/smarty/configs';
 
+
+$config = parse_ini_file('./config.ini', true);
 //соединение с сервером и базой
-$db = new mysqli('localhost', 'test', '123', 'hlamanet');
+
+$db = new mysqli($config['Database1']['host'], $config['Database1']['user'], $config['Database1']['password'], $config['Database1']['database']);
 if (mysqli_connect_error()) {
     die('Ошибка подключения (' . mysqli_connect_errno() . ') '
             . mysqli_connect_error());
 }
 if (!mysqli_set_charset($db, "utf8")) {
-    printf("Ошибка при загрузке набора символов utf8: %s\n", mysqli_error($db));
+    printf("Ошибка при загрузке набора символов utf8: ", mysqli_error($db));
 }
 
 
@@ -52,8 +55,9 @@ function normal_array($db, $query, $key, $value){
     while ($array[] = mysqli_fetch_assoc($result)){};
     array_pop($array);
     
-    foreach($array as $val)
+    foreach($array as $val){
     $normal_array[$val[$key]] = $val[$value];
+    }
     
     mysqli_free_result($result);
     

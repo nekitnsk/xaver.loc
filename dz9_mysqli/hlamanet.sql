@@ -11138,11 +11138,6 @@ CREATE TABLE `notice` (
   KEY `title` (`title`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `notice` (`id`, `whois`, `name`, `email`, `subscribe`, `phone`, `city`, `category`, `title`, `message`, `price`, `datatime_create`, `active`) VALUES
-(1425225692,	2,	'asdf',	'asdf',	1,	'4444',	4328,	6,	'asdfasdf',	'asdfasdf',	333,	'2015-03-01 16:02:02',	1),
-(1425213447,	2,	'qwer',	'qwer',	0,	'555',	100,	100,	'qwer',	'qwer',	555,	'2015-03-01 16:00:42',	0),
-(1425225642,	1,	'qwerqwerewrwr',	'qwer',	0,	'2222',	4318,	5,	'qwer',	'qwer',	111,	'2015-03-01 16:01:18',	1),
-(1425213439,	1,	'hhhh',	'hhhh',	0,	'123',	100,	100,	'rrr',	'rrr',	123,	'2015-03-01 16:00:37',	0);
 
 DROP TABLE IF EXISTS `region`;
 CREATE TABLE `region` (
@@ -12090,4 +12085,4 @@ INSERT INTO `whois` (`id`, `whois`) VALUES
 (1,	'Частное лицо'),
 (2,	'Компания');
 
--- 2015-03-01 16:02:42
+-- 2015-03-05 04:25:24
