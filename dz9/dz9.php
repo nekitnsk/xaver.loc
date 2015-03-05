@@ -1,5 +1,5 @@
 <?php header("content-type: text/html, charset=utf-8"); ?>
-<?
+<?php
 error_reporting(E_ERROR |  E_WARNING | E_PARSE);
 ini_set('display_errors', 1);
 
@@ -17,9 +17,11 @@ $smarty->compile_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9/smarty/templates_c';
 $smarty->cache_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9/smarty/cache';
 $smarty->config_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9/smarty/configs';
 
+$config = parse_ini_file('./config.ini', true);
+
 //соединение с сервером и базой
-$db = mysql_connect('localhost', 'test', '123') or die('Не удалось соединиться с сервером');
-mysql_select_db('hlamanet', $db) or die('Не удалось соединиться с базой данных '.  mysql_error());
+$db = mysql_connect($config['Database1']['host'], $config['Database1']['user'], $config['Database1']['password']) or die('Не удалось соединиться с сервером');
+mysql_select_db($config['Database1']['database'], $db) or die('Не удалось соединиться с базой данных '.  mysql_error());
 mysql_query('SET NAMES utf8'); 
 
 //функция вставки массива в таблицу 
@@ -39,8 +41,9 @@ function normal_array($query, $key, $value){
     while ($array[] = mysql_fetch_assoc($result)){};
     array_pop($array);
     
-    foreach($array as $val)
+    foreach($array as $val){
     $normal_array[$val[$key]] = $val[$value];
+    }
     
     mysql_free_result($result);
     
@@ -49,7 +52,7 @@ function normal_array($query, $key, $value){
 
 
   //блок обрабатывает поступление  нового объявления из POST
-if (array_key_exists('name', $_POST)) {                //существует ли ключ id в массиве post 
+if (array_key_exists('id', $_POST)) {                //существует ли ключ id в массиве post 
     unset($_POST['send']);                  //здесь удалю ключ send он мешает записи в талицу
     mysql_insert('notice', $_POST);
     header('Location: dz9.php');                    //Сделаем редирект на эту же страницу, чтобы избавиться от повторной отправки формы

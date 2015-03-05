@@ -96,7 +96,7 @@ if (mysqli_connect_errno($db)) {
     delete_table($db);
     create_table($db);
     mysqli_close($db);
-    header('Location: http://test1.ru:8080/dz9.php');
+    header('Location: dz9.php');
 }
 
 
