@@ -1,51 +1,65 @@
 <?php header("content-type: text/html, charset=utf-8"); ?>
 <?php
-error_reporting(E_ERROR | E_NOTICE | E_WARNING | E_PARSE);
+error_reporting(E_ERROR |  E_WARNING | E_PARSE);
 ini_set('display_errors', 1);
 
 
 // put full path to Smarty.class.php
-require($_SERVER['DOCUMENT_ROOT'].'/dz9/smarty/libs/Smarty.class.php');
+require($_SERVER['DOCUMENT_ROOT'].'/dz9_mysqli/smarty/libs/Smarty.class.php');
 $smarty = new Smarty();
 
 $smarty->compile_check = true;
 $smarty->debugging = false;
 
 
-$smarty->template_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9/smarty/templates';
-$smarty->compile_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9/smarty/templates_c';
-$smarty->cache_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9/smarty/cache';
-$smarty->config_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9/smarty/configs';
+$smarty->template_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9_mysqli/smarty/templates';
+$smarty->compile_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9_mysqli/smarty/templates_c';
+$smarty->cache_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9_mysqli/smarty/cache';
+$smarty->config_dir = $_SERVER['DOCUMENT_ROOT'].'/dz9_mysqli/smarty/configs';
+
 
 $config = parse_ini_file('./config.ini', true);
-
 //соединение с сервером и базой
-$db = mysql_connect($config['Database1']['host'], $config['Database1']['user'], $config['Database1']['password']) or die('Не удалось соединиться с сервером');
-mysql_select_db($config['Database1']['database'], $db) or die('Не удалось соединиться с базой данных '.  mysql_error());
-mysql_query('SET NAMES utf8'); 
+
+$db = new mysqli($config['Database1']['host'], $config['Database1']['user'], $config['Database1']['password'], $config['Database1']['database']);
+if (mysqli_connect_error()) {
+    die('Ошибка подключения (' . mysqli_connect_errno() . ') '
+            . mysqli_connect_error());
+}
+if (!mysqli_set_charset($db, "utf8")) {
+    printf("Ошибка при загрузке набора символов utf8: ", mysqli_error($db));
+}
+
+
 
 //функция вставки массива в таблицу 
-function mysql_insert($table, $inserts) {
-    $values = array_map('mysql_real_escape_string', array_values($inserts));
+function mysqli_insert($db, $table, $inserts) {
+    
+    $values = array_values($inserts);
+
+    array_walk($values, function(&$string) use ($db) { 
+    $string = mysqli_real_escape_string($db, $string);
+    });
+    
     $keys = array_keys($inserts);
     $insert_notice = ('REPLACE INTO `'.$table.'` (`'.implode('`,`', $keys).'`) VALUES (\''.implode('\',\'', $values).'\')');
-    return mysql_query($insert_notice) or die(mysql_error());
+    return mysqli_query($db, $insert_notice) or die(mysqli_error($db));
 }
 
 //функция, которая из результата выборки возращает массив для использования в элементах формы 
 //$query - передаем SQL запрос, $key - какое значение должно быть ключом элементов массива, $value - значения элементов массива
-function normal_array($query, $key, $value){
+function normal_array($db, $query, $key, $value){
     
-    $result = mysql_query($query);
+    $result = mysqli_query($db, $query);
     
-    while ($array[] = mysql_fetch_assoc($result)){};
+    while ($array[] = mysqli_fetch_assoc($result)){};
     array_pop($array);
     
     foreach($array as $val){
     $normal_array[$val[$key]] = $val[$value];
     }
     
-    mysql_free_result($result);
+    mysqli_free_result($result);
     
     return $normal_array;
 }
@@ -54,14 +68,14 @@ function normal_array($query, $key, $value){
   //блок обрабатывает поступление  нового объявления из POST
 if (array_key_exists('id', $_POST)) {                //существует ли ключ id в массиве post 
     unset($_POST['send']);                  //здесь удалю ключ send он мешает записи в талицу
-    mysql_insert('notice', $_POST);
-    header('Location: dz9.php');                    //Сделаем редирект на эту же страницу, чтобы избавиться от повторной отправки формы
+    mysqli_insert($db, 'notice', $_POST);
+    header('Location: mysqli.php');                    //Сделаем редирект на эту же страницу, чтобы избавиться от повторной отправки формы
 }
 
 //блок обрабатывает удаление объявления при запросе из GET
 if (array_key_exists('del', $_GET)) {                    
-    mysql_query("UPDATE notice SET active = 0 WHERE id = " .(int)$_GET[del]);
-    header('Location: dz9.php');                        
+    mysqli_query($db, "UPDATE notice SET active = 0 WHERE id = " .(int)$_GET[del]) or die(mysqli_error($db));
+    header('Location: mysqli.php');                        
 }
 
 $id = time();                         //в данной задачи для id объявлений используем штамп времени
@@ -70,18 +84,17 @@ $id = time();                         //в данной задачи для id �
 if (array_key_exists('change', $_GET)){
     $id = $_GET['change'];
     $select_notice = "SELECT whois, name,email,	subscribe,phone,city,category,title,message,price FROM notice WHERE id = '{$id}' ";
-    $result = mysql_query($select_notice) or die(mysql_error());
-    $notice=mysql_fetch_assoc($result);
-    
-    mysql_free_result($result);
+    $result = mysqli_query($db, $select_notice) or die(mysqli_error($db));
+    $notice=mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
 }
 
 //блок получения объяв из бд для вывода в таблицу, при условии, что объявление активно
 $select_adv = "SELECT id, name, title, price FROM notice WHERE active = 1 ORDER BY id LIMIT 30 ";
-$result = mysql_query($select_adv) or die(mysql_error());
-while ($adv[] = mysql_fetch_assoc($result)){}
+$result = mysqli_query($db, $select_adv) or die(mysqli_error($db));
+while ($adv[] = mysqli_fetch_assoc($result)){}
 array_pop($adv);                                //при использовании fetch_assoc появляются NULL элементы в конце массива, поэтому удалим их здесь
-mysql_free_result($result);
+mysqli_free_result($result);
 
 //массивы для работы формы
 
@@ -95,9 +108,9 @@ $select_city = "SELECT city_id,name FROM city LIMIT 100";
 $select_category = "SELECT id, name FROM category";
 
 
-$smarty -> assign('data', array('whois' => normal_array($select_whois, 'id', 'whois'), 
-                                'select_city' => normal_array($select_city, 'city_id', 'name'),
-                                'select_category' => normal_array($select_category, 'id', 'name')                                
+$smarty -> assign('data', array('whois' => normal_array($db, $select_whois, 'id', 'whois'), 
+                                'select_city' => normal_array($db, $select_city, 'city_id', 'name'),
+                                'select_category' => normal_array($db, $select_category, 'id', 'name')                                
                     ));
 
 
@@ -106,6 +119,6 @@ $smarty -> assign('notice', $notice);
 $smarty -> assign('adv', $adv);
 
 
-mysql_close($db);
+mysqli_close($db);
 $smarty->display('index.tpl');
 
