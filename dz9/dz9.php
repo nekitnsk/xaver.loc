@@ -73,6 +73,7 @@ if (array_key_exists('change', $_GET)){
     $result = mysql_query($select_notice) or die(mysql_error());
     $notice=mysql_fetch_assoc($result);
     mysql_free_result($result);
+    
 }
 
 //блок получения объяв из бд для вывода в таблицу, при условии, что объявление активно

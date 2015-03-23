@@ -51,6 +51,7 @@
             <td>{$value.name}</td>
             <td><a href = dz9.php?del={$value.id}>Удалить</a></td>
         </tr>
+        
     {/foreach}
 </table>
             

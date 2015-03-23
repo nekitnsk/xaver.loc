@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-03-02 11:05:17
+<?php /* Smarty version 2.6.28, created on 2015-03-16 12:07:47
          compiled from index.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_radios', 'index.tpl', 12, false),array('function', 'html_options', 'index.tpl', 26, false),array('modifier', 'default', 'index.tpl', 12, false),)), $this); ?>
@@ -77,6 +77,7 @@ unset($_smarty_tpl_vars);
             <td><a href = dz9.php?del=<?php echo $this->_tpl_vars['value']['id']; ?>
 >Удалить</a></td>
         </tr>
+        
     <?php endforeach; endif; unset($_from); ?>
 </table>
             
