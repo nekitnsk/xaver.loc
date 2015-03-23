@@ -46,10 +46,10 @@
 <table border =0 >
     {foreach from=$adv key=key item=value}
         <tr>
-            <td><a href = mysqli.php?change={$value.id}>{$value.title}</a></td>
+            <td><a href = index.php?change={$value.id}>{$value.title}</a></td>
             <td>{$value.price}</td>
             <td>{$value.name}</td>
-            <td><a href = mysqli.php?del={$value.id}>Удалить</a></td>
+            <td><a href = index.php?del={$value.id}>Удалить</a></td>
         </tr>
     {/foreach}
   

@@ -1,6 +1,6 @@
 <?php header("content-type: text/html, charset=utf-8"); ?>
 <?php
-error_reporting(E_ERROR |  E_WARNING | E_PARSE);
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ini_set('display_errors', 1);
 
 
@@ -72,6 +72,7 @@ if (array_key_exists('change', $_GET)){
     $select_notice = "SELECT whois, name,email,	subscribe,phone,city,category,title,message,price FROM notice WHERE id = '{$id}' ";
     $result = mysql_query($select_notice) or die(mysql_error());
     $notice=mysql_fetch_assoc($result);
+    
     mysql_free_result($result);
     
 }
