@@ -5,10 +5,11 @@ ini_set('display_errors', 1);
 
 require_once "dbsimple/config.php";
 require_once "dbsimple/DbSimple/Generic.php";
+
 require_once "FirePHPCore/firePHP.class.php";
 
 
-// put full path to Smarty.class.php
+// путь к классу Smarty.class.php
 require($_SERVER['DOCUMENT_ROOT'].'/dz10/smarty/libs/Smarty.class.php');
 $smarty = new Smarty();
 
@@ -20,43 +21,42 @@ $smarty->compile_dir = $_SERVER['DOCUMENT_ROOT'].'/dz10/smarty/templates_c';
 $smarty->cache_dir = $_SERVER['DOCUMENT_ROOT'].'/dz10/smarty/cache';
 $smarty->config_dir = $_SERVER['DOCUMENT_ROOT'].'/dz10/smarty/configs';
 
-
-$config = parse_ini_file('./config.ini', true);
-//соединение с сервером и базой
 $firePHP = FirePHP::getInstance(true);
 $firePHP -> setEnabled(true);
 
-$a = array(1,2,3);
+$config = parse_ini_file('./config.ini', true);
+//соединение с сервером и базой
 
-$firePHP -> log($a);
 // Подключаемся к БД.
 $db = DbSimple_Generic::connect('mysqli://'.$config['Database1']['user'].':'.$config['Database1']['password'].'@'.$config['Database1']['host'].'/'.$config['Database1']['database'].'');
 
 // Устанавливаем обработчик ошибок.
 $db->setErrorHandler('databaseErrorHandler');
-//$db->setLogger('MyLogger'); 
+$db->setLogger('MyLogger'); 
 
 // Код обработчика ошибок SQL.
-function databaseErrorHandler($message, $info)
-{
+function databaseErrorHandler($message, $info) {
     // Если использовалась @, ничего не делать.
-    if (!error_reporting()) return;
+    if (!error_reporting())
+        return;
     // Выводим подробную информацию об ошибке.
-    echo "SQL Error: $message<br><pre>"; 
+    echo "SQL Error: $message<br><pre>";
     print_r($info);
     echo "</pre>";
     exit();
 }
-//function myLogger($db, $sql)
-//{
-//  // Находим контекст вызова этого запроса.
-//  $caller = $db->findLibraryCaller();
-//  $tip = "at ".@$caller['file'].' line '.@$caller['line'];
-//  // Печатаем запрос (конечно, Debug_HackerConsole лучше).
-//  echo "<xmp title=\"$tip\">"; 
-//  print_r($sql); 
-//  echo "</xmp>";
-//}
+
+function myLogger($db, $sql, $caller) {
+    global $firePHP;
+    if (isset($caller['file'])){
+        $firePHP->group("at " . @$caller['file'] . ' line ' . @$caller['line']);
+    }
+    $firePHP->log($sql);
+    if (isset($caller['file'])){
+        $firePHP->groupEnd();
+    }
+}
+
 //функция вставки массива в таблицу 
 function mysqli_insert($db, $table, $inserts) {
     
@@ -85,29 +85,33 @@ $id = time();                         //в данной задаче для id �
 if (array_key_exists('change', $_GET)){
     $id = $_GET['change'];
     $notice = $db->selectRow('SELECT  whois, name,email, subscribe,phone,city,category,title,message,price FROM notice WHERE id = ? ', $id);
+    $firePHP->table('Объява на изменение', $notice);
 }
 
 //блок получения объяв из бд для вывода в таблицу, при условии, что объявление активно
 $adv = $db->select("SELECT id AS ARRAY_KEY, name, title, price, id FROM notice WHERE active = 1 ORDER BY id LIMIT 30 ");
-
+$firePHP->table('Объявления', $adv);
 
 //массивы для работы формы
 
 //блок выборки whois из бд
 $whois = $db->select("SELECT id AS ARRAY_KEY,whois FROM whois");
-foreach ($whois as $key=>$value){
+$firePHP->table('Типы юзеров', $whois);
+foreach ($whois as $key => $value) {
     $whois[$key] = $value['whois'];
 }
 
 //блок выборки городов из бд
 $city = $db->select('SELECT city_id AS ARRAY_KEY,  name FROM city LIMIT 100');
-foreach ($city as $key =>$value){
+$firePHP->table('города', $city);
+foreach ($city as $key => $value) {
     $city[$key] = $value['name'];
 }
 
 //блок выборки категорий из бд
 $category = $db->select("SELECT id AS ARRAY_KEY, name FROM category");
-foreach ($category as $key=>$value){
+$firePHP->table('Категории', $category);
+foreach ($category as $key => $value) {
     $category[$key] = $value['name'];
 }
 
@@ -124,9 +128,6 @@ $smarty -> assign('data', array('whois' => $whois,
 $smarty -> assign('id', $id);
 $smarty -> assign('notice', $notice);
 $smarty -> assign('adv', $adv);
-
-
-
 
 
 //mysqli_close($db);

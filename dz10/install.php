@@ -96,7 +96,7 @@ if (mysqli_connect_errno($db)) {
     delete_table($db);
     create_table($db);
     mysqli_close($db);
-    header('Location: mysqli.php');
+    header('Location: index.php');
 }
 
 
