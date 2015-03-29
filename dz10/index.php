@@ -60,9 +60,12 @@ function myLogger($db, $sql, $caller) {
 //функция вставки массива в таблицу 
 function mysqli_insert($db, $table, $inserts) {
     
-    $values = array_values($inserts);
-    $keys = array_keys($inserts);
-    $db -> query('REPLACE INTO `'.$table.'` (`'.implode('`,`', $keys).'`) VALUES (\''.implode('\',\'', $values).'\')');
+    if (count($db -> select('SELECT id FROM ?# WHERE id = ? ', $table, $inserts['id'])) == 0 ){
+        $db -> query('INSERT INTO ?# (?#) VALUES (?a)',$table, array_keys($inserts), array_values($inserts) );
+    }else{
+        $db -> query('UPDATE ?# SET ?a WHERE id = ? ',$table, $inserts, $inserts['id']);
+    }
+    
     return $db; 
 }
 
@@ -79,13 +82,14 @@ if (array_key_exists('del', $_GET)) {
     header('Location: index.php');                        
 }
 
-$id = time();                         //в данной задаче для id объявлений используем штамп времени
 
 //если есть задание на изменение задачи, то передадим значение id , выберем из базы нужное объявление и потом передадим в smarty
 if (array_key_exists('change', $_GET)){
-    $id = $_GET['change'];
-    $notice = $db->selectRow('SELECT  whois, name,email, subscribe,phone,city,category,title,message,price FROM notice WHERE id = ? ', $id);
-    $firePHP->table('Объява на изменение', $notice);
+    if (count($db->select('SELECT id FROM notice WHERE id = ? AND active = 1 ', $_GET['change'])) != 0) {
+        $id = $_GET['change'];
+        $notice = $db->selectRow('SELECT  whois, name,email, subscribe,phone,city,category,title,message,price FROM notice WHERE id = ? ', $id);
+        $firePHP->table('Объява на изменение', $notice);
+    }
 }
 
 //блок получения объяв из бд для вывода в таблицу, при условии, что объявление активно

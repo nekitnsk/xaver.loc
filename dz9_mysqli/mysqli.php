@@ -32,18 +32,49 @@ if (!mysqli_set_charset($db, "utf8")) {
 
 
 
-//функция вставки массива в таблицу 
-function mysqli_insert($db, $table, $inserts) {
-    
-    $values = array_values($inserts);
+//функция вставки\обновления  записи  в таблицу. Делится на 2 блока: 
+//1. проверяем существует ли такая запись в таблице, если нет, то применяем INSERT 
+//2. если да, то применяем UPDATE к этой записи 
+//в table передаем таблицу в которую надо сделать запись, в inserts передаем массив который надо записать.
 
-    array_walk($values, function(&$string) use ($db) { 
-    $string = mysqli_real_escape_string($db, $string);
-    });
-    
-    $keys = array_keys($inserts);
-    $insert_notice = ('REPLACE INTO `'.$table.'` (`'.implode('`,`', $keys).'`) VALUES (\''.implode('\',\'', $values).'\')');
-    return mysqli_query($db, $insert_notice) or die(mysqli_error($db));
+function mysqli_insert($db, $table, $inserts) {
+
+    if (mysqli_num_rows(mysqli_query($db, 'SELECT id FROM '. $table .' WHERE id = '. $inserts['id'])) == 0) {
+    //здесь разобьем массив на ключи и значения, по значениям пройдемся функцией real_escape 
+        $values = array_values($inserts);
+        array_walk($values, function(&$string) use ($db) {
+            $string = mysqli_real_escape_string($db, $string);
+        });
+        $keys = array_keys($inserts);
+        //здесь сформируем запрос для вставки в таблицу 
+        $insert_notice = ('INSERT INTO `' . $table . '` (`' . implode('`,`', $keys) . '`) VALUES (\'' . implode('\',\'', $values) . '\')');
+        return mysqli_query($db, $insert_notice) or die(mysqli_error($db));
+        
+    }else {
+        
+        $update = 'UPDATE `' . $table . '` SET ';
+        $comma = ',';
+        $count = 0;
+        //переберем массив и соберем большой запрос на обновление записи. В цикле обойдем запись ID потому что не надо ее переписывать в базе, скажется на индексации ключевых полей
+        foreach ($inserts as $key => $value) {
+            $count++;
+            if ($key == 'id') {
+                continue;
+            }
+        //так как мы одну запись обойдем, то и здесь нам надо на один элемент меньше посчитать, и как мы дойдем до последнего элемента, отменить запятую
+            if ($count == count($inserts)-1) {
+                $comma = '';
+            }
+            
+            $value = mysqli_real_escape_string($db, $value);
+            $update = $update . '`'. $key . '` = \'' . $value . '\''. $comma;
+        }
+        $update = $update . ' WHERE id = '. $inserts['id'];
+        return mysqli_query($db, $update) or die(mysqli_error($db));
+//        
+//        echo($update);
+//        exit;
+    }
 }
 
 //функция, которая из результата выборки возращает массив для использования в элементах формы 
@@ -78,12 +109,13 @@ if (array_key_exists('del', $_GET)) {
     header('Location: mysqli.php');                        
 }
 
-$id = time();                         //в данной задачи для id объявлений используем штамп времени
+//$id = time();                         //в данной задачи для id объявлений используем штамп времени
 
 //если есть задание на изменение задачи, то передадим значение id , выберем из базы нужное объявление и потом передадим в smarty
 if (array_key_exists('change', $_GET)){
+    if (mysqli_num_rows(mysqli_query($db, 'SELECT id FROM notice WHERE id = ' . $_GET['change'] .' AND active=1 ')) != 0)
     $id = $_GET['change'];
-    $select_notice = "SELECT whois, name,email,	subscribe,phone,city,category,title,message,price FROM notice WHERE id = '{$id}' ";
+    $select_notice = "SELECT whois, name,email,	subscribe,phone,city,category,title,message,price FROM notice WHERE id = '{$id}'";
     $result = mysqli_query($db, $select_notice) or die(mysqli_error($db));
     $notice=mysqli_fetch_assoc($result);
     mysqli_free_result($result);
