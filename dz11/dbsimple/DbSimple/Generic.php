@@ -56,13 +56,11 @@
  *
  * @version 2.x $Id$
  */
-
 /**
  * Use this constant as placeholder value to skip optional SQL block [...].
  */
 if (!defined('DBSIMPLE_SKIP'))
 	define('DBSIMPLE_SKIP', log(0));
-
 /**
  * Names of special columns in result-set which is used
  * as array key (or karent key in forest-based resultsets) in
@@ -72,8 +70,6 @@ if (!defined('DBSIMPLE_ARRAY_KEY'))
 	define('DBSIMPLE_ARRAY_KEY', 'ARRAY_KEY');   // hash-based resultset support
 if (!defined('DBSIMPLE_PARENT_KEY'))
 	define('DBSIMPLE_PARENT_KEY', 'PARENT_KEY'); // forrest-based resultset support
-
-
 /**
  * DbSimple factory.
  */
@@ -85,8 +81,17 @@ class DbSimple_Generic
      * Universal static function to connect ANY database using DSN syntax.
      * Choose database driver according to DSN. Return new instance
      * of this driver.
+     *
+     * You can connect to MySQL by socket using this new syntax (like PDO DSN):
+     * $dsn = 'mysqli:unix_socket=/cloudsql/app:instance;user=root;pass=;dbname=testdb';
+     * $dsn = 'mypdo:unix_socket=/cloudsql/app:instance;charset=utf8;user=testuser;pass=mypassword;dbname=testdb';
+     *
+     * Connection by host also can be made with this syntax.
+     * Or you can use old syntax:
+     * $dsn = 'mysql://testuser:mypassword@127.0.0.1/testdb';
+     *
      */
-    function connect($dsn)
+    public static function connect($dsn)
     {
         // Load database driver and create its instance.
         $parsed = DbSimple_Generic::parseDSN($dsn);
@@ -96,7 +101,7 @@ class DbSimple_Generic
         }
         $class = 'DbSimple_'.ucfirst($parsed['scheme']);
         if (!class_exists($class)) {
-            $file = dirname(__FILE__).'/'.ucfirst($parsed['scheme']). ".php";
+            $file = __DIR__.'/'.ucfirst($parsed['scheme']). ".php";
             if (is_file($file)) {
                 require_once($file);
             } else {
@@ -111,14 +116,12 @@ class DbSimple_Generic
         $object->setCachePrefix(md5(serialize($parsed['dsn'])));
         return $object;
     }
-
-
     /**
      * array parseDSN(mixed $dsn)
      * Parse a data source name.
      * See parse_url() for details.
      */
-    function parseDSN($dsn)
+    public static function parseDSN($dsn)
     {
         if (is_array($dsn)) return $dsn;
         $parsed = parse_url($dsn);
@@ -128,9 +131,44 @@ class DbSimple_Generic
             parse_str($parsed['query'], $params);
             $parsed += $params;
         }
+        if ( empty($parsed['host']) && empty($parsed['socket']) ) {
+            // Parse as DBO DSN string
+            $parsedPdo = self::parseDsnPdo($parsed['path']);
+            unset($parsed['path']);
+            $parsed = array_merge($parsed, $parsedPdo);
+        }
         $parsed['dsn'] = $dsn;
         return $parsed;
-    }
-}
-
-?>
+    } // parseDSN
+    /**
+     * Parse string as DBO DSN string.
+     *
+     * @param $str
+     * @return array
+     */
+    public static function parseDsnPdo($str) {
+        if (substr($str, 0, strlen('mysql:')) == 'mysql:') {
+            $str = substr($str, strlen('mysql:'));
+        }
+        $arr = explode(';', $str);
+        $result = array();
+        foreach ($arr as $k=>$v) {
+            $v = explode('=', $v);
+            if (count($v) == 2)
+                $result[ $v[0] ] = $v[1];
+        }
+        if ( isset($result['unix_socket']) ) {
+            $result['socket'] = $result['unix_socket'];
+            unset($result['unix_socket']);
+        }
+        if ( isset($result['dbname']) ) {
+            $result['path'] = $result['dbname'];
+            unset($result['dbname']);
+        }
+        if ( isset($result['charset']) ) {
+            $result['enc'] = $result['charset'];
+            unset($result['charset']);
+        }
+        return $result;
+    } // parseDsnPdo
+} // DbSimple_Generic class

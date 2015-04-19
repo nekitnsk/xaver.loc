@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-03-21 20:49:31
+<?php /* Smarty version 2.6.28, created on 2015-04-19 19:46:14
          compiled from index.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_radios', 'index.tpl', 12, false),array('function', 'html_options', 'index.tpl', 26, false),array('modifier', 'default', 'index.tpl', 12, false),)), $this); ?>
@@ -64,17 +64,17 @@ unset($_smarty_tpl_vars);
                 </form>
 <table border =0 >
     <?php $_from = $this->_tpl_vars['adv']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
-    foreach ($_from as $this->_tpl_vars['key'] => $this->_tpl_vars['value']):
+    foreach ($_from as $this->_tpl_vars['value']):
 ?>
         <tr>
-            <td><a href = index.php?change=<?php echo $this->_tpl_vars['value']['id']; ?>
-><?php echo $this->_tpl_vars['value']['title']; ?>
+            <td><a href = index.php?change=<?php echo $this->_tpl_vars['value']->id; ?>
+><?php echo $this->_tpl_vars['value']->title; ?>
 </a></td>
-            <td><?php echo $this->_tpl_vars['value']['price']; ?>
+            <td><?php echo $this->_tpl_vars['value']->price; ?>
 </td>
-            <td><?php echo $this->_tpl_vars['value']['name']; ?>
+            <td><?php echo $this->_tpl_vars['value']->name; ?>
 </td>
-            <td><a href = index.php?del=<?php echo $this->_tpl_vars['value']['id']; ?>
+            <td><a href = index.php?del=<?php echo $this->_tpl_vars['value']->id; ?>
 >Удалить</a></td>
         </tr>
     <?php endforeach; endif; unset($_from); ?>

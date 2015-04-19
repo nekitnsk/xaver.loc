@@ -1,13 +1,17 @@
 <?php header("content-type: text/html, charset=utf-8"); ?>
 <?php
-error_reporting(E_ERROR |  E_WARNING | E_PARSE);
+error_reporting(E_ERROR |  E_WARNING | E_PARSE | E_ALL);
 ini_set('display_errors', 1);
 
+//подключение DBSimple
 require_once "dbsimple/config.php";
 require_once "dbsimple/DbSimple/Generic.php";
 
+//отладчик
 require_once "FirePHPCore/firePHP.class.php";
 
+//путь к классу работы с объявлениями
+require ($_SERVER['DOCUMENT_ROOT'].'/dz11/lib/notice_class.php');
 
 // путь к классу Smarty.class.php
 require($_SERVER['DOCUMENT_ROOT'].'/dz11/smarty/libs/Smarty.class.php');
@@ -22,7 +26,7 @@ $smarty->cache_dir = $_SERVER['DOCUMENT_ROOT'].'/dz11/smarty/cache';
 $smarty->config_dir = $_SERVER['DOCUMENT_ROOT'].'/dz11/smarty/configs';
 
 $firePHP = FirePHP::getInstance(true);
-$firePHP -> setEnabled(true);
+$firePHP -> setEnabled(true);      
 
 $config = parse_ini_file('./config.ini', true);
 //соединение с сервером и базой
@@ -57,44 +61,36 @@ function myLogger($db, $sql, $caller) {
     }
 }
 
-//функция вставки массива в таблицу 
-function mysqli_insert($db, $table, $inserts) {
-    
-    if (count($db -> select('SELECT id FROM ?# WHERE id = ? ', $table, $inserts['id'])) == 0 ){
-        $db -> query('INSERT INTO ?# (?#) VALUES (?a)',$table, array_keys($inserts), array_values($inserts) );
-    }else{
-        $db -> query('UPDATE ?# SET ?a WHERE id = ? ',$table, $inserts, $inserts['id']);
-    }
-    
-    return $db; 
-}
-
   //блок обрабатывает поступление  нового объявления из POST
 if (array_key_exists('id', $_POST)) {                //существует ли ключ id в массиве post 
     unset($_POST['send']);                  //здесь удалю ключ send он мешает записи в талицу
-    mysqli_insert($db, 'notice', $_POST);
+    if (!isset($_POST['subscribe'])) {      //свойство объекта не может быть NULL, поэтому subsribe запишем как 0 если его нет
+        $_POST['subscribe'] = 0;
+    }
+    $notice = new full_notice($_POST);
+    $notice->addup($db, 'notice');
+
     header('Location: index.php');                    //Сделаем редирект на эту же страницу, чтобы избавиться от повторной отправки формы
+    exit;
 }
 
 //блок обрабатывает удаление объявления при запросе из GET
 if (array_key_exists('del', $_GET)) {                    
-    $db->query('UPDATE notice SET active = 0 WHERE id = ?', $_GET['del']);
+    func::del($db, $_GET);
     header('Location: index.php');                        
 }
 
 
 //если есть задание на изменение задачи, то передадим значение id , выберем из базы нужное объявление и потом передадим в smarty
 if (array_key_exists('change', $_GET)){
+    
+    
     if (count($db->select('SELECT id FROM notice WHERE id = ? AND active = 1 ', $_GET['change'])) != 0) {
         $id = $_GET['change'];
         $notice = $db->selectRow('SELECT  whois, name,email, subscribe,phone,city,category,title,message,price FROM notice WHERE id = ? ', $id);
         $firePHP->table('Объява на изменение', $notice);
     }
 }
-
-//блок получения объяв из бд для вывода в таблицу, при условии, что объявление активно
-$adv = $db->select("SELECT id AS ARRAY_KEY, name, title, price, id FROM notice WHERE active = 1 ORDER BY id LIMIT 30 ");
-$firePHP->table('Объявления', $adv);
 
 //массивы для работы формы
 
@@ -128,12 +124,10 @@ $smarty -> assign('data', array('whois' => $whois,
 
 //здесь передадим id объявы(оно либо сгенерированное, либо существующее, если надо изменить объяву)
 //notice - здесь передается информация по изменяемому объявлению
-//adv - здесь передается блок данных со всеми объявлениями для вывода в таблицу
+
 $smarty -> assign('id', $id);
-$smarty -> assign('notice', $notice);
-$smarty -> assign('adv', $adv);
-
-
-//mysqli_close($db);
+//$smarty -> assign('notice', $notice);
+//передаем массив объектов, полученный из база данных
+$smarty -> assign('adv', func::getnotice($db));
 $smarty->display('index.tpl');
 
