@@ -1,6 +1,6 @@
 <?php header("content-type: text/html, charset=utf-8"); ?>
 <?php
-error_reporting(E_ERROR |  E_WARNING | E_PARSE | E_ALL);
+error_reporting(E_ERROR |  E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', 1);
 
 //подключение DBSimple
@@ -25,9 +25,6 @@ $smarty->compile_dir = $_SERVER['DOCUMENT_ROOT'].'/dz11/smarty/templates_c';
 $smarty->cache_dir = $_SERVER['DOCUMENT_ROOT'].'/dz11/smarty/cache';
 $smarty->config_dir = $_SERVER['DOCUMENT_ROOT'].'/dz11/smarty/configs';
 
-$firePHP = FirePHP::getInstance(true);
-$firePHP -> setEnabled(true);      
-
 $config = parse_ini_file('./config.ini', true);
 //соединение с сервером и базой
 
@@ -36,7 +33,7 @@ $db = DbSimple_Generic::connect('mysqli://'.$config['Database1']['user'].':'.$co
 
 // Устанавливаем обработчик ошибок.
 $db->setErrorHandler('databaseErrorHandler');
-$db->setLogger('MyLogger'); 
+// $db->setLogger('MyLogger'); 
 
 // Код обработчика ошибок SQL.
 function databaseErrorHandler($message, $info) {
@@ -48,17 +45,6 @@ function databaseErrorHandler($message, $info) {
     print_r($info);
     echo "</pre>";
     exit();
-}
-
-function myLogger($db, $sql, $caller) {
-    global $firePHP;
-    if (isset($caller['file'])){
-        $firePHP->group("at " . @$caller['file'] . ' line ' . @$caller['line']);
-    }
-    $firePHP->log($sql);
-    if (isset($caller['file'])){
-        $firePHP->groupEnd();
-    }
 }
 
   //блок обрабатывает поступление  нового объявления из POST
@@ -88,7 +74,7 @@ if (array_key_exists('change', $_GET)){
     if (count($db->select('SELECT id FROM notice WHERE id = ? AND active = 1 ', $_GET['change'])) != 0) {
         $id = $_GET['change'];
         $notice = $db->selectRow('SELECT  whois, name,email, subscribe,phone,city,category,title,message,price FROM notice WHERE id = ? ', $id);
-        $firePHP->table('Объява на изменение', $notice);
+   
     }
 }
 
@@ -96,21 +82,21 @@ if (array_key_exists('change', $_GET)){
 
 //блок выборки whois из бд
 $whois = $db->select("SELECT id AS ARRAY_KEY,whois FROM whois");
-$firePHP->table('Типы юзеров', $whois);
+
 foreach ($whois as $key => $value) {
     $whois[$key] = $value['whois'];
 }
 
 //блок выборки городов из бд
 $city = $db->select('SELECT city_id AS ARRAY_KEY,  name FROM city LIMIT 100');
-$firePHP->table('города', $city);
+
 foreach ($city as $key => $value) {
     $city[$key] = $value['name'];
 }
 
 //блок выборки категорий из бд
 $category = $db->select("SELECT id AS ARRAY_KEY, name FROM category");
-$firePHP->table('Категории', $category);
+
 foreach ($category as $key => $value) {
     $category[$key] = $value['name'];
 }
