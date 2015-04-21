@@ -1,6 +1,6 @@
 <?php header("content-type: text/html, charset=utf-8"); ?>
 <?php
-error_reporting(E_ERROR |  E_WARNING | E_PARSE | E_NOTICE);
+error_reporting(E_ERROR |  E_WARNING | E_PARSE);
 ini_set('display_errors', 1);
 
 //подключение DBSimple
@@ -63,57 +63,25 @@ if (array_key_exists('id', $_POST)) {                //существует ли
 //блок обрабатывает удаление объявления при запросе из GET
 if (array_key_exists('del', $_GET)) {                    
     func::del($db, $_GET);
-    header('Location: index.php');                        
+    header('Location: index.php');  
+    exit;
 }
 
-
-//если есть задание на изменение задачи, то передадим значение id , выберем из базы нужное объявление и потом передадим в smarty
+//если есть задание на изменение задачи, то передадим значение id 
 if (array_key_exists('change', $_GET)){
-    
-    
-    if (count($db->select('SELECT id FROM notice WHERE id = ? AND active = 1 ', $_GET['change'])) != 0) {
-        $id = $_GET['change'];
-        $notice = $db->selectRow('SELECT  whois, name,email, subscribe,phone,city,category,title,message,price FROM notice WHERE id = ? ', $id);
-   
-    }
+    $id = (int)$_GET['change'];
 }
-
-//массивы для работы формы
-
-//блок выборки whois из бд
-$whois = $db->select("SELECT id AS ARRAY_KEY,whois FROM whois");
-
-foreach ($whois as $key => $value) {
-    $whois[$key] = $value['whois'];
-}
-
-//блок выборки городов из бд
-$city = $db->select('SELECT city_id AS ARRAY_KEY,  name FROM city LIMIT 100');
-
-foreach ($city as $key => $value) {
-    $city[$key] = $value['name'];
-}
-
-//блок выборки категорий из бд
-$category = $db->select("SELECT id AS ARRAY_KEY, name FROM category");
-
-foreach ($category as $key => $value) {
-    $category[$key] = $value['name'];
-}
-
 
 //этот блок передает рабочие данные, для формы, виды заказчиков, города, категории объяв.
-$smarty -> assign('data', array('whois' => $whois, 
-                                'select_city' => $city,
-                                'select_category' => $category
+$smarty -> assign('data', array('whois' => getdata::getwhois($db), 
+                                'select_city' => getdata::getcity($db),
+                                'select_category' => getdata::getcategory($db)
                     ));
 
 //здесь передадим id объявы(оно либо сгенерированное, либо существующее, если надо изменить объяву)
 //notice - здесь передается информация по изменяемому объявлению
 
 $smarty -> assign('id', $id);
-//$smarty -> assign('notice', $notice);
-//передаем массив объектов, полученный из база данных
-$smarty -> assign('adv', func::getnotice($db));
+$smarty -> assign('adv', func::getnotice($db, $id));
 $smarty->display('index.tpl');
 

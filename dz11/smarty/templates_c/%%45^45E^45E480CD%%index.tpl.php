@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-04-19 19:46:14
+<?php /* Smarty version 2.6.28, created on 2015-04-21 09:17:47
          compiled from index.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_radios', 'index.tpl', 12, false),array('function', 'html_options', 'index.tpl', 26, false),array('modifier', 'default', 'index.tpl', 12, false),)), $this); ?>
@@ -17,40 +17,40 @@ unset($_smarty_tpl_vars);
                 <form  id = "notice"  method="POST">
                     <fieldset>
                         <div id="radio">
-                            <?php echo smarty_function_html_radios(array('name' => 'whois','options' => $this->_tpl_vars['data']['whois'],'selected' => ((is_array($_tmp=@$this->_tpl_vars['notice']['whois'])) ? $this->_run_mod_handler('default', true, $_tmp, 1) : smarty_modifier_default($_tmp, 1))), $this);?>
+                            <?php echo smarty_function_html_radios(array('name' => 'whois','options' => $this->_tpl_vars['data']['whois'],'selected' => ((is_array($_tmp=@$this->_tpl_vars['adv'][$this->_tpl_vars['id']]->whois)) ? $this->_run_mod_handler('default', true, $_tmp, 1) : smarty_modifier_default($_tmp, 1))), $this);?>
 
                         </div>
                         <dl>
                             <dt><label for="name">Ваше имя</label></dt>
-                            <dd><input type="text" name="name" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['notice']['name'])) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
+                            <dd><input type="text" name="name" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['adv'][$this->_tpl_vars['id']]->name)) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
 " /></dd>
                             <dt><label for="email">Электронная почта</label></dt>
-                            <dd><input type="text" name="email" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['notice']['email'])) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
+                            <dd><input type="text" name="email" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['adv'][$this->_tpl_vars['id']]->email)) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
 " /></dd>
                             <div id="radio">
-                                <input type="checkbox" name="subscribe" value="1" <?php if ($this->_tpl_vars['notice']['subscribe'] == 1): ?> checked <?php endif; ?>>Я хочу получать уведомления на Email     
+                                <input type="checkbox" name="subscribe" value="1" <?php if ($this->_tpl_vars['adv'][$this->_tpl_vars['id']]->subscribe == 1): ?> checked <?php endif; ?>>Я хочу получать уведомления на Email     
                             </div>
                             <dt><label for="phone">Номер телефона</label></dt>
-                            <dd><input type="text" name="phone" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['notice']['phone'])) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
+                            <dd><input type="text" name="phone" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['adv'][$this->_tpl_vars['id']]->phone)) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
 " /></dd>
                             <dt><label for="city">Город</label></dt>
                             <dd>
-                                <?php echo smarty_function_html_options(array('name' => 'city','options' => $this->_tpl_vars['data']['select_city'],'selected' => $this->_tpl_vars['notice']['city']), $this);?>
+                                <?php echo smarty_function_html_options(array('name' => 'city','options' => $this->_tpl_vars['data']['select_city'],'selected' => $this->_tpl_vars['adv'][$this->_tpl_vars['id']]->city), $this);?>
 
                             </dd>
                             <dt><label for="category">Категория</label></dt>
                             <dd>
-                                <?php echo smarty_function_html_options(array('name' => 'category','options' => $this->_tpl_vars['data']['select_category'],'selected' => $this->_tpl_vars['notice']['category']), $this);?>
+                                <?php echo smarty_function_html_options(array('name' => 'category','options' => $this->_tpl_vars['data']['select_category'],'selected' => $this->_tpl_vars['adv'][$this->_tpl_vars['id']]->category), $this);?>
 
                             </dd>
                             <dt><label for="title">Название объявления</label></dt>
-                            <dd><input type="text" name="title" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['notice']['title'])) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
+                            <dd><input type="text" name="title" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['adv'][$this->_tpl_vars['id']]->title)) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
 " /></dd>
                             <dt><label for="message">Описание объявления</label></dt>
-                            <dd><textarea cols="" rows=""  name="message"><?php echo ((is_array($_tmp=@$this->_tpl_vars['notice']['message'])) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
+                            <dd><textarea cols="" rows=""  name="message"><?php echo ((is_array($_tmp=@$this->_tpl_vars['adv'][$this->_tpl_vars['id']]->message)) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
 </textarea></dd>
                             <dt><label for="price">Цена</label></dt>
-                            <dd><input type="text"  name="price" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['notice']['price'])) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
+                            <dd><input type="text"  name="price" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['adv'][$this->_tpl_vars['id']]->price)) ? $this->_run_mod_handler('default', true, $_tmp, '') : smarty_modifier_default($_tmp, '')); ?>
 " /></textarea>
                                 <label> Руб.</label></dd>
                         </dl>
@@ -78,6 +78,8 @@ unset($_smarty_tpl_vars);
 >Удалить</a></td>
         </tr>
     <?php endforeach; endif; unset($_from); ?>
+    <?php echo $this->_tpl_vars['notice']; ?>
+
   
 </table>
             
