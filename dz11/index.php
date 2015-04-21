@@ -1,14 +1,11 @@
 <?php header("content-type: text/html, charset=utf-8"); ?>
 <?php
-error_reporting(E_ERROR |  E_WARNING | E_PARSE);
+error_reporting(E_ERROR |  E_WARNING | E_PARSE | E_NOTICE | E_ALL);
 ini_set('display_errors', 1);
 
 //подключение DBSimple
 require_once "dbsimple/config.php";
 require_once "dbsimple/DbSimple/Generic.php";
-
-//отладчик
-require_once "FirePHPCore/firePHP.class.php";
 
 //путь к классу работы с объявлениями
 require ($_SERVER['DOCUMENT_ROOT'].'/dz11/lib/notice_class.php');
@@ -66,6 +63,8 @@ if (array_key_exists('del', $_GET)) {
     header('Location: index.php');  
     exit;
 }
+
+
 
 //если есть задание на изменение задачи, то передадим значение id 
 if (array_key_exists('change', $_GET)){

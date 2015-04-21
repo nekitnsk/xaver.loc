@@ -1,10 +1,10 @@
 <?php
 //основной класс, имеет только общие свойства для всех объяв
 class notice {
-    public $id;
-    public $name;
-    public $title;
-    public $price;
+    protected  $id;
+    protected  $name;
+    protected  $title;
+    protected  $price;
     
     function __construct(array $data) {
         $this->id = $data['id'];
@@ -13,18 +13,31 @@ class notice {
         $this->price = $data['price'];
             
     }
+    
+    function getid(){
+        return $this->id;
+    }
+    function getname(){
+        return $this->name;
+    }
+    function gettitle(){
+        return $this->title;
+    }
+    function getprice(){
+        return $this->price;
+    }
            
 }
 
 //расширенный класс, имеет дополнительные свойства объяв
 class full_notice extends notice {
-    public  $whois;
-    public  $email;
-    public  $subscribe;
-    public  $phone;
-    public  $city;
-    public  $category;
-    public  $message;
+    protected   $whois;
+    protected   $email;
+    protected   $subscribe;
+    protected   $phone;
+    protected   $city;
+    protected   $category;
+    protected   $message;
     
     function __construct(array $data) {
         parent::__construct($data);
@@ -36,6 +49,30 @@ class full_notice extends notice {
         $this->category = $data['category'];
         $this->message = $data['message'];
     }
+    
+    function getwhois(){
+        return $this->whois;
+    }
+    function getemail(){
+        return $this->email;
+    }
+    function getsubscribe(){
+        return $this->subscribe;
+    }
+    function getphone(){
+        return $this->phone;
+    }
+    function getcity(){
+        return $this->city;
+    }
+    function getcategory(){
+        return $this->category;
+    }
+    function getmessage(){
+        return $this->message;
+    }
+           
+    
     
     //добавление или обновление объявления в базе (сокращенно от addupdate)
     function addup($db, $table){
