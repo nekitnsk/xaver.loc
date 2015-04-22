@@ -1,6 +1,6 @@
 <?php
 //основной класс, имеет только общие свойства для всех объяв
-class notice {
+class ad {
     protected  $id;
     protected  $name;
     protected  $title;
@@ -30,7 +30,7 @@ class notice {
 }
 
 //расширенный класс, имеет дополнительные свойства объяв
-class full_notice extends notice {
+class full_ad extends ad {
     protected   $whois;
     protected   $email;
     protected   $subscribe;
@@ -75,14 +75,8 @@ class full_notice extends notice {
     
     
     //добавление или обновление объявления в базе (сокращенно от addupdate)
-    function addup($db, $table){
-        
-        $array_object = get_object_vars($this);
-        if (count($db->select('SELECT id FROM ?# WHERE id = ? ', $table, $this->id)) == 0) {
-            $db->query('INSERT INTO ?# (?#) VALUES (?a)', $table, array_keys($array_object), array_values($array_object));
-        } else {
-            $db->query('UPDATE ?# SET ?a WHERE id = ? ', $table, $array_object, $array_object['id']);
-        }
+    function addup($db){
+        db::write($this);
     }
     
 }
@@ -90,24 +84,24 @@ class full_notice extends notice {
 class func {
     //модуль удаления объявления
     static function del($db, $get){
-        $db->query('UPDATE notice SET active = 0 WHERE id = ?', $get['del']);
+        $db->query('UPDATE ad SET active = 0 WHERE id = ?', $get['del']);
     }
     
-    //получение объявлений из базы. Сохраняем все объявления в хранилище объектов, объявления класса notice. 
-    //Если есть задача на изменение объвы, то именно эту объяву запишем в хранилище типом full_notice
-    static function getnotice($db, $id=''){
-        $adv = $db->select("SELECT id AS ARRAY_KEY, name, title, price, id FROM notice WHERE active = 1 ORDER BY id LIMIT 30 ");
+    //получение объявлений из базы. Сохраняем все объявления в хранилище объектов, объявления класса ad. 
+    //Если есть задача на изменение объвы, то именно эту объяву запишем в хранилище типом full_ad
+    static function getad($db, $id=''){
+        $adv = $db->select("SELECT id AS ARRAY_KEY, name, title, price, id FROM ad WHERE active = 1 ORDER BY id LIMIT 30 ");
         
         foreach ($adv as $key=>$value) {
-            $notice[$key] = new notice($value); 
+            $ad[$key] = new ad($value); 
         }
         
         if ($id!='') {
-            $adv = $db->selectRow('SELECT  id, whois, name,email, subscribe,phone,city,category,title,message,price FROM notice WHERE id = ? ', $id);
-            $notice[$id] = new full_notice($adv);
+            $adv = $db->selectRow('SELECT  id, whois, name,email, subscribe,phone,city,category,title,message,price FROM ad WHERE id = ? ', $id);
+            $ad[$id] = new full_ad($adv);
         }
         
-        return $notice;
+        return $ad;
     }
     
 }

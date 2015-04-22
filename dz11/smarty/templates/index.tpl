@@ -6,7 +6,7 @@
             </div>
             <div id="left">Левая колонка</div>
             <div id="content">
-                <form  id = "notice"  method="POST">
+                <form  id = "ad"  method="POST">
                     <fieldset>
                         <div id="radio">
                             {if isset($id)}
@@ -64,7 +64,7 @@
             <td><a href = index.php?del={$value->getid()}>Удалить</a></td>
         </tr>
     {/foreach}
-    {$notice}
+    {$ad}
   
 </table>
             

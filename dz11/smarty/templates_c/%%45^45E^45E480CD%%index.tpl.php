@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-04-21 13:19:32
+<?php /* Smarty version 2.6.28, created on 2015-04-22 16:56:31
          compiled from index.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_radios', 'index.tpl', 13, false),array('function', 'html_options', 'index.tpl', 31, false),array('modifier', 'default', 'index.tpl', 53, false),)), $this); ?>
@@ -14,7 +14,7 @@ unset($_smarty_tpl_vars);
             </div>
             <div id="left">Левая колонка</div>
             <div id="content">
-                <form  id = "notice"  method="POST">
+                <form  id = "ad"  method="POST">
                     <fieldset>
                         <div id="radio">
                             <?php if (isset ( $this->_tpl_vars['id'] )): ?>
@@ -93,7 +93,7 @@ unset($_smarty_tpl_vars);
 >Удалить</a></td>
         </tr>
     <?php endforeach; endif; unset($_from); ?>
-    <?php echo $this->_tpl_vars['notice']; ?>
+    <?php echo $this->_tpl_vars['ad']; ?>
 
   
 </table>
