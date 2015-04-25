@@ -71,75 +71,11 @@ class full_ad extends ad {
     function getmessage(){
         return $this->message;
     }
+    
+    function getobjectvars(){
+        return get_object_vars($this);
+    }
            
-    
-    
-    //добавление или обновление объявления в базе (сокращенно от addupdate)
-    function addup($db){
-        db::write($this);
-    }
-    
-}
-
-class func {
-    //модуль удаления объявления
-    static function del($db, $get){
-        $db->query('UPDATE ad SET active = 0 WHERE id = ?', $get['del']);
-    }
-    
-    //получение объявлений из базы. Сохраняем все объявления в хранилище объектов, объявления класса ad. 
-    //Если есть задача на изменение объвы, то именно эту объяву запишем в хранилище типом full_ad
-    static function getad($db, $id=''){
-        $adv = $db->select("SELECT id AS ARRAY_KEY, name, title, price, id FROM ad WHERE active = 1 ORDER BY id LIMIT 30 ");
-        
-        foreach ($adv as $key=>$value) {
-            $ad[$key] = new ad($value); 
-        }
-        
-        if ($id!='') {
-            $adv = $db->selectRow('SELECT  id, whois, name,email, subscribe,phone,city,category,title,message,price FROM ad WHERE id = ? ', $id);
-            $ad[$id] = new full_ad($adv);
-        }
-        
-        return $ad;
-    }
-    
-}
-//класс получения данных для работы формы из базы данных
-class getdata {
-    //whois - физическое лицо или компания
-    static function getwhois($db) {
-        $whois = $db->select("SELECT id AS ARRAY_KEY,whois FROM whois");
-
-        foreach ($whois as $key => $value) {
-            $whois[$key] = $value['whois'];
-        }
-        return $whois;
-    }
-    
-    //getcity - блок получения списка городов
-    static function getcity($db){
-        $city = $db->select('SELECT city_id AS ARRAY_KEY,  name FROM city LIMIT 100');
-
-        foreach ($city as $key => $value) {
-            $city[$key] = $value['name'];
-        }
-        return $city;
-        
-    }
-    
-    //getcategory - блок получения списка категорий
-    static function getcategory($db){
-        $category = $db->select("SELECT id AS ARRAY_KEY, name FROM category");
-
-        foreach ($category as $key => $value) {
-            $category[$key] = $value['name'];
-        }
-        return $category;
-    }
-    
-    
-    
 }
 
 
