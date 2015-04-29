@@ -1,27 +1,12 @@
 {include file='header.tpl'}
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
         <div id="maket">
             <div id="header">
                 <h1> HLAMA.NET - лучшая барахолка рунета</h1>
             </div>
             <div id="left">Левая колонка</div>
             <div id="content">
-                <form class="form-horizontal" method="POST" role="form">
-                    
-                    
-                    
-                </form>>
-                
-                
-                {*<form  id = "ad"  method="POST">
+                <form  id = "ad"  method="POST">
                     <fieldset>
                         <div id="radio">
                             {if isset($id)}
@@ -69,7 +54,7 @@
                             <input type="hidden" name="id" value="{$id}">
                         </div>
                     </fieldset>
-                </form>*}
+                </form>
 <table border =0 >
     {foreach from = $adv item = value}
         <tr>
