@@ -1,11 +1,5 @@
 {include file='header.tpl'}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <div id="maket">
             <div id="header">
                 <h1> HLAMA.NET - лучшая барахолка рунета</h1>
@@ -15,13 +9,13 @@
                 <form class="form-horizontal" method="POST" role="form">
                     
                     <div class="form-group">
-                        <input name="whois" type="radio" value="1">{$data.whois[1]}
-                        <input name="whois" type="radio" value="2">{$data.whois[2]}
+                        <input name="whois" type="radio" id="optionsRadios1" value="1">{$data.whois[1]}
+                        <input name="whois" type="radio" id="optionsRadios2" value="2">{$data.whois[2]}
                         
                     </div>
                     
                     
-                </form>>
+                </form>
                 
                 {*<form  id = "ad"  method="POST">
                     <fieldset>
