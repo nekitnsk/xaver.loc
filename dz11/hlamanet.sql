@@ -11119,8 +11119,8 @@ INSERT INTO `country` (`country_id`, `city_id`, `name`) VALUES
 (582106,	0,	'Ямайка'),
 (11060,	0,	'Япония');
 
-DROP TABLE IF EXISTS `notice`;
-CREATE TABLE `notice` (
+DROP TABLE IF EXISTS `ad`;
+CREATE TABLE `ad` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `whois` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1 частное лицо по умолчанию',
   `name` varchar(20) NOT NULL,
