@@ -9,20 +9,20 @@ require_once "dbsimple/config.php";
 require_once "dbsimple/DbSimple/Generic.php";
 
 //путь к классу работы с объявлениями
-require ($_SERVER['DOCUMENT_ROOT'] . '/dz11/lib/ad_class.php');
-require ($_SERVER['DOCUMENT_ROOT'] . '/dz11/lib/ads.php');
+require ('lib/ad_class.php');
+require ('lib/ads.php');
 
 // путь к классу Smarty.class.php
-require($_SERVER['DOCUMENT_ROOT'] . '/dz11/smarty/libs/Smarty.class.php');
+require('smarty/libs/Smarty.class.php');
 $smarty = new Smarty();
 
 $smarty->compile_check = true;
 $smarty->debugging = false;
 
-$smarty->template_dir = $_SERVER['DOCUMENT_ROOT'] . '/dz11/smarty/templates';
-$smarty->compile_dir = $_SERVER['DOCUMENT_ROOT'] . '/dz11/smarty/templates_c';
-$smarty->cache_dir = $_SERVER['DOCUMENT_ROOT'] . '/dz11/smarty/cache';
-$smarty->config_dir = $_SERVER['DOCUMENT_ROOT'] . '/dz11/smarty/configs';
+$smarty->template_dir = 'smarty/templates';
+$smarty->compile_dir =  'smarty/templates_c';
+$smarty->cache_dir = 'smarty/cache';
+$smarty->config_dir = 'smarty/configs';
 
 $config = parse_ini_file('./config.ini', true);
 //соединение с сервером и базой
