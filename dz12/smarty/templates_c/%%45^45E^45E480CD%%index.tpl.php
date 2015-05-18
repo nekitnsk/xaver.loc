@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-04-30 11:28:42
+<?php /* Smarty version 2.6.28, created on 2015-05-18 10:27:45
          compiled from index.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -98,13 +98,22 @@ unset($_smarty_tpl_vars);
 <?php else: ?><?php endif; ?></textarea>
                 </div>
             </div>
-                
+
             <div class="form-group">
                 <label for = "price" class="col-sm-4 control-label">Цена, руб.</label>
                 <div class="col-sm-4">
                     <input type="text" name="price" class="form-control" value="<?php if (isset ( $this->_tpl_vars['id'] )): ?><?php echo $this->_tpl_vars['adv'][$this->_tpl_vars['id']]->getprice(); ?>
 <?php else: ?><?php endif; ?>" />
                 </div>
+            </div>
+                
+            <div class="form-group">
+                
+                
+                    <input type="submit" name="send" class="btn btn-info" value="Отправить" />
+                    <input type="hidden" name="id" value="<?php echo $this->_tpl_vars['id']; ?>
+">
+                
             </div>
 
 
@@ -119,14 +128,31 @@ unset($_smarty_tpl_vars);
            
             <thead>
                 <tr>
-                    <th>№ id</th>
                     <th>Название</th>
-                    <th>Описание</th>
+                    <th>Кто добавил</th>
+                    <th>Цена</th>
+                    
                     <th>Действия</th>
                 </tr>
             </thead>
             <tbody>
-
+                <?php $_from = $this->_tpl_vars['adv']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+    foreach ($_from as $this->_tpl_vars['value']):
+?>
+                    <tr>
+                        <td><a href = index.php?change=<?php echo $this->_tpl_vars['value']->getid(); ?>
+><?php echo $this->_tpl_vars['value']->gettitle(); ?>
+</a></td>
+                        <td><?php echo $this->_tpl_vars['value']->getname(); ?>
+</td>
+                        <td><?php echo $this->_tpl_vars['value']->getprice(); ?>
+</td>
+                        
+                        <td><a href = index.php?del=<?php echo $this->_tpl_vars['value']->getid(); ?>
+>Удалить </a>/<a href = index.php?change=<?php echo $this->_tpl_vars['value']->getid(); ?>
+> Редактировать</a></td>
+                    </tr>
+                <?php endforeach; endif; unset($_from); ?>
 
             </tbody>
         </table>

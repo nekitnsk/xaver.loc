@@ -1,5 +1,5 @@
 
-<?
+<?php
 session_start();
 $change = false;                                        //по умолчанию команда на изменение выключена
 $ch_name = '';                                          //сюда будем записывать что пришло из get
@@ -25,7 +25,7 @@ function select_city($city = '') {
         ?>
     </select>    
     <?php
-}
+
 
 function select_category($type = '') {
     $selected = '';

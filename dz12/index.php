@@ -9,8 +9,9 @@ require_once "dbsimple/config.php";
 require_once "dbsimple/DbSimple/Generic.php";
 
 //путь к классу работы с объявлениями
-require ('lib/ad_class.php');
-require ('lib/ads.php');
+require ('lib/AdsStore.php');
+require ('lib/AdShort.php');
+require ('lib/Ad.php');
 
 // путь к классу Smarty.class.php
 require('smarty/libs/Smarty.class.php');
@@ -46,7 +47,8 @@ function databaseErrorHandler($message, $info) {
 }
 
 //новое хранилище объявлений
-$ads = new ads;
+$ads = AdsStore::instance();
+
 
 //блок обрабатывает поступление  нового объявления из POST
 if (array_key_exists('id', $_POST)) {                //существует ли ключ id в массиве post 
@@ -54,7 +56,7 @@ if (array_key_exists('id', $_POST)) {                //существует ли
     if (!isset($_POST['subscribe'])) {      //свойство объекта не может быть NULL, поэтому subsribe запишем как 0 если его нет
         $_POST['subscribe'] = 0;
     }
-    $ads->addup($db, $_POST);
+    $ads->AddUp($db, $_POST);
 
     header('Location: index.php');                    //Сделаем редирект на эту же страницу, чтобы избавиться от повторной отправки формы
     exit;
@@ -62,7 +64,7 @@ if (array_key_exists('id', $_POST)) {                //существует ли
 
 //блок обрабатывает удаление объявления при запросе из GET
 if (array_key_exists('del', $_GET)) {
-    $ads->del($db, $_GET['del']);
+    $ads->Del($db, (int)$_GET['del']);
     header('Location: index.php');
     exit;
 }
@@ -73,15 +75,15 @@ if (array_key_exists('change', $_GET)) {
 }
 
 //этот блок передает рабочие данные, для формы, виды заказчиков, города, категории объяв.
-$smarty->assign('data', array('whois' => $ads->getwhois($db),
-                                'select_city' => $ads->getcity($db),
-                                    'select_category' => $ads->getcategory($db)
+$smarty->assign('data', array('whois' => $ads->GetWhois($db),
+                                'select_city' => $ads->GetCity($db),
+                                    'select_category' => $ads->GetCategory($db)
 ));
 
 //здесь передадим id объявы(оно либо сгенерированное, либо существующее, если надо изменить объяву)
 //ad - здесь передается информация по изменяемому объявлению
 
 $smarty->assign('id', $id);
-$smarty->assign('adv', $ads->getads($db, $id));
+$smarty->assign('adv', $ads->GetAds($db, $id));
 $smarty->display('index.tpl');
 

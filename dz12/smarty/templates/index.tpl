@@ -75,12 +75,20 @@
                     <textarea cols="" rows="5" class="form-control" name="message">{if isset($id)}{$adv[$id]->getmessage()}{else}{/if}</textarea>
                 </div>
             </div>
-                
+
             <div class="form-group">
                 <label for = "price" class="col-sm-4 control-label">Цена, руб.</label>
                 <div class="col-sm-4">
                     <input type="text" name="price" class="form-control" value="{if isset($id)}{$adv[$id]->getprice()}{else}{/if}" />
                 </div>
+            </div>
+                
+            <div class="form-group">
+                
+                
+                    <input type="submit" name="send" class="btn btn-info" value="Отправить" />
+                    <input type="hidden" name="id" value="{$id}">
+                
             </div>
 
 
@@ -95,14 +103,23 @@
            
             <thead>
                 <tr>
-                    <th>№</th>
                     <th>Название</th>
-                    <th>Описание</th>
+                    <th>Кто добавил</th>
+                    <th>Цена</th>
+                    
                     <th>Действия</th>
                 </tr>
             </thead>
             <tbody>
-
+                {foreach from = $adv item = value}
+                    <tr>
+                        <td><a href = index.php?change={$value->getid()}>{$value->gettitle()}</a></td>
+                        <td>{$value->getname()}</td>
+                        <td>{$value->getprice()}</td>
+                        
+                        <td><a href = index.php?del={$value->getid()}>Удалить </a>/<a href = index.php?change={$value->getid()}> Редактировать</a></td>
+                    </tr>
+                {/foreach}
 
             </tbody>
         </table>
