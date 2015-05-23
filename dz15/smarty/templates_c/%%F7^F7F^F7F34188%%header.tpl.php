@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-05-22 13:44:58
+<?php /* Smarty version 2.6.28, created on 2015-05-23 18:30:29
          compiled from header.tpl */ ?>
 <HTML>
 <HEAD>
@@ -13,6 +13,8 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+
     </head>
     <body>
         <div class="container">

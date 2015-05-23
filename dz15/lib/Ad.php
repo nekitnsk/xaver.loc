@@ -49,4 +49,3 @@ class Ad extends AdShort {
 }
 
 ?>
-

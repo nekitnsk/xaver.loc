@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-05-22 14:50:36
+<?php /* Smarty version 2.6.28, created on 2015-05-23 16:55:09
          compiled from index.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -148,7 +148,8 @@ unset($_smarty_tpl_vars);
                         <td><?php echo $this->_tpl_vars['value']->getprice(); ?>
 </td>
                         
-                        <td><a class="del">Удалить </a>/<a class="change"> Редактировать</a></td>
+                        <td><a class="del">Удалить </a>/<a class="change" href = index.php?change=<?php echo $this->_tpl_vars['value']->getid(); ?>
+> Редактировать</a></td>
                         <td style="display:none"><?php echo $this->_tpl_vars['value']->getid(); ?>
 </td>
                     </tr>
