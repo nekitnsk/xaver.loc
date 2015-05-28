@@ -3,19 +3,11 @@ $(document).ready(function(){
     var tr=$(this).closest('tr');
     var id=tr.children('td:last').html();
      
-//     $.get('index.php?del='+id, 
-//        
-//        function(response) {
-//            console.log(response);
-//            tr.fadeOut('slow',function(){
-//                $(this).remove();
-//            });
-//        });
-        var test= {"del":id};
-        $.getJSON('index.php', 
-        test,
+
+        var param= {"del":id};
+        $.getJSON('controller.php', 
+        param,
         function(response) {
-            console.log();
             tr.fadeOut('slow', function(){
                 if(response.status=='success'){
                     $('#container').removeClass('alert-info').addClass('alert-warning');

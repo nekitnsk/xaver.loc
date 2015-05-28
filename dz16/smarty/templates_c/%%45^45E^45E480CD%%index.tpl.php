@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-05-24 22:37:17
+<?php /* Smarty version 2.6.28, created on 2015-05-28 21:17:59
          compiled from index.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -122,8 +122,7 @@ unset($_smarty_tpl_vars);
     </form>
 </div>
 <div id="container" class="alert alert-info alert-dismissible" style="display:none;" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть" onclick="$('#container').hide();
-                                return false;">
+    <button type="button" class="close"  aria-label="Закрыть" onclick="$('#container').fadeOut('slow'); return false;">
         <span aria-hidden="true">&times;</span></button>
     <div id="container_info"></div>
 </div>

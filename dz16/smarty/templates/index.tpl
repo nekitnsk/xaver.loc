@@ -97,8 +97,7 @@
     </form>
 </div>
 <div id="container" class="alert alert-info alert-dismissible" style="display:none;" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть" onclick="$('#container').hide();
-                                return false;">
+    <button type="button" class="close"  aria-label="Закрыть" onclick="$('#container').fadeOut('slow'); return false;">
         <span aria-hidden="true">&times;</span></button>
     <div id="container_info"></div>
 </div>
