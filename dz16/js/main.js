@@ -14,7 +14,7 @@ $(document).ready(function(){
         var test= {"del":id};
         $.getJSON('index.php', 
         test,
-        function() {
+        function(response) {
             console.log();
             tr.fadeOut('slow', function(){
                 if(response.status=='success'){

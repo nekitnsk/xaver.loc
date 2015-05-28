@@ -67,6 +67,7 @@ if (array_key_exists('del', $_GET)) {
     
     echo json_encode($ads->Del($db, (int)$_GET['del']));
 //    header('Location: index.php');
+    exit;
     
 }
 
