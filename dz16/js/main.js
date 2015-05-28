@@ -11,11 +11,12 @@ $(document).ready(function(){
 //                $(this).remove();
 //            });
 //        });
-
-        $.getJSON('index.php?del='+id, 
-        null,
-        function(response) {
-            tr.fadeOut('slow',function(){
+        var test= {"del":id};
+        $.getJSON('index.php', 
+        test,
+        function() {
+            console.log();
+            tr.fadeOut('slow', function(){
                 if(response.status=='success'){
                     $('#container').removeClass('alert-info').addClass('alert-warning');
                     $('#container_info').html(response.message);

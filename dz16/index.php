@@ -64,8 +64,8 @@ if (array_key_exists('id', $_POST)) {                //существует ли
 
 //блок обрабатывает удаление объявления при запросе из GET
 if (array_key_exists('del', $_GET)) {
-    $ads->Del($db, (int)$_GET['del']);
-    echo json_encode($result);
+    
+    echo json_encode($ads->Del($db, (int)$_GET['del']));
 //    header('Location: index.php');
     
 }
