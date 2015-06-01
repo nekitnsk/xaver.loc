@@ -96,7 +96,10 @@ class AdsStore{
             $result['message'] = "Произошла ошибка, попробуйте еще раз";
             
         }
-        
+        if (count($db->select('SELECT id FROM ?# WHERE active=1', 'ad'))==0) {
+            $result['status']='success';
+            $result['message'] = "Объявление в базе больше нет";
+                }
         unset($this->ads[$id]);
         return $result;
     }   
