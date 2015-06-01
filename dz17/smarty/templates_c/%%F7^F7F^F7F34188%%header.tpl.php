@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-05-30 14:52:42
+<?php /* Smarty version 2.6.28, created on 2015-06-01 10:23:42
          compiled from header.tpl */ ?>
 <HTML>
 <HEAD>
@@ -9,7 +9,7 @@
 
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-<script src="http://yastatic.net/jquery/2.1.3/jquery.min.js"> </script>
+<script src="js/jquery-2.1.4.min.js"> </script>
 <script src="js/jquery.form.js"> </script>
 
 
