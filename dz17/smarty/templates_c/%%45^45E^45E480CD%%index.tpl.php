@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-05-31 18:01:24
+<?php /* Smarty version 2.6.28, created on 2015-06-01 09:49:04
          compiled from index.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -111,7 +111,7 @@ unset($_smarty_tpl_vars);
 
 
             <input type="submit" name="send" class="btn btn-info" value="Отправить" />
-            <input type="hidden" name="id" value="<?php echo $this->_tpl_vars['id']; ?>
+            <input style="display:none;" name="id" value="<?php echo $this->_tpl_vars['id']; ?>
 ">
 
         </div>

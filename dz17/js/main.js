@@ -1,8 +1,12 @@
 $(document).ready(function(){
     
     function showResponse(response){
-        $('#all_ads>tbody').append(response.tr);
-         if(response.status=='success'){
+        if (response.action == 'insert') {
+            $('#all_ads>tbody').append(response.tr);
+        }else if (response.action == 'update') {
+            $('#all_ads td#'+response.id).closest('tr').replaceWith(response.tr);
+        };
+        if(response.status=='success'){
                     $('#container').removeClass('alert-danger').addClass('alert-warning');
                     $('#container_info').html(response.message);
                     $('#container').fadeIn('slow');
@@ -16,9 +20,10 @@ $(document).ready(function(){
     
   
   $("body").on("click","a.del",function(){
+      $('#ads_add')[0].reset();
     var tr=$(this).closest('tr');
     var id=tr.children('td:last').html();
-     $('#ads_add')[0].reset();
+     
 
         var param= {"del":id};
         $.getJSON('controller.php', 
@@ -58,7 +63,7 @@ $(document).ready(function(){
             $('#ads_add select[name=city]').val(ad.city);
             $('#ads_add select[name=category]').val(ad.category);
             $('#ads_add input[name=title]').val(ad.title);
-            $('#ads_add textarea[name=message]').html(ad.message);
+            $('#ads_add textarea[name=message]').val(ad.message);
             $('#ads_add input[name=price]').val(ad.price);
             $('#ads_add input[name=id]').val(ad.id);
 

@@ -27,6 +27,7 @@ class AdsStore{
             if ($this->lastId != 0){
                 $result['status']='success';
                 $result['message'] = "Объявление добавлено успешно";
+                $result['action'] = 'insert';
             }else{
                 $result['status']='error';
                 $result['message'] = "Произошла ошибка, попробуйте еще раз";
@@ -36,6 +37,8 @@ class AdsStore{
             if (($db->query('UPDATE ?# SET ?a WHERE id = ? ', 'ad', $array_object, $array_object['id']))>0){
                 $result['status']='success';
                 $result['message'] = "Объявление обновлено успешно";
+                $result['action'] = 'update';
+                $result['id'] =$post['id'];
             }else{
                 $result['status']='error';
                 $result['message'] = "Произошла ошибка, попробуйте еще раз";
@@ -56,11 +59,11 @@ class AdsStore{
         return $this->ads['lastAd'];
     }
     
-    function getAd($db, $id=''){
+    function getAd($db, $id){
         $ad = $db->selectRow('SELECT  id, whois, name,email, subscribe,phone,city,category,title,message,price FROM ad WHERE id = ? ', $id);
         $this->ads[$id] = new Ad($ad);
         
-        return $this->ads[$id]->getobjectvars();
+        return $this->ads[$id];
     }
     
     //получение объявлений из базы. Сохраняем все объявления в хранилище объектов, объявления класса ad. 

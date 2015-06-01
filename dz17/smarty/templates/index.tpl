@@ -87,7 +87,7 @@
 
 
             <input type="submit" name="send" class="btn btn-info" value="Отправить" />
-            <input type="hidden" name="id" value="{$id}">
+            <input style="display:none;" name="id" value="{$id}">
 
         </div>
 
