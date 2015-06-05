@@ -1,0 +1,59 @@
+2015/06/05 12:53:51 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not allowed to access this page.' in /var/www/public_html/yii1/yii/gii/GiiModule.php:170
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CController.php(263): GiiModule->beforeControllerAction(Object(DefaultController), Object(CInlineAction))
+#1 /var/www/public_html/yii1/yii/web/CWebApplication.php(282): CController->run('')
+#2 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('gii')
+#3 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#4 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/gii
+---
+2015/06/05 12:53:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /var/www/public_html/yii1/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#2 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+HTTP_REFERER=http://yii1.loc/index.php/gii
+---
+2015/06/05 12:54:10 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not allowed to access this page.' in /var/www/public_html/yii1/yii/gii/GiiModule.php:170
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CController.php(263): GiiModule->beforeControllerAction(Object(DefaultController), Object(CInlineAction))
+#1 /var/www/public_html/yii1/yii/web/CWebApplication.php(282): CController->run('')
+#2 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('gii')
+#3 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#4 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/gii
+---
+2015/06/05 12:56:06 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not allowed to access this page.' in /var/www/public_html/yii1/yii/gii/GiiModule.php:170
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CController.php(263): GiiModule->beforeControllerAction(Object(DefaultController), Object(CInlineAction))
+#1 /var/www/public_html/yii1/yii/web/CWebApplication.php(282): CController->run('')
+#2 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('gii')
+#3 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#4 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/gii
+---
+2015/06/05 12:59:50 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not allowed to access this page.' in /var/www/public_html/yii1/yii/gii/GiiModule.php:170
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CController.php(263): GiiModule->beforeControllerAction(Object(DefaultController), Object(CInlineAction))
+#1 /var/www/public_html/yii1/yii/web/CWebApplication.php(282): CController->run('')
+#2 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('gii')
+#3 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#4 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/gii
+---
+2015/06/05 13:01:08 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not allowed to access this page.' in /var/www/public_html/yii1/yii/gii/GiiModule.php:170
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CController.php(263): GiiModule->beforeControllerAction(Object(DefaultController), Object(CInlineAction))
+#1 /var/www/public_html/yii1/yii/web/CWebApplication.php(282): CController->run('')
+#2 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('gii')
+#3 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#4 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/gii
+---
