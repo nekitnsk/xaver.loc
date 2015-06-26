@@ -57,3 +57,89 @@ Stack trace:
 #5 {main}
 REQUEST_URI=/index.php/gii
 ---
+2015/06/22 13:28:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index.php".' in /var/www/public_html/yii1/yii/web/CController.php:483
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CController.php(270): CController->missingAction('index.php')
+#1 /var/www/public_html/yii1/yii/web/CWebApplication.php(282): CController->run('index.php')
+#2 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('adv/index.php')
+#3 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#4 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/yii1/adv/index.php
+HTTP_REFERER=http://xaver.loc/yii1/
+---
+2015/06/22 13:28:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index.php".' in /var/www/public_html/yii1/yii/web/CController.php:483
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CController.php(270): CController->missingAction('index.php')
+#1 /var/www/public_html/yii1/yii/web/CWebApplication.php(282): CController->run('index.php')
+#2 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('adv/index.php')
+#3 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#4 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/yii1/adv/index.php
+HTTP_REFERER=http://xaver.loc/yii1/
+---
+2015/06/22 13:28:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index.php".' in /var/www/public_html/yii1/yii/web/CController.php:483
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CController.php(270): CController->missingAction('index.php')
+#1 /var/www/public_html/yii1/yii/web/CWebApplication.php(282): CController->run('index.php')
+#2 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('adv/index.php')
+#3 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#4 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/yii1/adv/index.php
+---
+2015/06/22 13:29:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index.php".' in /var/www/public_html/yii1/yii/web/CController.php:483
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CController.php(270): CController->missingAction('index.php')
+#1 /var/www/public_html/yii1/yii/web/CWebApplication.php(282): CController->run('index.php')
+#2 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('adv/index.php')
+#3 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#4 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/yii1/adv/index.php
+HTTP_REFERER=http://xaver.loc/yii1/
+---
+2015/06/23 10:28:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /var/www/public_html/yii1/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#2 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+HTTP_REFERER=http://yii1.loc/
+---
+2015/06/23 10:33:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "ad".' in /var/www/public_html/yii1/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('ad')
+#1 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#2 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ad
+---
+2015/06/25 06:51:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /var/www/public_html/yii1/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#2 /var/www/public_html/yii1/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+HTTP_REFERER=http://yii1.loc/
+---
+2015/06/25 07:04:52 [error] [php] Undefined variable: model (/var/www/public_html/yii1/protected/views/ad/index.php:24)
+Stack trace:
+#0 /var/www/public_html/yii1/yii/web/CController.php(869): AdController->renderFile()
+#1 /var/www/public_html/yii1/yii/web/CController.php(782): AdController->renderPartial()
+#2 /var/www/public_html/yii1/protected/controllers/AdController.php(11): AdController->render()
+#3 /var/www/public_html/yii1/yii/web/actions/CInlineAction.php(49): AdController->actionIndex()
+#4 /var/www/public_html/yii1/yii/web/CController.php(308): CInlineAction->runWithParams()
+#5 /var/www/public_html/yii1/yii/web/CController.php(286): AdController->runAction()
+#6 /var/www/public_html/yii1/yii/web/CController.php(265): AdController->runActionWithFilters()
+#7 /var/www/public_html/yii1/yii/web/CWebApplication.php(282): AdController->run()
+#8 /var/www/public_html/yii1/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#9 /var/www/public_html/yii1/yii/base/CApplication.php(184): CWebApplication->processRequest()
+#10 /var/www/public_html/yii1/index.php(13): CWebApplication->run()
+REQUEST_URI=/ad/
+in /var/www/public_html/yii1/protected/views/ad/index.php (24)
+in /var/www/public_html/yii1/protected/controllers/AdController.php (11)
+in /var/www/public_html/yii1/index.php (13)
