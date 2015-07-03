@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Home | Xone | Clean One Page Template</title>
+<title>Каталог домов</title>
 <!-- DEFAULT META TAGS -->
 
 <!-- FONTS -->
@@ -44,7 +44,7 @@
 <!-- PAGELOADER -->
 <div id="page-loader">
 	<div class="page-loader-inner">
-    	<div class="loader-logo"><img src="files/uploads/xone-logo.png" alt="Logo"/></div>
+    	<div class="loader-logo"><i class="fa fa-home fa-5x fa-fw"></i></div>
 		<div class="loader-icon"><span class="spinner"></span><span></span></div>
 	</div>
 </div>
@@ -102,7 +102,7 @@
                         <div class="imgoverlay text-light">
                             <a href="files/page/aero_polar_42.html" class="load-content">
                                 <img src="files/uploads/house/aero_polar_42/aero_polar_42_550х350.jpg" alt="SEO IMAGE NAME" />
-                            <div class="overlay"><span class="overlaycolor"></span><div class="overlayinfo"><h6>Площадь 42 м<sup>2</sup><br>Стоимость от 790 500 руб.</h6></div></div>
+                            <div class="overlay"><span class="overlaycolor"></span><div class="overlayinfo"><h6>Площадь 42 м<sup>2</sup><br>Стоимость от 790 500 руб.<br><ins>подробнее</ins></h6></div></div>
                             </a>
                         </div>
                     </div>
@@ -247,7 +247,7 @@
             <div class="ajax-content clearfix"> 
               <!-- THE LOADED CONTENT WILL BE ADDED HERE -->
             </div>
-            <div class="close-project"><a href="index.html">Close</a></div>
+            <div class="close-project"><a href="index.html">Закрыть</a></div>
           </div>    
           <!-- AJAX AREA -->   
 
@@ -261,7 +261,7 @@
 		<footer>
 			<div class="footerinner wrapper align-center text-light">
 				<a id="backtotop" href="#" class="sr-button sr-buttonicon small-iconbutton"><i class="fa fa-angle-up"></i></a>
-				<p class="footer-logo"><img src="files/uploads/xone-logo-footer.png" alt="Footer Logo"></p>
+				<p class="footer-logo"><i class="fa fa-home fa-5x fa-fw"></i></p>
              	<ul class="socialmedia-widget social-share">
  					<li class="facebook"><a href="#">Facebook</a></li>
   					<li class="twitter"><a href="#">Tweet</a></li>
@@ -270,7 +270,7 @@
  					<li class="behance"><a href="#">Behance</a></li>
  					<li class="instagram"><a href="#">Instagram</a></li>
             	</ul>
-            	<p class="copyright">Copyright &copy; 2014 - Xone - Created by SpabRice</p>
+            	<p class="copyright">Copyright &copy; 2015 Каталог домов</p>
          	</div>
     	</footer>
       	<!-- FOOTER -->         
