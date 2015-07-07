@@ -13,6 +13,7 @@ $this->breadcrumbs=array(
 <table class="table table-hover table-striped">
     <thead>
       <tr>
+        <th style="display:none;">id</th>
         <th>№</th>
         <th>Название</th>
         <th>Цена</th>
@@ -22,7 +23,7 @@ $this->breadcrumbs=array(
     <tbody>
     	
     		<tr ng-repeat="ad in ads">
-    			<td>{{ ad.id }}</td>
+    			<td style="display:none;">{{ ad.id }}</td>
     			<td>{{ $index + 1 }}</td>
     			<td>{{ ad.title }}</td>
     			<td>{{ ad.price }}</td>

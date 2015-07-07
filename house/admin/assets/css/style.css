@@ -254,3 +254,10 @@ footer h2 i{
     float: left;
     margin-top: 11px;
 }
+
+.comment{
+
+      font-size: 10px;
+        font-weight: 300;
+        color:#7F7F7F;
+}
