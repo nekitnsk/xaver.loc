@@ -12,6 +12,7 @@
 		<link href="assets/css/style.css" rel="stylesheet" />
 		<link href="assets/css/jumbotron.css" rel="stylesheet" />
 		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		
 
 	</head>
 
@@ -38,23 +39,24 @@
 
       <div class="row marketing">
 
-      	<!--рыба -->
-      	<div class="form-group">
-				<label for="" class="col-sm-4 control-label">
-				<p><span class="comment"></span></p></label>
-				<div class="col-sm-8">
-					<input type="" class="form-control" id="" placeholder="Например, ">
-				</div>
-			</div>
+      	
 
-		<form class="form-horizontal">
+		<form class="form-horizontal"  id = "upload" method="post" action="upload.php" enctype="multipart/form-data">
 			<h4>Наименование дома</h4>
 			<hr>
 			<div class="form-group">
 				<label for="name" class="col-sm-4 control-label">Название дома
-				<p><span class="comment">Это название будет использовано в названии файлов и картинок. А также отображаться над главной странице каталога в качестве названия дома.</span></p></label>
+				<p><span class="comment">Название каждого дома должно быть уникально. Это название будет использовано в названии файлов и картинок. А также отображаться над главной странице каталога в качестве названия дома.</span></p></label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" id="name" placeholder="Например, Aero Polar 42">
+					<input type="text" class="form-control" id="name" onKeyUp="javascript: cyrtolat();" placeholder="Например, Aero Polar 42">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="seo_name" class="col-sm-4 control-label">СЕО Название дома(АВТОМАТИЧЕСКОЕ)
+				<p><span class="comment">Это название будет использовано в названии файлов и картинок. Пожалуйста обращайте внимание на это поле, чтобы проверить корректность написания. Здесь должны отсутствовать заглавные буквы, кирилические символы и пробелы.</span></p></label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" id="seo_name" placeholder="Например, Aero Polar 42">
 				</div>
 			</div>
 
@@ -157,6 +159,34 @@
 						</div>
 					</div>
 
+				<h4>Управление домом</h4>
+				<hr>
+				<!-- Single button -->
+					<div class="form-group">
+					<label for="category" class="col-sm-4 control-label">Выберите категорию 
+						<p><span class="comment">Раздел в котором будет отображаться дом</span></p></label>
+						<div class="col-sm-8">
+							
+							<select class="form-control" name = "category" id="category">
+								<option disabled>Выберите раздел</option>
+								<option value="brick">Кирпич</option>
+								<option value="log">Оцилиндрованное бревно</option>
+								<option value="sandwich">Сэндвич панели</option>
+								<option value="rod">Профилированный брус</option>
+								<option value="sibit">Сибит</option>
+
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+					<label for="default" class="col-sm-4 control-label">Показывать на главной странице
+						<p><span class="comment">Показывать дом на главной странице. Не рекомендуется показывать много домов, чтобы не перегружать страницу</span></p></label>
+						<div class="col-sm-8">
+							<input type="checkbox" class="form-control" value="default" id="default">
+						</div>
+					</div>
+
 
 
 
@@ -164,25 +194,19 @@
 
 			<hr>
 			
+			
 			<div class="form-group">
-				<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-				<div class="col-sm-10">
-					<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for = "upl" class="col-sm-2 control-label">Выберите файлы для загрузки</label>
-
-
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox"> Remember me
-						</label>
+				<label for = "upl" class="col-sm-4 control-label">Выберите файлы для загрузки</label>
+					<div class="col-sm-8">
+						
+						<input type="file" name="upl" multiple />
+					
+					<ul>
+						<!-- The file uploads will be shown here -->
+					</ul>
 					</div>
-				</div>
-			</div>
+
+			
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-default">Sign in</button>
@@ -190,17 +214,17 @@
 			</div>
 		</form>
 
-		<form id="upload" method="post" action="upload.php" enctype="multipart/form-data">
+		<!-- <form id="upload" method="post" action="upload.php" enctype="multipart/form-data">
 					<div >
 						
 						<input type="file" name="upl" multiple />
 					</div>
 
 					<ul>
-						<!-- The file uploads will be shown here -->
+						
 					</ul>
 
-				</form>
+				</form> -->
 
       <footer class="footer">
         <p>&copy; Company 2014</p>
@@ -217,9 +241,16 @@
 		<script src="assets/js/jquery.ui.widget.js"></script>
 		<script src="assets/js/jquery.iframe-transport.js"></script>
 		<script src="assets/js/jquery.fileupload.js"></script>
+		<script src="assets/js/cyrtolat.js"></script>
+		
+		
 		
 		<!-- Our main JS file -->
 		<script src="assets/js/script.js"></script>
+
+	
+
+
   </body>
 
 </html>

@@ -95,12 +95,12 @@
           <div class="portfolio-masonry-entry masonry-item brick default">
                     <div class="entry-intro portfolio-intro">
                       <div class="intro-headline portfolio-intro-headline">
-                        <h5 class="portfolio-name"><a href="files/page/aero_polar_42.html" class="load-content"><strong>Дом Aero polar 42</strong></a></h5>
+                        <h5 class="portfolio-name"><a href="files/page/aero_polar_42.php?id=1" class="load-content"><strong>Дом Aero polar 42</strong></a></h5>
                       </div>
                     </div>
                       <div class="entry-thumb portfolio-thumb"> 
                         <div class="imgoverlay text-light">
-                            <a href="files/page/aero_polar_42.html" class="load-content">
+                            <a href="files/page/aero_polar_42.php?id=1" class="load-content">
                                 <img src="files/uploads/house/aero_polar_42/aero_polar_42_550х350.jpg" alt="SEO IMAGE NAME" />
                             <div class="overlay"><span class="overlaycolor"></span><div class="overlayinfo"><h6>Площадь 42 м<sup>2</sup><br>Стоимость от 790 500 руб.<br><ins>подробнее</ins></h6></div></div>
                             </a>
