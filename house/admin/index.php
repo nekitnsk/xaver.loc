@@ -183,7 +183,7 @@
 					<label for="default" class="col-sm-4 control-label">Показывать на главной странице
 						<p><span class="comment">Показывать дом на главной странице. Не рекомендуется показывать много домов, чтобы не перегружать страницу</span></p></label>
 						<div class="col-sm-8">
-							<input type="checkbox" class="form-control" value="default" id="default">
+							<input type="checkbox" class="form-control" value="true" id="default">
 						</div>
 					</div>
 
@@ -209,22 +209,12 @@
 			
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-default">Sign in</button>
+					<button type="submit" class="btn btn-default">Добавить дом в каталог</button>
 				</div>
 			</div>
 		</form>
 
-		<!-- <form id="upload" method="post" action="upload.php" enctype="multipart/form-data">
-					<div >
-						
-						<input type="file" name="upl" multiple />
-					</div>
-
-					<ul>
-						
-					</ul>
-
-				</form> -->
+		
 
       <footer class="footer">
         <p>&copy; Company 2014</p>
