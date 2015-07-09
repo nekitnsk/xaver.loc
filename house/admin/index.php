@@ -41,7 +41,7 @@
 
       	
 
-		<form class="form-horizontal"  id = "upload" method="post" action="upload.php" enctype="multipart/form-data">
+		<form class="form-horizontal"  id = "" method="post" action="" enctype="multipart/form-data">
 			<h4>Наименование дома</h4>
 			<hr>
 			<div class="form-group">
@@ -187,25 +187,7 @@
 						</div>
 					</div>
 
-
-
-
-
-
 			<hr>
-			
-			
-			<div class="form-group">
-				<label for = "upl" class="col-sm-4 control-label">Выберите файлы для загрузки</label>
-					<div class="col-sm-8">
-						
-						<input type="file" name="upl" multiple />
-					
-					<ul>
-						<!-- The file uploads will be shown here -->
-					</ul>
-					</div>
-
 			
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
@@ -213,6 +195,54 @@
 				</div>
 			</div>
 		</form>
+
+		<form class="form-horizontal"  id = "upload" method="post" action="upload.php" enctype="multipart/form-data">
+			<h4>Загрузка файлов</h4>
+			<hr>
+
+			<div class="form-group">
+				<label for = "upl" class="col-sm-4 control-label">Выберите файлы для загрузки</label>
+				<div class="col-sm-8">
+
+					<input type="file" name="upl" multiple />
+					<input type="hidden" id="file_name" name="file_name" value="123" />
+					
+					<ul>
+						<!-- The file uploads will be shown here -->
+					</ul>
+				</div>
+			</div>
+
+
+		</form>
+
+		<form class="form-horizontal"  id = "select_main_photo" method="post" action="select_main_photo.php">
+			<h4>Загрузка файлов</h4>
+			<hr>
+			<div class="form-group">
+				<label for = "select" class="col-sm-4 control-label">Выберите основную фотографию</label>
+				<div class="col-sm-8" id="selectors">
+					<div class="cc-selector">
+						
+						<input checked="checked" id="visa" type="radio" name="credit-card" value="visa" />
+						<label class="drinkcard-cc" style="background-image:url(http://i.imgur.com/lXzJ1eB.png);" for="visa"></label>
+						<input id="mastercard" type="radio" name="credit-card" value="mastercard" />
+						<label class="drinkcard-cc" style = "background-image:url(http://i.imgur.com/SJbRQF7.png);" for="mastercard"></label>
+
+					</div>
+					
+					
+					<ul>
+						<!-- The file uploads will be shown here -->
+					</ul>
+				</div>
+			</div>
+
+
+
+		</form>
+
+
 
 		
 

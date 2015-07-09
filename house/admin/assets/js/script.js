@@ -59,6 +59,8 @@ $(function(){
 
             if(progress == 100){
                 data.context.removeClass('working');
+                
+
             }
         },
 

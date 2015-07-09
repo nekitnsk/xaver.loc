@@ -16,4 +16,5 @@ var cyrtolat = function(){
  res=res.replace(/Cz(?=i|e|y|j|I|E|Y|J)/g, "c");
  res=res.replace(/cz(?=i|e|y|j|I|E|Y|J)/g, "c");
  document.getElementById('seo_name').value=res.replace(/-+/g,'-');
+ document.getElementById('file_name').value=res.replace(/-+/g,'-');
 }
