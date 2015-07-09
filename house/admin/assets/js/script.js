@@ -10,7 +10,7 @@ $(function(){
 
     // Initialize the jQuery File Upload plugin
     $('#upload').fileupload({
-
+        //должна быть директива типа success ты документацию читал? да читал, есть дирктива done но с ней вообще скрипт отказывается работать (( показывай документацию))
         // This element will accept file drag/drop uploading
         dropZone: $('#drop'),
 
@@ -68,6 +68,14 @@ $(function(){
             // Something has gone wrong!
             data.context.addClass('error');
         }
+
+        ,
+        done: function (e, data) {
+            var result = JSON.parse(data.result);
+            $('#selectors').append(result.file_data);
+                    }
+
+
 
     });
 
