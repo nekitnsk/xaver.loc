@@ -17,17 +17,7 @@
             appearance:none;
 }
 
-
-
-
-
-.cc-selector-2 input:active +.drinkcard-cc, .cc-selector input:active +.drinkcard-cc{opacity: .9;}
-.cc-selector-2 input:checked +.drinkcard-cc, .cc-selector input:checked +.drinkcard-cc{
-    -webkit-filter: none;
-       -moz-filter: none;
-            filter: none;
-}
-.drinkcard-cc{
+.house-cc{
     cursor:pointer;
     background-size:contain;
     background-repeat:no-repeat;
@@ -40,7 +30,7 @@
        -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
             filter: brightness(1.8) grayscale(1) opacity(.7);
 }
-.drinkcard-cc:hover{
+.house-cc:hover{
     -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
        -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
             filter: brightness(1.2) grayscale(.5) opacity(.9);
@@ -48,5 +38,4 @@
 
 
 
-.cc-selector-2 input{ margin: 5px 0 0 12px; }
-.cc-selector-2 label{ margin-left: 7px; }
+

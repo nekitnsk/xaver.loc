@@ -217,17 +217,14 @@
 		</form>
 
 		<form class="form-horizontal"  id = "select_main_photo" method="post" action="select_main_photo.php">
-			<h4>Загрузка файлов</h4>
+			<h4>Управление фотографиями</h4>
 			<hr>
 			<div class="form-group">
 				<label for = "select" class="col-sm-4 control-label">Выберите основную фотографию</label>
 				<div class="col-sm-8" id="selectors">
 					<div class="cc-selector">
 						
-						<input checked="checked" id="visa" type="radio" name="credit-card" value="visa" />
-						<label class="drinkcard-cc" style="background-image:url(http://i.imgur.com/lXzJ1eB.png);" for="visa"></label>
-						<input id="mastercard" type="radio" name="credit-card" value="mastercard" />
-						<label class="drinkcard-cc" style = "background-image:url(http://i.imgur.com/SJbRQF7.png);" for="mastercard"></label>
+						
 
 					</div>
 					

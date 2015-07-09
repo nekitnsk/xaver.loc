@@ -72,7 +72,7 @@ $(function(){
         ,
         done: function (e, data) {
             var result = JSON.parse(data.result);
-            $('#selectors').append(result.file_data);
+            $('.cc-selector').append(result.file_data);
                     }
 
 
