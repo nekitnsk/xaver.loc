@@ -10,6 +10,11 @@
         color:#7F7F7F;
 }
 
+
+input[type=radio]{
+display:none;
+
+}
 .cc-selector input{
     margin:0;padding:0;
     -webkit-appearance:none;
@@ -17,12 +22,19 @@
             appearance:none;
 }
 
+.cc-selector input:active +.house-cc{opacity: .9;}
+.cc-selector input:checked +.house-cc{
+    -webkit-filter: none;
+       -moz-filter: none;
+            filter: none;
+}
+
 .house-cc{
     cursor:pointer;
     background-size:contain;
     background-repeat:no-repeat;
     display:inline-block;
-    width:100px;height:70px;
+    width:230px;height:150px;
     -webkit-transition: all 100ms ease-in;
        -moz-transition: all 100ms ease-in;
             transition: all 100ms ease-in;

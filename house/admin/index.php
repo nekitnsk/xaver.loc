@@ -41,14 +41,14 @@
 
       	
 
-		<form class="form-horizontal"  id = "" method="post" action="" enctype="multipart/form-data">
+		<form class="form-horizontal"  id = "addHouse" method="post" action="">
 			<h4>Наименование дома</h4>
 			<hr>
 			<div class="form-group">
 				<label for="name" class="col-sm-4 control-label">Название дома
 				<p><span class="comment">Название каждого дома должно быть уникально. Это название будет использовано в названии файлов и картинок. А также отображаться над главной странице каталога в качестве названия дома.</span></p></label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" id="name" onKeyUp="javascript: cyrtolat();" placeholder="Например, Aero Polar 42">
+					<input type="text" class="form-control" id="name" name="name" onKeyUp="javascript: cyrtolat();" placeholder="Например, Aero Polar 42">
 				</div>
 			</div>
 
@@ -56,7 +56,15 @@
 				<label for="seo_name" class="col-sm-4 control-label">СЕО Название дома(АВТОМАТИЧЕСКОЕ)
 				<p><span class="comment">Это название будет использовано в названии файлов и картинок. Пожалуйста обращайте внимание на это поле, чтобы проверить корректность написания. Здесь должны отсутствовать заглавные буквы, кирилические символы и пробелы.</span></p></label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" id="seo_name" placeholder="Например, Aero Polar 42">
+					<input type="text" class="form-control" id="seo_name" name="seo_name" placeholder="Например, Aero Polar 42">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="space" class="col-sm-4 control-label">Площадь дома
+				<p><span class="comment">Введите площадь дома, без использования м2</span></p></label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" id="space" name="space" placeholder="Например, 42">
 				</div>
 			</div>
 
@@ -64,7 +72,7 @@
 				<label for="head1" class="col-sm-4 control-label">Заголовок описания
 				<p><span class="comment">Это большой заголовок в подробном описании дома</span></p></label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" id="head1" placeholder="Например, ДОМ AERO POLAR 42 ИЗ ДВОЙНОГО БРУСА">
+					<input type="text" class="form-control" id="head1" name="head1" placeholder="Например, ДОМ AERO POLAR 42 ИЗ ДВОЙНОГО БРУСА">
 				</div>
 			</div>
 
@@ -72,7 +80,7 @@
 				<label for="head2" class="col-sm-4 control-label">Заголовок №2 
 				<p><span class="comment">Это подзаголовок в разделе описания дома</span></p></label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" id="head2" placeholder="Например, Дом из двойного бруса">
+					<input type="text" class="form-control" id="head2" name="head2" placeholder="Например, Дом из двойного бруса">
 				</div>
 			</div>
 
@@ -84,21 +92,21 @@
 				<label for="roof" class="col-sm-4 control-label">Материал крыши
 				<p><span class="comment">Введите материал крыши</span></p></label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" id="roof" placeholder="Например, Металлочерепица">
+					<input type="text" class="form-control" id="roof" name="roof" placeholder="Например, Металлочерепица">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="wall" class="col-sm-4 control-label">Материал стен
 				<p><span class="comment">Введите материал стен</span></p></label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" id="wall" placeholder="Например, Двойной брус 150х150">
+					<input type="text" class="form-control" id="wall" name="wall" placeholder="Например, Двойной брус 150х150">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="fundament" class="col-sm-4 control-label">Тип фундамента
 				<p><span class="comment">Введите тип фундамента</span></p></label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" id="fundament" placeholder="Например, Винтовые сваи">
+					<input type="text" class="form-control" id="fundament" name="fundament" placeholder="Например, Винтовые сваи">
 				</div>
 			</div>
 			<h4>Конструктивные особенности дома</h4>
@@ -113,8 +121,8 @@
 					<div class="form-group">
 						<label for="feature<?php echo $i+1 ?>" class="col-sm-2 control-label"><?php echo $i+1 ?></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="feature<?php echo $i+1 ?>" placeholder="Например, Утепление">
-							<input type="text" class="form-control" id="feature<?php echo $i+1 ?>_desc" placeholder="Например, Экстра вата,толщиной 100мм.">
+							<input type="text" class="form-control" id="feature<?php echo $i+1 ?>" name="feature<?php echo $i+1 ?>" placeholder="Например, Утепление">
+							<input type="text" class="form-control" id="feature<?php echo $i+1 ?>_desc" name="feature<?php echo $i+1 ?>_desc" placeholder="Например, Экстра вата,толщиной 100мм.">
 						</div>
 					</div>
 					<?php
@@ -129,33 +137,40 @@
 				<label for="description1" class="col-sm-4 control-label">Описание дома
 					<p><span class="comment">Здесь можете написать описание дома, кому здесь хорошо жить, чем он интересен, чем уникален, для кого подходит и т.п.</span></p></label>
 					<div class="col-sm-8">
-						<textarea rows = 15 class="form-control" id="description1" placeholder=""></textarea>
+						<textarea rows = 15 class="form-control" id="description1" name="description1" placeholder=""></textarea>
 					</div>
 				</div>
 				<div class="form-group">
 				<label for="description2" class="col-sm-4 control-label">Дополнительно
 					<p><span class="comment">Дополнительный блок. Будет показан отдельным разделом, как описание дома, например. Введите название блока и описание.</span></p></label>
 					<div class="col-sm-8">
-						<input type="text" class="form-control" id="title_description2" placeholder="Например, Стоимость дома с участком">
-						<textarea rows = 10 class="form-control" id="description2" placeholder=""></textarea>
+						<input type="text" class="form-control" id="title_description2" name="title_description2" placeholder="Например, Стоимость дома с участком">
+						<textarea rows = 10 class="form-control" id="description2" name="description2" placeholder=""></textarea>
 					</div>
 				</div>
 				<div class="form-group">
 				<label for="description3" class="col-sm-4 control-label">Дополнительно 2
 					<p><span class="comment">Дополнительный блок. Будет показан отдельным разделом, как описание дома, например. Введите название блока и описание.</span></p></label>
 					<div class="col-sm-8">
-						<input type="text" class="form-control" id="title_description3" placeholder="Например, В стоимость дома входит">
-						<textarea rows = 10 class="form-control" id="description3" placeholder=""></textarea>
+						<input type="text" class="form-control" id="title_description3" name="title_description3" placeholder="Например, В стоимость дома входит">
+						<textarea rows = 10 class="form-control" id="description3" name="description3" placeholder=""></textarea>
 					</div>
 				</div>
 
 				<h4>Стоимость дома</h4>
 				<hr>
 				<div class="form-group">
-					<label for="price" class="col-sm-4 control-label">Стоимость дома
-						<p><span class="comment">Можете ввести стоимость дома в произвольной форме, не только цифры, а какую либо добавочную информацию</span></p></label>
+					<label for="cost" class="col-sm-4 control-label">Стоимость дома
+						<p><span class="comment">Здесь введите стоимость дома используя только цифры, без знаков РУБ и т.п.</span></p></label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="price" placeholder="Например, 790 000 рублей до конца лета ">
+							<input type="text" class="form-control" id="cost" name="cost" placeholder="Например, 790 000">
+						</div>
+					</div>
+				<div class="form-group">
+					<label for="price" class="col-sm-4 control-label">Стоимость дома произвольное
+						<p><span class="comment">Эта строка будет отображаться в подробном описании дома, поэтому можете ввести стоимость дома в произвольной форме, не только цифры, а какую либо добавочную информацию</span></p></label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="price" name="price" placeholder="Например, 790 000 рублей до конца лета ">
 						</div>
 					</div>
 
@@ -183,17 +198,13 @@
 					<label for="default" class="col-sm-4 control-label">Показывать на главной странице
 						<p><span class="comment">Показывать дом на главной странице. Не рекомендуется показывать много домов, чтобы не перегружать страницу</span></p></label>
 						<div class="col-sm-8">
-							<input type="checkbox" class="form-control" value="true" id="default">
+							<input type="checkbox" class="form-control" value="true" id="default" name="default">
 						</div>
 					</div>
 
 			<hr>
+			<input type="hidden" id="main_photo" name="main_photo" value="" />
 			
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-default">Добавить дом в каталог</button>
-				</div>
-			</div>
 		</form>
 
 		<form class="form-horizontal"  id = "upload" method="post" action="upload.php" enctype="multipart/form-data">
@@ -206,6 +217,7 @@
 
 					<input type="file" name="upl" multiple />
 					<input type="hidden" id="file_name" name="file_name" value="123" />
+
 					
 					<ul>
 						<!-- The file uploads will be shown here -->
@@ -216,30 +228,31 @@
 
 		</form>
 
-		<form class="form-horizontal"  id = "select_main_photo" method="post" action="select_main_photo.php">
+		<form class="form-horizontal"  id = "select_main_photo">
 			<h4>Управление фотографиями</h4>
 			<hr>
 			<div class="form-group">
 				<label for = "select" class="col-sm-4 control-label">Выберите основную фотографию</label>
 				<div class="col-sm-8" id="selectors">
 					<div class="cc-selector">
-						
+						<!-- The PREVIEW IMAGE uploads will be shown here -->	
 						
 
 					</div>
 					
 					
-					<ul>
-						<!-- The file uploads will be shown here -->
-					</ul>
 				</div>
 			</div>
-
-
-
+			
 		</form>
 
+		<div class="form-group">
+			<div class="col-sm-offset-5 col-sm-8">
 
+				
+				<button type="submit" id = "saveHouse" class="btn btn-default">Добавить дом в каталог</button>
+			</div>	
+		</div>
 
 		
 

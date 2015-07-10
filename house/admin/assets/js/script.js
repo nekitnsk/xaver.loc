@@ -10,7 +10,7 @@ $(function(){
 
     // Initialize the jQuery File Upload plugin
     $('#upload').fileupload({
-        //должна быть директива типа success ты документацию читал? да читал, есть дирктива done но с ней вообще скрипт отказывается работать (( показывай документацию))
+      
         // This element will accept file drag/drop uploading
         dropZone: $('#drop'),
 
@@ -103,3 +103,38 @@ $(function(){
     }
 
 });
+
+
+
+$(document).ready(function(){
+$("#select_main_photo").on("click", "input[type='radio']",function(){ 
+   
+        $("#main_photo").val($(this).val());
+
+});
+});
+
+$("#saveHouse").click(function(){ saveHouse('addHouse', 'add_house.php'); return false; });
+
+function saveHouse(form_id,url) {
+
+                jQuery.ajax({
+                    url:     url, //Адрес подгружаемой страницы
+                    type:     "POST", //Тип запроса
+                    dataType: "html", //Тип данных
+                    data: jQuery("#"+form_id).serialize(), 
+                    success: function(response) { //Если все нормально
+                    console.log(response);
+                    $('#saveHouse')[0].reset();
+                },
+                error: function(response) { //Если ошибка
+                console.log(response);
+                }
+             });
+
+
+        }
+
+
+
+

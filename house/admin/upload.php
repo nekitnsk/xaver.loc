@@ -20,11 +20,11 @@ if(!is_dir('../files/images/house/' . $_POST['file_name'])){
 	}
 
 $folder = $_POST['file_name'];
-$file_name = $_POST['file_name'].'-'.time().'.'. $extension;
+$file_name = $_POST['file_name'].'-'.mt_rand(1, 1000).'.'. $extension;
 
 if(move_uploaded_file($_FILES['upl']['tmp_name'], '../files/images/house/'. $folder . '/'. $file_name )){
 	
-	$file_data = '<input id="'.$folder.'" type="radio" name="'.$folder.'" value="'.$folder.'" /><label class="house-cc" style="background-image:url(../files/images/house/'.$folder.'/'.$file_name.');" for="visa"></label>' ;
+	$file_data = '<input id="'.$file_name.'" type="radio" name="'.$folder.'" value="'.$file_name.'" /><label class="house-cc" style="background-image:url(../files/images/house/'.$folder.'/'.$file_name.');" for="'.$file_name.'"></label>' ;
 	$res['status']='sucess';
 	$res['file_data']=$file_data;
 	echo json_encode($res); 
