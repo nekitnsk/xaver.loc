@@ -4,11 +4,11 @@
 require_once "../../lib/dbsimple/config.php";
 require_once "../../lib/dbsimple/DbSimple/Generic.php";
 
-// $config = parse_ini_file('./config.ini', true);
+$config = parse_ini_file('../../config.ini', true);
 
-// $db = DbSimple_Generic::connect('mysqli://' . $config['Database1']['user'] . ':' . $config['Database1']['password'] . '@' . $config['Database1']['host'] . '/' . $config['Database1']['database'] . '');
+$db = DbSimple_Generic::connect('mysqli://' . $config['Database1']['user'] . ':' . $config['Database1']['password'] . '@' . $config['Database1']['host'] . '/' . $config['Database1']['database'] . '');
 
-$db = DbSimple_Generic::connect('mysqli://root:123@localhost/house');
+// $db = DbSimple_Generic::connect('mysqli://root:123@localhost/house');
 
 // Устанавливаем обработчик ошибок.
 $db->setErrorHandler('databaseErrorHandler');
@@ -24,9 +24,14 @@ function databaseErrorHandler($message, $info) {
     print_r($info);
     echo "</pre>";
     exit();
-}
 
-$h = $db->selectRow('SELECT seo_name, space, head1, head2, roof, wall, fundament, feature1, feature2, feature3, feature4, feature5, feature6, feature7, feature8, feature9, feature10, feature2_desc, feature1_desc, feature4_desc, feature6_desc, feature5_desc, feature3_desc, feature7_desc, feature9_desc, feature8_desc, feature10_desc, description1, title_description2, description2, title_description3, description3, cost, price FROM dom WHERE seo_name = ? ', $_GET['id']);
+
+}
+$id =$_GET['id'];
+$directory= '../images/house/'.$id;
+$image_list = array_diff(scandir($directory), array('..', '.'));
+
+$h = $db->selectRow('SELECT seo_name, space, head1, head2, roof, wall, fundament, feature1, feature2, feature3, feature4, feature5, feature6, feature7, feature8, feature9, feature10, feature2_desc, feature1_desc, feature4_desc, feature6_desc, feature5_desc, feature3_desc, feature7_desc, feature9_desc, feature8_desc, feature10_desc, description1, title_description2, description2, title_description3, description3, cost, price FROM dom WHERE seo_name = ? ', $id);
 // print_r($house_one);
 ?>
 
@@ -59,7 +64,7 @@ $h = $db->selectRow('SELECT seo_name, space, head1, head2, roof, wall, fundament
 				<div class="wrapper clearfix">
 				
 				<div class="section-title project-title">
-					<h2 class="project-name"><?php echo($h["head1"]); ?></h2>
+					<h2 class="project-name"><?php echo($h["head1"]);?></h2>
 										
 				</div>
 					 
@@ -75,10 +80,16 @@ $h = $db->selectRow('SELECT seo_name, space, head1, head2, roof, wall, fundament
 					<div class="entry-media portfolio-media">
 					<div class="flexslider portfolio-slider">
 						<ul class="img_item">
-							<li><img src="files/uploads/house/aero_polar_42/aero_polar_42_550.jpg" alt="SEO IMAGE NAME"/></li>
-							<li><img src="files/uploads/house/aero_polar_42/aero_polar_42_550-1.jpg" alt="SEO IMAGE NAME"/></li>
-							<li><img src="files/uploads/house/aero_polar_42/aero_polar_42_550-2.jpg" alt="SEO IMAGE NAME"/></li>
-							<li><img src="files/uploads/house/aero_polar_42/aero_polar_42_550-3.jpg" alt="SEO IMAGE NAME"/></li>
+							
+							<?php
+							foreach ($image_list as $key => $value) {
+								?>
+									<li><img src="files/images/house/<?php echo($id); ?>/<?php echo($value);?>" alt="<?php echo($id); ?>"/></li>
+
+								<?php
+							}
+							?>
+							
 						</ul>
 					</div>  
 					</div>
@@ -88,29 +99,54 @@ $h = $db->selectRow('SELECT seo_name, space, head1, head2, roof, wall, fundament
 				<!-- SIDEBAR -->  
               	<aside class="right-float">
 					<div class="entry-content portfolio-content">
-						<h4 class="head_center"><strong>Дом из двойного бруса</strong></h4>
+						<h4 class="head_center"><strong><?php echo($h['head2']); ?></strong></h4>
 						<h5><strong>Используемые материалы:</strong></h5>
 						<h5><strong>Конструктивные особенности дома:</strong></h5>
 						<p>
-						<span><i class="fa fa-check-square-o fa-fw"></i><strong>Утепление: </strong>Эковата экстра толщиной 100 мм.</span>
-						<span><i class="fa fa-check-square-o fa-fw"></i><strong>Окна: </strong>немецкий профиль Geolan 8000.</span>
-						<span><i class="fa fa-check-square-o fa-fw"></i><strong>Внутренняя отделка кровли: </strong>Имитация бруса.</span>
-						<span><i class="fa fa-check-square-o fa-fw"></i><strong>Лестница: </strong>Деревянная поворотная.</span>
-						<span><i class="fa fa-check-square-o fa-fw"></i><strong>Пол: </strong>Доска пола 30×120 мм. (Евро-пол)</span>
-						<span><i class="fa fa-check-square-o fa-fw"></i><strong>Терраса: </strong>Террасная доска (Лиственница) </span>
+
+							<?php 
+							for ($i=1; $i < 11; $i++) { 
+								if (!$h['feature'.$i]=='' && !$h['feature'.$i.'_desc']==''){
+								?>
+
+									<span><i class="fa fa-check-square-o fa-fw"></i><strong><?php echo($h['feature'.$i]); ?> </strong><?php echo($h['feature'.$i.'_desc']);?></span>		
+							
+								<?php
+							}
+							}
+
+							?>
 					</p>
 
 						<h5><strong>Описание дома:</strong></h5>
-						<p>Идеальный дом для круглогодичного проживания!</p>
-						<p>Финские дома проекта Polar энергосберегающие, экологически чистые!</p>
-						<p>После возведения дом не дает усадки, идеально просушенный брус, при разнице температур 1-2мм.</p>
-						<p>Не требует дополнительных отделочных работ!</p>
-						<p>Не требует затрат на вентиляцию!</p>
-						<p>Минимальные затраты на отопление! Примерно 5000 КВт в год. Без использования котельного оборудования на максимальной мощности.</p>
-						<p>В строительстве дома не применяются клей и фенолы, безопасны для аллергиков и людей с хроническими заболеваниями, полностью эко продукт! </p>
-						<p>Строительство домов можно осуществлять круглый год!</p>
+						<?php echo($h['description1']);?>
 
-						<h5><strong>Стоимость дома: 790 000 рублей</strong></h5>
+						<?php 
+						if (!$h['title_description2']==''){
+							?>
+						<h5><strong><?php echo($h['title_description2'])?></strong></h5>
+						<?php echo($h['description2']);?>
+
+						<?php
+					}
+					?>
+
+						<?php 
+						if (!$h['title_description3']==''){
+							?>
+						<h5><strong><?php echo($h['title_description2'])?></strong></h5>
+						<?php echo($h['description3']);?>
+
+
+							<?php
+
+
+						}
+
+
+						?>
+
+						<h5><strong>Стоимость дома: <?php echo($h['price']);?></strong></h5>
 
 
 
