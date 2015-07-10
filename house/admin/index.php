@@ -195,10 +195,10 @@
 					</div>
 
 					<div class="form-group">
-					<label for="default" class="col-sm-4 control-label">Показывать на главной странице
+					<label for="default_house" class="col-sm-4 control-label">Показывать на главной странице
 						<p><span class="comment">Показывать дом на главной странице. Не рекомендуется показывать много домов, чтобы не перегружать страницу</span></p></label>
 						<div class="col-sm-8">
-							<input type="checkbox" class="form-control" value="true" id="default" name="default">
+							<input type="checkbox" class="form-control" value="true" id="default_house" name="default_house">
 						</div>
 					</div>
 

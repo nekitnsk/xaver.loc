@@ -1,3 +1,36 @@
+<?php
+
+//подключение DBSimple
+require_once "lib/dbsimple/config.php";
+require_once "lib/dbsimple/DbSimple/Generic.php";
+
+// $config = parse_ini_file('./config.ini', true);
+
+// $db = DbSimple_Generic::connect('mysqli://' . $config['Database1']['user'] . ':' . $config['Database1']['password'] . '@' . $config['Database1']['host'] . '/' . $config['Database1']['database'] . '');
+
+$db = DbSimple_Generic::connect('mysqli://root:123@localhost/house');
+
+// Устанавливаем обработчик ошибок.
+$db->setErrorHandler('databaseErrorHandler');
+
+// $db->setLogger('MyLogger'); 
+// Код обработчика ошибок SQL.
+function databaseErrorHandler($message, $info) {
+    // Если использовалась @, ничего не делать.
+    if (!error_reporting())
+        return;
+    // Выводим подробную информацию об ошибке.
+    echo "SQL Error: $message<br><pre>";
+    print_r($info);
+    echo "</pre>";
+    exit();
+}
+
+$house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, cost, category, default_house, main_photo FROM dom ');
+
+
+?>
+
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
@@ -92,150 +125,30 @@
         
         <div id="portfolio-grid5" class="masonry portfolio-entries portfolio-spaced clearfix" data-maxitemwidth="370">
         
-          <div class="portfolio-masonry-entry masonry-item brick default">
-                    <div class="entry-intro portfolio-intro">
-                      <div class="intro-headline portfolio-intro-headline">
-                        <h5 class="portfolio-name"><a href="files/page/aero_polar_42.php?id=1" class="load-content"><strong>Дом Aero polar 42</strong></a></h5>
-                      </div>
-                    </div>
-                      <div class="entry-thumb portfolio-thumb"> 
-                        <div class="imgoverlay text-light">
-                            <a href="files/page/aero_polar_42.php?id=1" class="load-content">
-                                <img src="files/uploads/house/aero_polar_42/aero_polar_42_550х350.jpg" alt="SEO IMAGE NAME" />
-                            <div class="overlay"><span class="overlaycolor"></span><div class="overlayinfo"><h6>Площадь 42 м<sup>2</sup><br>Стоимость от 790 500 руб.<br><ins>подробнее</ins></h6></div></div>
-                            </a>
-                        </div>
-                    </div>
-                   
+        <?php
+          foreach ($house as $key => $value) {
                       
-                  </div> <!-- END .portfolio-masonry-entry -->
-        
-          <div class="portfolio-masonry-entry masonry-item web default">
+            ?>
+                  <div class="portfolio-masonry-entry masonry-item <?php echo ($value["category"]); if ($value["default_house"]==true){echo (" default");}?> ">
                     <div class="entry-intro portfolio-intro">
                       <div class="intro-headline portfolio-intro-headline">
-                        <h5 class="portfolio-name"><a href="#" class="load-content"><strong>Дом 2</strong></a></h5>
+                        <h5 class="portfolio-name"><a href="files/page/house.php?id=<?php echo($key);?>" class="load-content"><strong><?php echo ($value["name"]);?></strong></a></h5>
                       </div>
                     </div>
-
-                    <div class="entry-thumb portfolio-thumb">
+                    <div class="entry-thumb portfolio-thumb"> 
                       <div class="imgoverlay text-light">
-                        <a href="#" class="load-content">
-                          <img src="files/uploads/550x350.jpg" alt="SEO IMAGE NAME" />
-                          <div class="overlay"><span class="overlaycolor"></span><div class="overlayinfo"><h6>Дом 2</h6></div></div>
+                        <a href="files/page/house.php?id=<?php echo($key); ?>" class="load-content">
+                          <img src="files/images/house/<?php echo ($value["seo_name"]);?>/<?php echo ($value["main_photo"]);?>" alt="<?php echo ($value["seo_name"]);?>" />
+                          <div class="overlay"><span class="overlaycolor"></span><div class="overlayinfo"><h6>Площадь <?php echo ($value["space"]);?> м<sup>2</sup><br>Стоимость от <?php echo ($value['cost']);?> руб.<br><ins>подробнее</ins></h6></div></div>
                         </a>
-                      </div>
+                        </div>
                     </div>
+          </div>  
 
-
-                  </div> <!-- END .portfolio-masonry-entry -->
+            <?php
+          }
+        ?>
           
-          <div class="portfolio-masonry-entry masonry-item log default">
-            <div class="entry-intro portfolio-intro">
-                        <div class="intro-headline portfolio-intro-headline">
-                            <h5 class="portfolio-name"><a href="#" class="load-content"><strong>Дом 3</strong></a></h5>
-                        </div>
-                      </div>
-                      <div class="entry-thumb portfolio-thumb">
-                        <div class="imgoverlay text-light">
-                            <a href="#" class="load-content">
-                                <img src="files/uploads/550x350.jpg" alt="SEO IMAGE NAME" />
-                            <div class="overlay"><span class="overlaycolor"></span><div class="overlayinfo"><h6>Дом 3</h6></div></div>
-                            </a>
-                        </div>
-                    </div>
-                   
-                      
-                  </div> <!-- END .portfolio-masonry-entry -->
-          
-          <div class="portfolio-masonry-entry masonry-item sandwich default">
-            <div class="entry-intro portfolio-intro">
-                        <div class="intro-headline portfolio-intro-headline">
-                            <h5 class="portfolio-name"><a href="#" class="load-content"><strong>Дом 4</strong></a></h5>
-                        </div>
-                      </div>
-                      <div class="entry-thumb portfolio-thumb">
-                        <div class="imgoverlay text-light">
-                            <a href="#" class="load-content">
-                                <img src="files/uploads/550x350.jpg" alt="SEO IMAGE NAME" />
-                            <div class="overlay"><span class="overlaycolor"></span><div class="overlayinfo"><h6>Дом 4</h6></div></div>
-                            </a>
-                        </div>
-                    </div>
-                   
-                      
-                  </div> <!-- END .portfolio-masonry-entry -->
-          
-          <div class="portfolio-masonry-entry masonry-item rod default">
-            <div class="entry-intro portfolio-intro">
-                        <div class="intro-headline portfolio-intro-headline">
-                            <h5 class="portfolio-name"><a href="#" class="load-content"><strong>Дом 5</strong></a></h5>
-                        </div>
-                      </div>
-                      <div class="entry-thumb portfolio-thumb">
-                        <div class="imgoverlay text-light">
-                            <a href="#" class="load-content">
-                                <img src="files/uploads/550x350.jpg" alt="SEO IMAGE NAME" />
-                            <div class="overlay"><span class="overlaycolor"></span><div class="overlayinfo"><h6>Дом 5</h6></div></div>
-                            </a>
-                        </div>
-                    </div>
-                   
-                      
-                  </div> <!-- END .portfolio-masonry-entry -->
-        
-          <div class="portfolio-masonry-entry masonry-item sibit default">
-            <div class="entry-intro portfolio-intro">
-                        <div class="intro-headline portfolio-intro-headline">
-                            <h5 class="portfolio-name"><a href="#" class="load-content"><strong>Дом 6</strong></a></h5>
-                        </div>
-                      </div>
-                      <div class="entry-thumb portfolio-thumb">
-                        <div class="imgoverlay text-light">
-                            <a href="#" class="load-content">
-                                <img src="files/uploads/550x350.jpg" alt="SEO IMAGE NAME" />
-                            <div class="overlay"><span class="overlaycolor"></span><div class="overlayinfo"><h6>Дом 6</h6></div></div>
-                            </a>
-                        </div>
-                    </div>
-                   
-                      
-                  </div> <!-- END .portfolio-masonry-entry -->
-          
-          <div class="portfolio-masonry-entry masonry-item brick default">
-             <div class="entry-intro portfolio-intro">
-                        <div class="intro-headline portfolio-intro-headline">
-                            <h5 class="portfolio-name"><a href="#" class="load-content"><strong>Дом 7</strong></a></h5>
-                        </div>
-                      </div>
-                      <div class="entry-thumb portfolio-thumb">
-                        <div class="imgoverlay text-light">
-                            <a href="#" class="load-content">
-                                <img src="files/uploads/550x350.jpg" alt="SEO IMAGE NAME" />
-                            <div class="overlay"><span class="overlaycolor"></span><div class="overlayinfo"><h6>Дом 7</h6></div></div>
-                            </a>
-                        </div>
-                    </div>
-                   
-                     
-                  </div> <!-- END .portfolio-masonry-entry -->
-          
-          <div class="portfolio-masonry-entry masonry-item sandwich default">
-            <div class="entry-intro portfolio-intro">
-                        <div class="intro-headline portfolio-intro-headline">
-                            <h5 class="portfolio-name"><a href="#" class="load-content"><strong>Дом 8</strong></a></h5>
-                        </div>
-                      </div>
-                      <div class="entry-thumb portfolio-thumb">
-                        <div class="imgoverlay text-light">
-                            <a href="#" class="load-content">
-                                <img src="files/uploads/550x350.jpg" alt="SEO IMAGE NAME" />
-                            <div class="overlay"><span class="overlaycolor"></span><div class="overlayinfo"><h6>Дом 8</h6></div></div>
-                            </a>
-                        </div>
-                    </div>
-                   
-                      
-                  </div> <!-- END .portfolio-masonry-entry -->
         
         </div> <!-- END #portfolio-grid1 -->
         </div> <!-- END .wrapper --> 
@@ -247,7 +160,7 @@
             <div class="ajax-content clearfix"> 
               <!-- THE LOADED CONTENT WILL BE ADDED HERE -->
             </div>
-            <div class="close-project"><a href="index.html">Закрыть</a></div>
+            <div class="close-project"><a href="index.php">Закрыть</a></div>
           </div>    
           <!-- AJAX AREA -->   
 
