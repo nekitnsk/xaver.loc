@@ -165,7 +165,7 @@ input[type=text], input[type=password], input[type=email], textarea {
 	border-radius: 3px;
 	-moz-border-radius: 3px; 
 	-khtml-border-radius: 3px; 
-	-webkit-border-radius: 3x;
+	-webkit-border-radius: 3px;
 	transition: all 200ms linear;
 	}
 	
@@ -1756,7 +1756,7 @@ a.sr-buttonicon.small-iconbutton {
 	border-radius: 2px;
 	-moz-border-radius: 2px; 
 	-khtml-border-radius: 2px; 
-	-webkit-border-radius: 2x;
+	-webkit-border-radius: 2px;
 	}
 .text-light .skill .skill-bar {
 	background: #666666;
@@ -1769,7 +1769,7 @@ a.sr-buttonicon.small-iconbutton {
 	border-radius: 2px;
 	-moz-border-radius: 2px; 
 	-khtml-border-radius: 2px; 
-	-webkit-border-radius: 2x;
+	-webkit-border-radius: 2px;
 	width: 0px;	
 	}
 	
@@ -2155,7 +2155,7 @@ a.sr-buttonicon.small-iconbutton {
 	
 @-webkit-keyframes spin { from { -webkit-transform: rotate(0deg); opacity: 0.4; } 50%  { -webkit-transform: rotate(180deg); opacity: 1; } to   { -webkit-transform: rotate(360deg); opacity: 0.4; } }
 @-moz-keyframes spin { from { -moz-transform: rotate(0deg);  } 50%  { -moz-transform: rotate(180deg); } to   { -moz-transform: rotate(360deg);  } }
-@-ms-keyframes spin { from { -ms-transform: rotate(0deg);  } }	to { -ms-transform: rotate(360deg); } }
+@-ms-keyframes spin { from { -ms-transform: rotate(0deg);  } to { -ms-transform: rotate(360deg); } }
 @-o-keyframes spin { from { -o-transform: rotate(0deg); } 50%  { -o-transform: rotate(180deg); } to   { -o-transform: rotate(360deg); } }
 @keyframes spin { from { transform: rotate(0deg); } 50%  { transform: rotate(180deg); } to   { transform: rotate(360deg); } }	
 

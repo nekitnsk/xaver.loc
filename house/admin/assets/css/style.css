@@ -48,6 +48,10 @@ display:none;
             filter: brightness(1.2) grayscale(.5) opacity(.9);
 }
 
+.toggle{
+    
+    text-align: right;
+}
 
 
 

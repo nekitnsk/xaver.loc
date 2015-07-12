@@ -112,29 +112,77 @@ $("#select_main_photo").on("click", "input[type='radio']",function(){
         $("#main_photo").val($(this).val());
 
 });
-});
+$('#table_house').dataTable({
+	"language": {
+	"aria": {
+	  "sortAscending": "Кликните для сортировки по этому столбцу",
+          "sortDescending": "Кликните для сортировки по этому столбцу",
+		   },
+        "paginate": {
+            "first": "Первая",
+            "last": "Последняя",
+            "next": "след. ",
+            "previous": " пред.",
+	},
+        
+        "sEmptyTable": "Нет данных",
+        "sInfo": "Показано с _START_ по _END_ из _TOTAL_ записей",
+        "sInfoEmpty": "Показано с 0 по 0 из 0 записей",
+        "sLengthMenu": "Показать _MENU_ записей",
+        "sLoadingRecords": "Загрузка...",
+        "sProcessing": "Подождите...",
+        "sSearch": "Поиск:",
+        "sSearchPlaceholder": "Профилированный брус",
+        "sZeroRecords": "Не найдено ни одной записи",
+               }
+           }
+            );
 
-$("#saveHouse").click(function(){ saveHouse('addHouse', 'add_house.php'); return false; });
+//$("#saveHouse").click(function(){ saveHouse('addHouse', 'add_house.php'); return false; });
 
-function saveHouse(form_id,url) {
+//$("#saveHouse").click(function (response) {
+//
+//                jQuery.ajax({
+//                    url:     'add_House.php', //Адрес подгружаемой страницы
+//                    type:     "POST", //Тип запроса
+//                    dataType: "html", //Тип данных
+//                    data: jQuery("#addHouse").serialize(), 
+//                    success: function(response) { //Если все нормально
+//
+//                    $('#container_info').html(response.message);
+//                    $('#container').removeClass('alert-danger').addClass('alert-warning');
+//                    
+//                    $('#container').fadeIn('slow');
+//
+//
+//                    $('#saveHouse').reset();
+//                },
+//                error: function(response) { //Если ошибка
+//                console.log(response);
+//                }
+//             });
+//
+//
+//        });
 
-                jQuery.ajax({
-                    url:     url, //Адрес подгружаемой страницы
-                    type:     "POST", //Тип запроса
-                    dataType: "html", //Тип данных
-                    data: jQuery("#"+form_id).serialize(), 
-                    success: function(response) { //Если все нормально
-                    console.log(response);
-                    $('#saveHouse')[0].reset();
-                },
-                error: function(response) { //Если ошибка
-                console.log(response);
+$("#saveHouse").click(function (response) {
+        $.getJSON('add_house.php', 
+        
+        function(response) {
+            if(response.status=='success'){
+              $('#container').removeClass('alert-danger').addClass('alert-warning');
+              $('#container_info').html(response.message);
+              $('#container').fadeIn('slow');
+                }else if (response.status == 'error'){
+              $('#container').removeClass('alert-warning').addClass('alert-danger');
+              $('#container_info').html(response.message);
+              $('#container').fadeIn('slow');      
                 }
-             });
+            }
+            );
+        });
 
 
-        }
 
 
-
-
+});

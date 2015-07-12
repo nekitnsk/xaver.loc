@@ -26,9 +26,19 @@ function databaseErrorHandler($message, $info) {
     exit();
 }
 
-$last_id = $db->query('REPLASE INTO ?# (?#) VALUES (?a)', 'dom', array_keys($_POST), array_values($_POST));
+$last_id = $db->query('REPLACE INTO ?# (?#) VALUES (?a)', 'dom', array_keys($_POST), array_values($_POST));
 
-echo json_encode($_POST);
+if (!$last_id == 0) {
+	$res['status'] = "success";
+	$res['message'] = "Дом успешно добавлен\изменен в базе данных ";
+
+}else{
+	$res['status'] = "error";
+	$res['message'] = "Произошла ошибка, проверьте правильность введенных данных и повторите попытку";
+}
+
+
+echo json_encode($res);
 
 
 ?>
