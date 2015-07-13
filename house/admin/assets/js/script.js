@@ -107,11 +107,14 @@ $(function(){
 
 
 $(document).ready(function(){
+    //определяем главную фотку и передадим в основную форму
 $("#select_main_photo").on("click", "input[type='radio']",function(){ 
    
         $("#main_photo").val($(this).val());
 
 });
+
+        //обрабатываем таблицу и делаем из нее крутую со всякими доп функциями
 $('#table_house').dataTable({
 	"language": {
 	"aria": {
@@ -138,51 +141,107 @@ $('#table_house').dataTable({
            }
             );
 
-//$("#saveHouse").click(function(){ saveHouse('addHouse', 'add_house.php'); return false; });
 
-//$("#saveHouse").click(function (response) {
-//
-//                jQuery.ajax({
-//                    url:     'add_House.php', //Адрес подгружаемой страницы
-//                    type:     "POST", //Тип запроса
-//                    dataType: "html", //Тип данных
-//                    data: jQuery("#addHouse").serialize(), 
-//                    success: function(response) { //Если все нормально
-//
-//                    $('#container_info').html(response.message);
-//                    $('#container').removeClass('alert-danger').addClass('alert-warning');
-//                    
-//                    $('#container').fadeIn('slow');
-//
-//
-//                    $('#saveHouse').reset();
-//                },
-//                error: function(response) { //Если ошибка
-//                console.log(response);
-//                }
-//             });
-//
-//
-//        });
+function showResponse(response){
+//        if (response.action == 'insert') {
+//            $('#all_ads>tbody').append(response.tr);
+//        }else if (response.action == 'update') {
+//            $('#all_ads td#'+response.id).closest('tr').replaceWith(response.tr);
+//        };
+        if(response.status=='success'){
+                    $('#container').removeClass('alert-danger').addClass('alert-warning');
+                    $('#container_info').html(response.message);
+                    $('#container').fadeIn('slow');
+                }else if(response.status=='error'){
+                    $('#container').removeClass('alert-warning').addClass('alert-danger');
+                    $('#container_info').html(response.message);
+                    $('#container').fadeIn('slow');
+                };
+                
+    };
 
-$("#saveHouse").click(function (response) {
-        $.getJSON('add_house.php', 
-        
+$("body").on("click","a.delete",function(e){
+      e.preventDefault();
+    var tr=$(this).closest('tr');
+    var id=tr.children('td:first').html();
+     
+
+        var param= {"del":id};
+        $.getJSON('controller.php', 
+        param,
         function(response) {
-            if(response.status=='success'){
-              $('#container').removeClass('alert-danger').addClass('alert-warning');
-              $('#container_info').html(response.message);
-              $('#container').fadeIn('slow');
-                }else if (response.status == 'error'){
-              $('#container').removeClass('alert-warning').addClass('alert-danger');
-              $('#container_info').html(response.message);
-              $('#container').fadeIn('slow');      
-                }
-            }
-            );
+            tr.fadeOut('slow', function(){
+                if(response.status=='success'){
+                    $('#message_delete').removeClass('alert-danger').addClass('alert-warning');
+                    $('#message_delete_info').html(response.message);
+                    $('#message_delete').fadeIn('slow');
+                    $(this).remove();
+                }else if(response.status=='error'){
+                    $('#message_delete').removeClass('alert-warning').addClass('alert-danger');
+                    $('#message_delete_info').html(response.message);
+                    $('#message_delete').fadeIn('slow');
+                };
+                
+            });
         });
+  });
+  
+    $("body").on("click","a.change",function(e){
+      e.preventDefault();
+      
+    var tr=$(this).closest('tr');
+    var id=tr.children('td:first').html();
+    
+      var param= {"change":id};
+        $.getJSON('controller.php', 
+        param,
+        function(dom) {
+            $('#addHouse')[0].reset();
+            $('.cc-selector').empty();
+            for (i in dom.info){
+                $('#addHouse input[name='+i+']').val(dom.info[i]);
+            };
+            for (i in dom.info){
+                $('#addHouse textarea[name=' + i + ']').val(dom.info[i]);
+                
+            };
+            $('#addHouse select[name=category]').val(dom.info.category);
+            if (dom.info.default_house == 'true'){
+                $('#addHouse input:checkbox[name=default_house]').prop('checked',true);
+            };
+            $('.cc-selector').append(dom.code);
+            $('#addHouse input:radio[name='+dom.info.seo_name+ '][value='+ '"' + dom.info.main_photo + '"' +']').prop('checked',true);
+            $("#addHouse input[name=seo_name]").prop('readonly', true);
+            $("#addHouse input[name=name]").prop('readonly', true);
+            
+        });
+      
+  });
 
-
+var options = { 
+        target:        '#container_info',   // target element(s) to be updated with server response 
+        //beforeSubmit:  showRequest,  // pre-submit callback 
+        success:       showResponse,   // post-submit callback 
+ 
+        // other available options: 
+        url:       'controller.php?add',         // override for form's 'action' attribute 
+        type:      'post',        // 'get' or 'post', override for form's 'method' attribute 
+        dataType:  'json',        // 'xml', 'script', or 'json' (expected server response type) 
+        clearForm: true,     // clear all form fields after successful submit 
+        resetForm: true      // reset the form after successful submit 
+ 
+        // $.ajax options can be used here too, for example: 
+        //timeout:   3000 
+    }; 
+    
+  $("#saveHouse").click(function (response) {
+       
+        
+        $('#addHouse').ajaxSubmit(options); 
+         
+        return false; 
+    
+  });
 
 
 });

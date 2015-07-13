@@ -46,10 +46,12 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         
+        
         <script src="assets/js/jquery.dataTables.min.js"></script>
         
         <script src="assets/js/dataTables.bootstrap.js"></script>
         <script src="assets/js/highslide.js"></script>
+        <script src="assets/js/jquery.form.js"></script>
         <script src="assets/js/script.js"></script>
         <script type="text/javascript">
             hs.graphicsDir = 'graphics/';
@@ -86,7 +88,7 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
                     <a onclick="$('#add_house_form').slideToggle('slow');" href="javascript://">Свернуть/Развернуть форму добавления дома</a>
                 </div>
                 <div id="add_house_form">
-                    <form class="form-horizontal"  id = "addHouse" method="post" action="">
+                    <form class="form-horizontal"  id = "addHouse" method="POST" action="">
 
                         <h4>Наименование дома</h4>
                         <hr>
@@ -161,9 +163,9 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
                         <hr>
 
 
-<?php
-for ($i = 0; $i < 10; $i++) {
-    ?>
+                            <?php
+                            for ($i = 0; $i < 10; $i++) {
+                                ?>
                             <div class="form-group">
                                 <label for="feature<?php echo $i + 1 ?>" class="col-sm-2 control-label"><?php echo $i + 1 ?></label>
                                 <div class="col-sm-10">
@@ -171,9 +173,9 @@ for ($i = 0; $i < 10; $i++) {
                                     <input type="text" class="form-control" id="feature<?php echo $i + 1 ?>_desc" name="feature<?php echo $i + 1 ?>_desc" placeholder="Например, Экстра вата,толщиной 100мм.">
                                 </div>
                             </div>
-    <?php
-}
-?>
+                                    <?php
+                                }
+                                ?>
 
                         <h4>Описание дома</h4>
                         <hr>
@@ -248,6 +250,7 @@ for ($i = 0; $i < 10; $i++) {
 
                         <hr>
                         <input type="hidden" id="main_photo" name="main_photo" value="" />
+                        <input type="hidden" id="id" name="id" value="" />
 
                     </form>
 
@@ -261,6 +264,7 @@ for ($i = 0; $i < 10; $i++) {
 
                                 <input type="file" name="upl" multiple />
                                 <input type="hidden" id="file_name" name="file_name" value="123" />
+                                
 
 
                                 <ul>
@@ -315,6 +319,14 @@ for ($i = 0; $i < 10; $i++) {
                 <div id="house_table">
                     <h4>Таблица имеющихся домов в базе данных</h4>
                     <hr>
+                    
+                    <div id="message_delete" class="alert alert-info alert-dismissible" style="display:none;" role="alert">
+                            <button type="button" class="close"  aria-label="Закрыть" onclick="$('#message_delete').fadeOut('slow');
+                                    return false;">
+                                <span aria-hidden="true">&times;</span></button>
+                            <div id="message_delete_info"></div>
+                        </div>
+                    
                     <table id="table_house" class="table table-stripped table-hover">
                         <thead>
                             <tr>
@@ -336,25 +348,13 @@ for ($i = 0; $i < 10; $i++) {
                                     
                                     ?>
                             <tr>
-                                <td class="id">
-                                    <?php echo($value['id']);?>
-                                </td>
-                                <td>
-                                    <a href="../files/images/house/<?php echo($value['seo_name']);?>/<?php echo($value['main_photo']);?>" class="highslide" onclick="return hs.expand(this)">
-                                    <img style="width: 80%" src="../files/images/house/<?php echo($value['seo_name']);?>/<?php echo($value['main_photo']);?>">
-                                    </a>
-                                </td>
-                                <td>
-                                    <?php echo($value['name']);?>
-                                </td>
-                                <td>
-                                    <?php echo($key);?>
-                                </td>
-                                <td>
-                                    <?php echo($value['cost']);?>
-                                </td>
-                                <td>
-                                    <?php 
+                                <td class="id"><?php echo($value['id']);?></td>
+                                <td><a href="../files/images/house/<?php echo($value['seo_name']);?>/<?php echo($value['main_photo']);?>" class="highslide" onclick="return hs.expand(this)">
+                                    <img style="width: 80%" src="../files/images/house/<?php echo($value['seo_name']);?>/<?php echo($value['main_photo']);?>"></a></td>
+                                <td><?php echo($value['name']);?></td>
+                                <td><?php echo($key);?></td>
+                                <td><?php echo($value['cost']);?></td>
+                                <td><?php 
                                         switch ($value['category']) {
                                             case 'rod':
                                                 echo "Профилированный брус";
@@ -373,14 +373,9 @@ for ($i = 0; $i < 10; $i++) {
                                                 break;
                                         }
                                          
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php if ($value['default_house']=='true'){echo('Да');}?>
-                                </td>
-                                <td>
-                                    <a href="#" class="delete">Удалить </a><br><a href="#" class="change"> Изменить</a>
-                                </td>
+                                    ?></td>
+                                <td><?php if ($value['default_house']=='true'){echo('Да');}?></td>
+                                <td><a class="delete">Удалить </a><br><a class="change"> Изменить</a></td>
                             </tr>
                             
                                     <?php

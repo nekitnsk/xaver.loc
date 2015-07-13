@@ -3,14 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/VagrantRoot/webroot/public_html/house/admin/add_house.php</file>
-            <file>file:/C:/VagrantRoot/webroot/public_html/house/index.php</file>
+            <file>file:/C:/VagrantRoot/webroot/public_html/dz17/controller.php</file>
+            <file>file:/C:/VagrantRoot/webroot/public_html/dz17/lib/AdsStore.php</file>
             <file>file:/C:/VagrantRoot/webroot/public_html/house/admin/index.php</file>
-            <file>file:/C:/VagrantRoot/webroot/public_html/dz17/smarty/templates/tr.tpl</file>
-            <file>file:/C:/VagrantRoot/webroot/public_html/dz17/smarty/templates/index.tpl</file>
+            <file>file:/C:/VagrantRoot/webroot/public_html/house/admin/upload.php</file>
             <file>file:/C:/VagrantRoot/webroot/public_html/dz17/js/main.js</file>
+            <file>file:/C:/VagrantRoot/webroot/public_html/dz17/smarty/templates/header.tpl</file>
             <file>file:/C:/VagrantRoot/webroot/public_html/house/admin/assets/js/script.js</file>
-            <file>file:/C:/VagrantRoot/webroot/public_html/house/admin/assets/css/style.css</file>
+            <file>file:/C:/VagrantRoot/webroot/public_html/house/files/page/house.php</file>
+            <file>file:/C:/VagrantRoot/webroot/public_html/house/admin/controller.php</file>
         </group>
     </open-files>
 </project-private>
