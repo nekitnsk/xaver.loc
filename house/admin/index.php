@@ -209,7 +209,7 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
                             <label for="cost" class="col-sm-4 control-label">Стоимость дома
                                 <p><span class="comment">Здесь введите стоимость дома используя только цифры, без знаков РУБ и т.п.</span></p></label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="cost" name="cost" placeholder="Например, 790 000">
+                                <input type="text" class="form-control" id="cost" name="cost" placeholder="Например, 790000">
                             </div>
                         </div>
                         <div class="form-group">

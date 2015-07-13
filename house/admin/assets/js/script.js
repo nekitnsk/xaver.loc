@@ -210,9 +210,12 @@ $("body").on("click","a.delete",function(e){
                 $('#addHouse input:checkbox[name=default_house]').prop('checked',true);
             };
             $('.cc-selector').append(dom.code);
-            $('#addHouse input:radio[name='+dom.info.seo_name+ '][value='+ '"' + dom.info.main_photo + '"' +']').prop('checked',true);
+            $('#file_name').val(dom.info.seo_name);
+            $('#select_main_photo input:radio[name='+dom.info.seo_name+ '][value='+ '"' + dom.info.main_photo + '"' +']').prop('checked','checked');
+//            $('#addHouse #'+dom.info.main_photo).prop('checked','checked');
             $("#addHouse input[name=seo_name]").prop('readonly', true);
             $("#addHouse input[name=name]").prop('readonly', true);
+            
             
         });
       

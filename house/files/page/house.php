@@ -8,7 +8,6 @@ $config = parse_ini_file('../../config.ini', true);
 
 $db = DbSimple_Generic::connect('mysqli://' . $config['Database1']['user'] . ':' . $config['Database1']['password'] . '@' . $config['Database1']['host'] . '/' . $config['Database1']['database'] . '');
 
-// $db = DbSimple_Generic::connect('mysqli://root:123@localhost/house');
 
 // Устанавливаем обработчик ошибок.
 $db->setErrorHandler('databaseErrorHandler');
@@ -101,6 +100,8 @@ $h = $db->selectRow('SELECT seo_name, space, head1, head2, roof, wall, fundament
 					<div class="entry-content portfolio-content">
 						<h4 class="head_center"><strong><?php echo($h['head2']); ?></strong></h4>
 						<h5><strong>Используемые материалы:</strong></h5>
+                                                
+                                                
 						<h5><strong>Конструктивные особенности дома:</strong></h5>
 						<p>
 
