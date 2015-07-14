@@ -51,9 +51,6 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
 
 <!-- CSS -->
 <link rel='stylesheet' id='default-style-css'  href='files/css/style.css' type='text/css' media='all' />
-<link rel='stylesheet' id='flexslider-style-css'  href='files/css/flexslider.css' type='text/css' media='all' />
-<link rel='stylesheet' id='easy-opener-style-css'  href='files/css/easy-opener.css' type='text/css' media='all' />
-<link rel='stylesheet' id='jplayer-style-css'  href='files/jplayer/jplayer.css' type='text/css' media='all' />
 <link rel='stylesheet' id='isotope-style-css'  href='files/css/isotope.css' type='text/css' media='all' />
 <link rel="stylesheet" id='rsplugin-style-css' href="files/rs-plugin/css/settings.css" type="text/css" media="all" />
 <link rel="stylesheet" id='fontawesome-style-css' href="files/css/font-awesome.min.css" type="text/css" media="all" />
@@ -115,11 +112,11 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
 
 
             <li class = "li_hidden"><a data-option-value=".default" href="#" title="Default">Default</a></li>
-            <li><a data-option-value=".brick" href="#" title="Кирпич">Кирпич</a></li>
-            <li><a data-option-value=".log" href="#" title="Оцилиндрованное бревно">Оцилиндрованное бревно</a></li>
+            <!--<li><a data-option-value=".brick" href="#" title="Кирпич">Кирпич</a></li>-->
+            <!--<li><a data-option-value=".log" href="#" title="Оцилиндрованное бревно">Оцилиндрованное бревно</a></li>-->
             <li><a data-option-value=".sandwich" href="#" title="Сэндвич панели">Сэндвич панели</a></li>
             <li><a data-option-value=".rod" href="#" title="Профилированный брус">Профилированный брус</a></li>
-            <li><a data-option-value=".sibit" href="#" title="Motion">Сибит</a></li>
+            <!--<li><a data-option-value=".sibit" href="#" title="Motion">Сибит</a></li>-->
             
           </ul>
         
@@ -129,7 +126,7 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
           foreach ($house as $key => $value) {
                       
             ?>
-                  <div class="portfolio-masonry-entry masonry-item <?php echo ($value["category"]); if ($value["default_house"]==true){echo (" default");}?> ">
+                  <div class="portfolio-masonry-entry masonry-item <?php echo ($value["category"]); if ($value["default_house"]=='true'){echo (" default");}?> ">
                     <div class="entry-intro portfolio-intro">
                       <div class="intro-headline portfolio-intro-headline">
                         <h5 class="portfolio-name"><a href="files/page/house.php?id=<?php echo($key);?>" class="load-content"><strong><?php echo ($value["name"]);?></strong></a></h5>
@@ -201,15 +198,14 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
 <script type='text/javascript' src='files/js/jquery.easing.compatibility.js'></script>
 <script type='text/javascript' src='files/js/jquery.visible.min.js'></script>
 <script type='text/javascript' src='files/js/jquery.easy-opener.min.js'></script>
-<script type='text/javascript' src='files/js/jquery.flexslider.min.js'></script>
+<!--<script type='text/javascript' src='files/js/jquery.flexslider.min.js'></script>-->
 <script type='text/javascript' src='files/js/jquery.isotope.min.js'></script>
-<script type='text/javascript' src='files/js/jquery.bgvideo.min.js'></script>
-<script type='text/javascript' src='files/js/jquery.fitvids.min.js'></script>
-<script type='text/javascript' src='files/jplayer/jquery.jplayer.min.js'></script>
-<script type="text/javascript" src="files/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
-<script type="text/javascript" src="files/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-<script type='text/javascript' src='files/js/jquery.parallax.min.js'></script>
-<script type='text/javascript' src='files/js/jquery.counter.min.js'></script>
+<!--<script type='text/javascript' src='files/js/jquery.fitvids.min.js'></script>-->
+<!--<script type='text/javascript' src='files/jplayer/jquery.jplayer.min.js'></script>-->
+<!--<script type="text/javascript" src="files/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>-->
+<!--<script type="text/javascript" src="files/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>-->
+<!--<script type='text/javascript' src='files/js/jquery.parallax.min.js'></script>-->
+<!--<script type='text/javascript' src='files/js/jquery.counter.min.js'></script>-->
 <script type='text/javascript' src='files/js/jquery.scroll.min.js'></script>
 <script type='text/javascript' src='files/js/xone-header.js'></script>
 <script type='text/javascript' src='files/js/xone-loader.js'></script>

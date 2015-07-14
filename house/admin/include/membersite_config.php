@@ -15,7 +15,7 @@ $fgmembersite->SetAdminEmail('user11@user11.com');
 //by itself on submitting register.php for the first time
 $fgmembersite->InitDB(/*hostname*/'localhost',
                       /*username*/'root',
-                      /*password*/'',
+                      /*password*/'123',
                       /*database name*/'house',
                       /*table name*/'users');
 

@@ -100,7 +100,33 @@ $h = $db->selectRow('SELECT seo_name, space, head1, head2, roof, wall, fundament
 					<div class="entry-content portfolio-content">
 						<h4 class="head_center"><strong><?php echo($h['head2']); ?></strong></h4>
 						<h5><strong>Используемые материалы:</strong></h5>
-                                                
+                                                <div class="material">
+                                                    <div id="column">
+                                                        <div class="material_img">
+                                                            <img src="./files/images/icon/roof_icon.png"></img>
+                                                        </div>
+                                                        
+                                                            <span><strong><?php echo($h['roof']);?></strong></span>
+                                                        
+                                                    </div>
+                                                    <div id="column">
+                                                        <div class="material_img">
+                                                            <img src="./files/images/icon/wall_icon.png"></img>
+                                                        </div>
+                                                        
+                                                            <span><strong><?php echo($h['wall']);?></strong></span>
+                                                        
+                                                    </div>
+                                                    <div id="column">
+                                                        <div class="material_img">
+                                                            <img src="./files/images/icon/fundament_icon.png"></img>
+                                                        </div>
+                                                        
+                                                            <span><strong><?php echo($h['fundament']);?></strong></span>
+                                                        
+                                                    </div>
+                                                    
+                                                </div>
                                                 
 						<h5><strong>Конструктивные особенности дома:</strong></h5>
 						<p>

@@ -2220,6 +2220,13 @@ a.sr-buttonicon.small-iconbutton {
 	text-align:center;
 
 }
+.material_img{
+	text-align:center;
+
+}
+.material{
+      overflow: auto;
+}
 
 span{
 display: block;
@@ -2231,6 +2238,20 @@ font-size:16px;
 
 	line-height: 50px;
 }
+
+#column {
+width: 33.3%;
+text-align:center;
+float: left;
+min-height: 100%;
+}
+
+.imgoverlay img{
+    min-height:250px;
+    
+}
+
+
 
 
 .sr-buttonicon .fa-play { left: 4px; position:relative; }
