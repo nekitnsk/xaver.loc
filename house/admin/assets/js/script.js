@@ -241,6 +241,8 @@ var options = {
        
         
         $('#addHouse').ajaxSubmit(options); 
+        $('.cc-selector').empty();
+        $('#upload')[0].reset();
          
         return false; 
     

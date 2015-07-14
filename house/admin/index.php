@@ -1,3 +1,4 @@
+
 <?PHP
 require_once("./include/membersite_config.php");
 
@@ -19,21 +20,7 @@ $config = parse_ini_file('../config.ini', true);
 $db = DbSimple_Generic::connect('mysqli://' . $config['Database1']['user'] . ':' . $config['Database1']['password'] . '@' . $config['Database1']['host'] . '/' . $config['Database1']['database'] . '');
 
 
-// Устанавливаем обработчик ошибок.
-$db->setErrorHandler('databaseErrorHandler');
 
-// $db->setLogger('MyLogger'); 
-// Код обработчика ошибок SQL.
-function databaseErrorHandler($message, $info) {
-    // Если использовалась @, ничего не делать.
-    if (!error_reporting())
-        return;
-    // Выводим подробную информацию об ошибке.
-    echo "SQL Error: $message<br><pre>";
-    print_r($info);
-    echo "</pre>";
-    exit();
-}
 
 $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, cost, category, default_house, main_photo FROM dom ');
 ?>
@@ -243,7 +230,7 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
                                     <option value="brick">Кирпич</option>
                                     <option value="log">Оцилиндрованное бревно</option>
                                     <option value="sandwich">Сэндвич панели</option>
-                                    <option value="rod">Профилированный брус</option>
+                                    <option value="rod">Двойной брус</option>
                                     <option value="sibit">Сибит</option>
 
                                 </select>
@@ -367,7 +354,7 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
                                 <td><?php 
                                         switch ($value['category']) {
                                             case 'rod':
-                                                echo "Профилированный брус";
+                                                echo "Двойной брус";
                                                 break;
                                             case 'brick':
                                                 echo "Кирпич";
@@ -402,7 +389,7 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
 
 
                 <footer class="footer">
-                    <p>&copy; Company 2014</p>
+                    <p>&copy; Company 2015</p>
                 </footer>
 
             </div> <!-- /container -->

@@ -9,23 +9,7 @@ $config = parse_ini_file('../../config.ini', true);
 $db = DbSimple_Generic::connect('mysqli://' . $config['Database1']['user'] . ':' . $config['Database1']['password'] . '@' . $config['Database1']['host'] . '/' . $config['Database1']['database'] . '');
 
 
-// Устанавливаем обработчик ошибок.
-$db->setErrorHandler('databaseErrorHandler');
 
-// $db->setLogger('MyLogger'); 
-// Код обработчика ошибок SQL.
-function databaseErrorHandler($message, $info) {
-    // Если использовалась @, ничего не делать.
-    if (!error_reporting())
-        return;
-    // Выводим подробную информацию об ошибке.
-    echo "SQL Error: $message<br><pre>";
-    print_r($info);
-    echo "</pre>";
-    exit();
-
-
-}
 $id =$_GET['id'];
 $directory= '../images/house/'.$id;
 $image_list = array_diff(scandir($directory), array('..', '.'));

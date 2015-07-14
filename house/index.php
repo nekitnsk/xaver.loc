@@ -8,23 +8,7 @@ $config = parse_ini_file('./config.ini', true);
 
 $db = DbSimple_Generic::connect('mysqli://' . $config['Database1']['user'] . ':' . $config['Database1']['password'] . '@' . $config['Database1']['host'] . '/' . $config['Database1']['database'] . '');
 
-// $db = DbSimple_Generic::connect('mysqli://root:123@localhost/house');
 
-// Устанавливаем обработчик ошибок.
-$db->setErrorHandler('databaseErrorHandler');
-
-// $db->setLogger('MyLogger'); 
-// Код обработчика ошибок SQL.
-function databaseErrorHandler($message, $info) {
-    // Если использовалась @, ничего не делать.
-    if (!error_reporting())
-        return;
-    // Выводим подробную информацию об ошибке.
-    echo "SQL Error: $message<br><pre>";
-    print_r($info);
-    echo "</pre>";
-    exit();
-}
 
 $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, cost, category, default_house, main_photo FROM dom ');
 
@@ -59,7 +43,7 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
 <!-- CSS -->
 
 <!-- FAVICON -->
-<link rel="shortcut icon" href="files/uploads/favicon.png"/>
+<link rel="shortcut icon" href="files/images/icon/favicon.ico"/>
 <!-- FAVICON -->
 
 <!-- JQUERY LIBRARY & MODERNIZR -->
@@ -115,7 +99,7 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
             <!--<li><a data-option-value=".brick" href="#" title="Кирпич">Кирпич</a></li>-->
             <!--<li><a data-option-value=".log" href="#" title="Оцилиндрованное бревно">Оцилиндрованное бревно</a></li>-->
             <li><a data-option-value=".sandwich" href="#" title="Сэндвич панели">Сэндвич панели</a></li>
-            <li><a data-option-value=".rod" href="#" title="Профилированный брус">Профилированный брус</a></li>
+            <li><a data-option-value=".rod" href="#" title="Двойной брус">Двойной брус</a></li>
             <!--<li><a data-option-value=".sibit" href="#" title="Motion">Сибит</a></li>-->
             
           </ul>
