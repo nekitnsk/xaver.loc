@@ -1,3 +1,13 @@
+<?PHP
+require_once("./include/membersite_config.php");
+
+if(!$fgmembersite->CheckLogin())
+{
+    $fgmembersite->RedirectToURL("login.php");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <?php
 //подключение DBSimple
@@ -69,9 +79,9 @@ $house = $db->select('SELECT seo_name AS ARRAY_KEY, id, name, seo_name, space, c
             <div class="header clearfix">
                 <nav>
                     <ul class="nav nav-pills pull-right">
-                        <li role="presentation" class="active"><a href="#">Home</a></li>
-                        <li role="presentation"><a href="#">About</a></li>
-                        <li role="presentation"><a href="#">Contact</a></li>
+                        <li role="presentation" class="active"><a href="#">Главная</a></li>
+                        <li role="presentation"><a href='change-pwd.php'>Сменить пароль</a></li>
+                        <li role="presentation"><a href='logout.php'>Выйти</a></li>
                     </ul>
                 </nav>
                 <h3 class="text-muted">Каталог домов. Административная панель</h3>

@@ -24,20 +24,20 @@ if(isset($_POST['submitted']))
 <div id='fg_membersite'>
 <form id='login' action='<?php echo $fgmembersite->GetSelfScript(); ?>' method='post' accept-charset='UTF-8'>
 <fieldset >
-<legend>Login</legend>
+<legend>Авторизация</legend>
 
 <input type='hidden' name='submitted' id='submitted' value='1'/>
 
-<div class='short_explanation'>* required fields</div>
+<div class='short_explanation'>* обязательные поля</div>
 
 <div><span class='error'><?php echo $fgmembersite->GetErrorMessage(); ?></span></div>
 <div class='container'>
-    <label for='username' >UserName*:</label><br/>
+    <label for='username' >Имя пользователя*:</label><br/>
     <input type='text' name='username' id='username' value='<?php echo $fgmembersite->SafeDisplay('username') ?>' maxlength="50" /><br/>
     <span id='login_username_errorloc' class='error'></span>
 </div>
 <div class='container'>
-    <label for='password' >Password*:</label><br/>
+    <label for='password' >Пароль*:</label><br/>
     <input type='password' name='password' id='password' maxlength="50" /><br/>
     <span id='login_password_errorloc' class='error'></span>
 </div>
@@ -45,7 +45,7 @@ if(isset($_POST['submitted']))
 <div class='container'>
     <input type='submit' name='Submit' value='Submit' />
 </div>
-<div class='short_explanation'><a href='reset-pwd-req.php'>Forgot Password?</a></div>
+<div class='short_explanation'></div>
 </fieldset>
 </form>
 <!-- client-side Form Validations:
@@ -58,9 +58,9 @@ Uses the excellent form validation script from JavaScript-coder.com-->
     frmvalidator.EnableOnPageErrorDisplay();
     frmvalidator.EnableMsgsTogether();
 
-    frmvalidator.addValidation("username","req","Please provide your username");
+    frmvalidator.addValidation("username","req","Пожалуйста проверьте имя пользователя");
     
-    frmvalidator.addValidation("password","req","Please provide the password");
+    frmvalidator.addValidation("password","req","Пожалуйста проверьте пароль");
 
 // ]]>
 </script>
